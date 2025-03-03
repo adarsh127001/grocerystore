@@ -1,0 +1,67 @@
+<div class="inventory-container">
+    <app-sidenav>
+      <div class="inventory-content">
+        <app-header title="Inventory Management"></app-header>
+        
+        <div class="main-content">
+          <!-- Summary Cards -->
+          <div class="summary-cards">
+            <mat-card class="summary-card" *ngFor="let summary of summaryData">
+              <div class="card-content">
+                <div class="card-info">
+                  <h2 class="card-title">Total {{ summary.title }}</h2>
+                  <div class="card-value">{{ summary.units }} units</div>
+                  <div class="card-trend" [ngClass]="{'trend-up': summary.status > 0, 'trend-down': summary.status < 0}">
+                    <mat-icon>{{ summary.status > 0 ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                    <span>{{ summary.status | number:'1.2-2' }}%</span>
+                  </div>
+                </div>
+                <div class="card-icon" [ngClass]="{'icon-orders': summary.title === 'Orders', 
+                                                 'icon-profit': summary.title === 'Profit/Loss',
+                                                 'icon-sales': summary.title === 'Sales',
+                                                 'icon-customers': summary.title === 'Customenrs'}">
+                  <mat-icon>{{ summary.title === 'Orders' ? 'shopping_cart' : 
+                               summary.title === 'Profit/Loss' ? 'account_balance' :
+                               summary.title === 'Sales' ? 'bar_chart' : 'people' }}</mat-icon>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+  
+          <!-- Chart Section -->
+          <mat-card class="chart-card">
+            <mat-card-header>
+              <mat-card-title>Total Orders</mat-card-title>
+              <div class="chart-actions">
+                <mat-button-toggle-group #chartType="matButtonToggleGroup" value="daily">
+                  <mat-button-toggle value="daily">Daily</mat-button-toggle>
+                  <mat-button-toggle value="weekly">Weekly</mat-button-toggle>
+                  <mat-button-toggle value="monthly">Monthly</mat-button-toggle>
+                  <mat-button-toggle value="yearly">Yearly</mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <app-chart [chartData]="chartData" [chartType]="chartType.value"></app-chart>
+            </mat-card-content>
+          </mat-card>
+  
+          <!-- Tab Group -->
+          <mat-tab-group (selectedTabChange)="tabChanged($event)" animationDuration="0ms">
+            <mat-tab label="Stock Overview">
+              <app-stock-overview [inventoryData]="inventory"></app-stock-overview>
+            </mat-tab>
+            <mat-tab label="High-Demand Orders">
+              <app-high-demand-orders [inventoryData]="inventory"></app-high-demand-orders>
+            </mat-tab>
+            <mat-tab label="Returns & Defects">
+              <p class="coming-soon">Returns & Defects section coming soon</p>
+            </mat-tab>
+            <mat-tab label="Out of Stock Alerts">
+              <p class="coming-soon">Out of Stock Alerts section coming soon</p>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </app-sidenav>
+  </div>

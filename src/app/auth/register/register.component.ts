@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -31,13 +31,16 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isLoading = false;
   registerError: string | null = null;
+  private isBrowser: boolean;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.registerForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -59,8 +62,17 @@ export class RegisterComponent {
       this.registerError = null;
       const { username, password } = this.registerForm.value;
       
+      if (!this.isBrowser) {
+        // In SSR, just show success message and redirect
+        this.snackBar.open('Registration successful! Please login.', 'Close', {
+          duration: 5000
+        });
+        this.router.navigate(['/login']);
+        return;
+      }
+      
       // First, load existing users
-      this.http.get<{users: {username: string, password: string}[]}>('assets/users.json').subscribe({
+      this.http.get<{users: {username: string, password: string}[]}>('assets/data/users.json').subscribe({
         next: (data) => {
           let users = data.users || [];
           

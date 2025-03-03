@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -31,13 +31,16 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
   loginError: string | null = null;
+  private isBrowser: boolean;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -66,35 +69,41 @@ export class LoginComponent implements OnInit {
       // Hardcoded credential check as a fallback
       if (username === 'a' && password === 'a') {
         console.log('Hardcoded login successful');
-        sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('currentUser', username);
+        
+        if (this.isBrowser) {
+          sessionStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('currentUser', username);
+        }
+        
         this.router.navigate(['/dashboard']);
         return;
       }
       
       // Check localStorage for registered users first
-      const storedUsersStr = localStorage.getItem('registeredUsers');
-      if (storedUsersStr) {
-        try {
-          const storedUsers = JSON.parse(storedUsersStr);
-          const user = storedUsers.find((u: {username: string, password: string}) => 
-            u.username === username && u.password === password);
-          
-          if (user) {
-            console.log('Login successful from localStorage');
-            this.isLoading = false;
-            sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('currentUser', user.username);
-            this.router.navigate(['/dashboard']);
-            return;
+      if (this.isBrowser) {
+        const storedUsersStr = localStorage.getItem('registeredUsers');
+        if (storedUsersStr) {
+          try {
+            const storedUsers = JSON.parse(storedUsersStr);
+            const user = storedUsers.find((u: {username: string, password: string}) => 
+              u.username === username && u.password === password);
+            
+            if (user) {
+              console.log('Login successful from localStorage');
+              this.isLoading = false;
+              sessionStorage.setItem('isLoggedIn', 'true');
+              sessionStorage.setItem('currentUser', user.username);
+              this.router.navigate(['/dashboard']);
+              return;
+            }
+          } catch (e) {
+            console.error('Error parsing stored users:', e);
           }
-        } catch (e) {
-          console.error('Error parsing stored users:', e);
         }
       }
       
       // If not found in localStorage, check users.json file
-      this.http.get<{users: {username: string, password: string}[]}>('assets/users.json').subscribe({
+      this.http.get<{users: {username: string, password: string}[]}>('assets/data/users.json').subscribe({
         next: (data) => {
           console.log('Login response data:', data);
           
@@ -112,8 +121,12 @@ export class LoginComponent implements OnInit {
           
           if (user) {
             console.log('User found in JSON file, navigating to dashboard');
-            sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('currentUser', user.username);
+            
+            if (this.isBrowser) {
+              sessionStorage.setItem('isLoggedIn', 'true');
+              sessionStorage.setItem('currentUser', user.username);
+            }
+            
             this.router.navigate(['/dashboard']);
           } else {
             console.log('User not found in JSON file or localStorage');

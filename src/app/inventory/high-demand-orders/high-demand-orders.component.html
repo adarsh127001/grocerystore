@@ -1,0 +1,99 @@
+<div class="orders-container">
+    <div class="table-actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search orders">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary">
+        <mat-icon>add</mat-icon>
+        Create New Order
+      </button>
+    </div>
+    
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="orders-table">
+        <!-- Customer Name Column -->
+        <ng-container matColumnDef="customentName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+          <td mat-cell *matCellDef="let row"> {{row.customentName}} </td>
+        </ng-container>
+        
+        <!-- Product Column -->
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
+          <td mat-cell *matCellDef="let row"> {{row.product}} </td>
+        </ng-container>
+        
+        <!-- Supplier Column -->
+        <ng-container matColumnDef="supplier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
+          <td mat-cell *matCellDef="let row"> {{row.supplier}} </td>
+        </ng-container>
+        
+        <!-- Date of Entry Column -->
+        <ng-container matColumnDef="dateOfEntry">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date of Entry </th>
+          <td mat-cell *matCellDef="let row"> {{formatDate(row.dateOfEntry)}} </td>
+        </ng-container>
+        
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+          <td mat-cell *matCellDef="let row"> {{row.quantity}} </td>
+        </ng-container>
+        
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+          <td mat-cell *matCellDef="let row"> ${{row.price}} </td>
+        </ng-container>
+        
+        <!-- Selling Price Column -->
+        <ng-container matColumnDef="sellingPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Selling Price </th>
+          <td mat-cell *matCellDef="let row"> ${{row.sellingPrice}} </td>
+        </ng-container>
+        
+        <!-- Cashier Column -->
+        <ng-container matColumnDef="cashier">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cashier </th>
+          <td mat-cell *matCellDef="let row"> {{row.cashier}} </td>
+        </ng-container>
+        
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let row"> 
+            <span class="status-badge" [ngClass]="getStatusClass(row.status)">
+              {{row.status}}
+            </span>
+          </td>
+        </ng-container>
+        
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+        <!-- Row shown when there is no matching data -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="10">No data matching the filter</td>
+        </tr>
+      </table>
+      
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page of orders"></mat-paginator>
+    </div>
+  </div>
