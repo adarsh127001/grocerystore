@@ -1,0 +1,2503 @@
+{
+
+    "stockInventorySummary": [
+
+        {
+
+            "title": "Orders",
+
+            "units": 7256,
+
+            "status": 10.32
+
+        },
+
+        {
+
+            "title": "Profit/Loss",
+
+            "units": 95,
+
+            "status": -0.32
+
+        },
+
+        {
+
+            "title": "Sales",
+
+            "units": 347,
+
+            "status": 12.32
+
+        },
+
+        {
+
+            "title": "Customenrs",
+
+            "units": 1278,
+
+            "status": 2.45
+
+        }
+
+    ],
+
+    "stockInventoryList": [
+
+        {
+
+            "customentName": "Roman Pearce",
+
+            "product": "cornflakes",
+
+            "supplier": "kellogs",
+
+            "dateOfEntry": "2025-02-27T00:00:00",
+
+            "quantity": 634,
+
+            "price": 100,
+
+            "sellingPrice": 123,
+
+            "cashier": "Brain o'Conner",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Dominic Toretto",
+
+            "product": "milk",
+
+            "supplier": "dairyland",
+
+            "dateOfEntry": "2025-02-28T00:00:00",
+
+            "quantity": 200,
+
+            "price": 50,
+
+            "sellingPrice": 60,
+
+            "cashier": "Letty Ortiz",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Brian O'Conner",
+
+            "product": "bread",
+
+            "supplier": "wonder",
+
+            "dateOfEntry": "2025-03-01T00:00:00",
+
+            "quantity": 150,
+
+            "price": 20,
+
+            "sellingPrice": 25,
+
+            "cashier": "Mia Toretto",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Letty Ortiz",
+
+            "product": "eggs",
+
+            "supplier": "farm fresh",
+
+            "dateOfEntry": "2025-02-27T00:00:00",
+
+            "quantity": 300,
+
+            "price": 10,
+
+            "sellingPrice": 12,
+
+            "cashier": "Dominic Toretto",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Mia Toretto",
+
+            "product": "butter",
+
+            "supplier": "amul",
+
+            "dateOfEntry": "2025-02-24T00:00:00",
+
+            "quantity": 100,
+
+            "price": 40,
+
+            "sellingPrice": 45,
+
+            "cashier": "Roman Pearce",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Tej Parker",
+
+            "product": "cheese",
+
+            "supplier": "kraft",
+
+            "dateOfEntry": "2025-02-25T00:00:00",
+
+            "quantity": 120,
+
+            "price": 60,
+
+            "sellingPrice": 70,
+
+            "cashier": "Brian O'Conner",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Han Lue",
+
+            "product": "yogurt",
+
+            "supplier": "chobani",
+
+            "dateOfEntry": "2025-02-20T00:00:00",
+
+            "quantity": 180,
+
+            "price": 30,
+
+            "sellingPrice": 35,
+
+            "cashier": "Tej Parker",
+
+            "status": "failed"
+
+        },
+
+        {
+
+            "customentName": "Gisele Yashar",
+
+            "product": "juice",
+
+            "supplier": "tropicana",
+
+            "dateOfEntry": "2025-02-19T00:00:00",
+
+            "quantity": 250,
+
+            "price": 80,
+
+            "sellingPrice": 90,
+
+            "cashier": "Han Lue",
+
+            "status": "closed"
+
+        },
+
+        {
+
+            "customentName": "Hobbs",
+
+            "product": "coffee",
+
+            "supplier": "starbucks",
+
+            "dateOfEntry": "2025-03-03T00:00:00",
+
+            "quantity": 300,
+
+            "price": 100,
+
+            "sellingPrice": 110,
+
+            "cashier": "Gisele Yashar",
+
+            "status": "pending"
+
+        },
+
+        {
+
+            "customentName": "Shaw",
+
+            "product": "tea",
+
+            "supplier": "lipton",
+
+            "dateOfEntry": "",
+
+            "quantity": 400,
+
+            "price": 50,
+
+            "sellingPrice": 55,
+
+            "cashier": "Hobbs",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Elena Neves",
+
+            "product": "sugar",
+
+            "supplier": "domino",
+
+            "dateOfEntry": "",
+
+            "quantity": 500,
+
+            "price": 20,
+
+            "sellingPrice": 25,
+
+            "cashier": "Shaw",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Jakob Toretto",
+
+            "product": "salt",
+
+            "supplier": "morton",
+
+            "dateOfEntry": "",
+
+            "quantity": 600,
+
+            "price": 10,
+
+            "sellingPrice": 12,
+
+            "cashier": "Elena Neves",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Cipher",
+
+            "product": "pepper",
+
+            "supplier": "mccormick",
+
+            "dateOfEntry": "",
+
+            "quantity": 700,
+
+            "price": 15,
+
+            "sellingPrice": 18,
+
+            "cashier": "Jakob Toretto",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Mr. Nobody",
+
+            "product": "rice",
+
+            "supplier": "uncle ben's",
+
+            "dateOfEntry": "",
+
+            "quantity": 800,
+
+            "price": 30,
+
+            "sellingPrice": 35,
+
+            "cashier": "Cipher",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Deckard Shaw",
+
+            "product": "pasta",
+
+            "supplier": "barilla",
+
+            "dateOfEntry": "",
+
+            "quantity": 900,
+
+            "price": 40,
+
+            "sellingPrice": 45,
+
+            "cashier": "Mr. Nobody",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Magdalene Shaw",
+
+            "product": "flour",
+
+            "supplier": "gold medal",
+
+            "dateOfEntry": "",
+
+            "quantity": 1000,
+
+            "price": 25,
+
+            "sellingPrice": 30,
+
+            "cashier": "Deckard Shaw",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Hattie Shaw",
+
+            "product": "oats",
+
+            "supplier": "quaker",
+
+            "dateOfEntry": "",
+
+            "quantity": 1100,
+
+            "price": 35,
+
+            "sellingPrice": 40,
+
+            "cashier": "Magdalene Shaw",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Riley Hicks",
+
+            "product": "honey",
+
+            "supplier": "nature's nectar",
+
+            "dateOfEntry": "",
+
+            "quantity": 1200,
+
+            "price": 50,
+
+            "sellingPrice": 55,
+
+            "cashier": "Hattie Shaw",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Samantha Hobbs",
+
+            "product": "jam",
+
+            "supplier": "smucker's",
+
+            "dateOfEntry": "",
+
+            "quantity": 1300,
+
+            "price": 60,
+
+            "sellingPrice": 65,
+
+            "cashier": "Riley Hicks",
+
+            "status": "completed"
+
+        },
+
+        {
+
+            "customentName": "Tego Leo",
+
+            "product": "peanut butter",
+
+            "supplier": "jif",
+
+            "dateOfEntry": "",
+
+            "quantity": 1400,
+
+            "price": 70,
+
+            "sellingPrice": 75,
+
+            "cashier": "Samantha Hobbs",
+
+            "status": "completed"
+
+        }
+
+    ],
+
+    "stockInventoryAnalysisChartData": [
+
+        {
+
+            "date": "2025-02-24T09:15:00Z",
+
+            "numOfActiveOrders": 1,
+
+            "numOfInactiveOrders": 35
+
+        },
+
+        {
+
+            "date": "2025-02-25T09:15:00Z",
+
+            "numOfActiveOrders": 57,
+
+            "numOfInactiveOrders": 199
+
+        },
+
+        {
+
+            "date": "2025-02-26T09:15:00Z",
+
+            "numOfActiveOrders": 110,
+
+            "numOfInactiveOrders": 197
+
+        },
+
+        {
+
+            "date": "2025-02-27T09:15:00Z",
+
+            "numOfActiveOrders": 12,
+
+            "numOfInactiveOrders": 45
+
+        },
+
+        {
+
+            "date": "2025-02-28T09:15:00Z",
+
+            "numOfActiveOrders": 177,
+
+            "numOfInactiveOrders": 66
+
+        },
+
+        {
+
+            "date": "2025-03-01T09:15:00Z",
+
+            "numOfActiveOrders": 89,
+
+            "numOfInactiveOrders": 12
+
+        },
+
+        {
+
+            "date": "2025-03-02T09:15:00Z",
+
+            "numOfActiveOrders": 99,
+
+            "numOfInactiveOrders": 158
+
+        },
+
+        {
+
+            "date": "2025-02-01T09:15:00Z",
+
+            "numOfActiveOrders": 12,
+
+            "numOfInactiveOrders": 122
+
+        },
+
+        {
+
+            "date": "2025-02-05T09:15:00Z",
+
+            "numOfActiveOrders": 19,
+
+            "numOfInactiveOrders": 66
+
+        },
+
+        {
+
+            "date": "2025-02-08T09:15:00Z",
+
+            "numOfActiveOrders": 120,
+
+            "numOfInactiveOrders": 4
+
+        },
+
+        {
+
+            "date": "2025-02-12T09:15:00Z",
+
+            "numOfActiveOrders": 170,
+
+            "numOfInactiveOrders": 20
+
+        },
+
+        {
+
+            "date": "2025-02-16T09:15:00Z",
+
+            "numOfActiveOrders": 98,
+
+            "numOfInactiveOrders": 186
+
+        },
+
+        {
+
+            "date": "2025-02-19T09:15:00Z",
+
+            "numOfActiveOrders": 77,
+
+            "numOfInactiveOrders": 45
+
+        },
+
+        {
+
+            "date": "2025-02-23T09:15:00Z",
+
+            "numOfActiveOrders": 44,
+
+            "numOfInactiveOrders": 101
+
+        },
+
+        {
+
+            "date": "2024-11-01T09:15:00Z",
+
+            "numOfActiveOrders": 101,
+
+            "numOfInactiveOrders": 18
+
+        },
+
+        {
+
+            "date": "2024-11-10T09:15:00Z",
+
+            "numOfActiveOrders": 180,
+
+            "numOfInactiveOrders": 200
+
+        },
+
+        {
+
+            "date": "2024-11-20T09:15:00Z",
+
+            "numOfActiveOrders": 72,
+
+            "numOfInactiveOrders": 15
+
+        },
+
+        {
+
+            "date": "2024-11-30T09:15:00Z",
+
+            "numOfActiveOrders": 108,
+
+            "numOfInactiveOrders": 99
+
+        },
+
+        {
+
+            "date": "2024-12-10T09:15:00Z",
+
+            "numOfActiveOrders": 199,
+
+            "numOfInactiveOrders": 42
+
+        },
+
+        {
+
+            "date": "2024-12-20T09:15:00Z",
+
+            "numOfActiveOrders": 66,
+
+            "numOfInactiveOrders": 55
+
+        },
+
+        {
+
+            "date": "2024-12-30T09:15:00Z",
+
+            "numOfActiveOrders": 144,
+
+            "numOfInactiveOrders": 87
+
+        },
+
+        {
+
+            "date": "2025-01-15T09:15:00Z",
+
+            "numOfActiveOrders": 20,
+
+            "numOfInactiveOrders": 145
+
+        },
+
+        {
+
+            "date": "2024-05-01T09:15:00Z",
+
+            "numOfActiveOrders": 88,
+
+            "numOfInactiveOrders": 0
+
+        },
+
+        {
+
+            "date": "2024-05-15T09:15:00Z",
+
+            "numOfActiveOrders": 123,
+
+            "numOfInactiveOrders": 19
+
+        },
+
+        {
+
+            "date": "2024-06-01T09:15:00Z",
+
+            "numOfActiveOrders": 199,
+
+            "numOfInactiveOrders": 10
+
+        },
+
+        {
+
+            "date": "2024-06-15T09:15:00Z",
+
+            "numOfActiveOrders": 77,
+
+            "numOfInactiveOrders": 45
+
+        },
+
+        {
+
+            "date": "2024-07-01T09:15:00Z",
+
+            "numOfActiveOrders": 6,
+
+            "numOfInactiveOrders": 180
+
+        },
+
+        {
+
+            "date": "2024-08-01T09:15:00Z",
+
+            "numOfActiveOrders": 101,
+
+            "numOfInactiveOrders": 99
+
+        },
+
+        {
+
+            "date": "2024-09-01T09:15:00Z",
+
+            "numOfActiveOrders": 165,
+
+            "numOfInactiveOrders": 53
+
+        },
+
+        {
+
+            "date": "2024-10-01T09:15:00Z",
+
+            "numOfActiveOrders": 0,
+
+            "numOfInactiveOrders": 200
+
+        }
+
+    ],
+
+    "stockInventoryOrdersChartData": [
+
+        {
+
+            "date": "2025-02-24T09:15:00Z",
+
+            "numOfAvailableStock": 1,
+
+            "numOfUnvailableStock": 35
+
+        },
+
+        {
+
+            "date": "2025-02-25T09:15:00Z",
+
+            "numOfAvailableStock": 57,
+
+            "numOfUnvailableStock": 199
+
+        },
+
+        {
+
+            "date": "2025-02-26T09:15:00Z",
+
+            "numOfAvailableStock": 110,
+
+            "numOfUnvailableStock": 197
+
+        },
+
+        {
+
+            "date": "2025-02-27T09:15:00Z",
+
+            "numOfAvailableStock": 12,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2025-02-28T09:15:00Z",
+
+            "numOfAvailableStock": 177,
+
+            "numOfUnvailableStock": 66
+
+        },
+
+        {
+
+            "date": "2025-03-01T09:15:00Z",
+
+            "numOfAvailableStock": 89,
+
+            "numOfUnvailableStock": 12
+
+        },
+
+        {
+
+            "date": "2025-03-02T09:15:00Z",
+
+            "numOfAvailableStock": 99,
+
+            "numOfUnvailableStock": 158
+
+        },
+
+        {
+
+            "date": "2025-02-01T09:15:00Z",
+
+            "numOfAvailableStock": 12,
+
+            "numOfUnvailableStock": 122
+
+        },
+
+        {
+
+            "date": "2025-02-05T09:15:00Z",
+
+            "numOfAvailableStock": 19,
+
+            "numOfUnvailableStock": 66
+
+        },
+
+        {
+
+            "date": "2025-02-08T09:15:00Z",
+
+            "numOfAvailableStock": 120,
+
+            "numOfUnvailableStock": 4
+
+        },
+
+        {
+
+            "date": "2025-02-12T09:15:00Z",
+
+            "numOfAvailableStock": 170,
+
+            "numOfUnvailableStock": 20
+
+        },
+
+        {
+
+            "date": "2025-02-16T09:15:00Z",
+
+            "numOfAvailableStock": 98,
+
+            "numOfUnvailableStock": 186
+
+        },
+
+        {
+
+            "date": "2025-02-19T09:15:00Z",
+
+            "numOfAvailableStock": 77,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2025-02-23T09:15:00Z",
+
+            "numOfAvailableStock": 44,
+
+            "numOfUnvailableStock": 101
+
+        },
+
+        {
+
+            "date": "2024-11-01T09:15:00Z",
+
+            "numOfAvailableStock": 101,
+
+            "numOfUnvailableStock": 18
+
+        },
+
+        {
+
+            "date": "2024-11-10T09:15:00Z",
+
+            "numOfAvailableStock": 180,
+
+            "numOfUnvailableStock": 200
+
+        },
+
+        {
+
+            "date": "2024-11-20T09:15:00Z",
+
+            "numOfAvailableStock": 72,
+
+            "numOfUnvailableStock": 15
+
+        },
+
+        {
+
+            "date": "2024-11-30T09:15:00Z",
+
+            "numOfAvailableStock": 108,
+
+            "numOfUnvailableStock": 99
+
+        },
+
+        {
+
+            "date": "2024-12-10T09:15:00Z",
+
+            "numOfAvailableStock": 199,
+
+            "numOfUnvailableStock": 42
+
+        },
+
+        {
+
+            "date": "2024-12-20T09:15:00Z",
+
+            "numOfAvailableStock": 66,
+
+            "numOfUnvailableStock": 55
+
+        },
+
+        {
+
+            "date": "2024-12-30T09:15:00Z",
+
+            "numOfAvailableStock": 144,
+
+            "numOfUnvailableStock": 87
+
+        },
+
+        {
+
+            "date": "2025-01-15T09:15:00Z",
+
+            "numOfAvailableStock": 20,
+
+            "numOfUnvailableStock": 145
+
+        },
+
+        {
+
+            "date": "2024-05-01T09:15:00Z",
+
+            "numOfAvailableStock": 88,
+
+            "numOfUnvailableStock": 0
+
+        },
+
+        {
+
+            "date": "2024-05-15T09:15:00Z",
+
+            "numOfAvailableStock": 123,
+
+            "numOfUnvailableStock": 19
+
+        },
+
+        {
+
+            "date": "2024-06-01T09:15:00Z",
+
+            "numOfAvailableStock": 199,
+
+            "numOfUnvailableStock": 10
+
+        },
+
+        {
+
+            "date": "2024-06-15T09:15:00Z",
+
+            "numOfAvailableStock": 77,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2024-07-01T09:15:00Z",
+
+            "numOfAvailableStock": 6,
+
+            "numOfUnvailableStock": 180
+
+        },
+
+        {
+
+            "date": "2024-08-01T09:15:00Z",
+
+            "numOfAvailableStock": 101,
+
+            "numOfUnvailableStock": 99
+
+        },
+
+        {
+
+            "date": "2024-09-01T09:15:00Z",
+
+            "numOfAvailableStock": 165,
+
+            "numOfUnvailableStock": 53
+
+        },
+
+        {
+
+            "date": "2024-10-01T09:15:00Z",
+
+            "numOfAvailableStock": 0,
+
+            "numOfUnvailableStock": 200
+
+        }
+
+    ],
+
+    "shipmentsList": [
+
+        {
+
+            "id": "LP-1234-628-721035",
+
+            "shipperName": "Dominic Toretto",
+
+            "phoneNo.": "9894989490",
+
+            "status": "completed",
+
+            "product": "cornflakes",
+
+            "supplier": "farm fresh",
+
+            "quantity": 250,
+
+            "price": 184,
+
+            "deliveryDate": "2025-02-27T00:00:00",
+
+            "consignee": "Brain o'Conner",
+
+            "destination": "Bengaluru",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721036",
+
+            "shipperName": "Dominic",
+
+            "phoneNo.": "9800123456",
+
+            "status": "in-transit",
+
+            "product": "cornflakes",
+
+            "supplier": "farm fresh",
+
+            "quantity": 250,
+
+            "price": 295,
+
+            "deliveryDate": "2025-03-12T00:00:00",
+
+            "consignee": "Brain Copper",
+
+            "destination": "Delhi",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721037",
+
+            "shipperName": "Letty Ortiz",
+
+            "phoneNo.": "9812345678",
+
+            "status": "pending",
+
+            "product": "milk",
+
+            "supplier": "dairyland",
+
+            "quantity": 300,
+
+            "price": 150,
+
+            "deliveryDate": "2025-03-10T00:00:00",
+
+            "consignee": "Mia Toretto",
+
+            "destination": "Mumbai",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721038",
+
+            "shipperName": "Brian O'Conner",
+
+            "phoneNo.": "9823456789",
+
+            "status": "closed",
+
+            "product": "bread",
+
+            "supplier": "wonder",
+
+            "quantity": 200,
+
+            "price": 100,
+
+            "deliveryDate": "2025-02-02T00:00:00",
+
+            "consignee": "Roman Pearce",
+
+            "destination": "Chennai",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721039",
+
+            "shipperName": "Mia Toretto",
+
+            "phoneNo.": "9834567890",
+
+            "status": "failed",
+
+            "product": "eggs",
+
+            "supplier": "farm fresh",
+
+            "quantity": 150,
+
+            "price": 75,
+
+            "deliveryDate": "2025-03-03T00:00:00",
+
+            "consignee": "Tej Parker",
+
+            "destination": "Kolkata",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721040",
+
+            "shipperName": "Tej Parker",
+
+            "phoneNo.": "9845678901",
+
+            "status": "completed",
+
+            "product": "butter",
+
+            "supplier": "amul",
+
+            "quantity": 100,
+
+            "price": 50,
+
+            "deliveryDate": "2025-03-04T00:00:00",
+
+            "consignee": "Han Lue",
+
+            "destination": "Pune",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721041",
+
+            "shipperName": "Han Lue",
+
+            "phoneNo.": "9856789012",
+
+            "status": "in-transit",
+
+            "product": "cheese",
+
+            "supplier": "kraft",
+
+            "quantity": 120,
+
+            "price": 60,
+
+            "deliveryDate": "2025-03-06T00:00:00",
+
+            "consignee": "Gisele Yashar",
+
+            "destination": "Hyderabad",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721042",
+
+            "shipperName": "Gisele Yashar",
+
+            "phoneNo.": "9867890123",
+
+            "status": "pending",
+
+            "product": "yogurt",
+
+            "supplier": "chobani",
+
+            "quantity": 180,
+
+            "price": 90,
+
+            "deliveryDate": "2025-03-08T00:00:00",
+
+            "consignee": "Hobbs",
+
+            "destination": "Ahmedabad",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721043",
+
+            "shipperName": "Hobbs",
+
+            "phoneNo.": "9878901234",
+
+            "status": "closed",
+
+            "product": "juice",
+
+            "supplier": "tropicana",
+
+            "quantity": 250,
+
+            "price": 125,
+
+            "deliveryDate": "2025-02-07T00:00:00",
+
+            "consignee": "Shaw",
+
+            "destination": "Surat",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721044",
+
+            "shipperName": "Shaw",
+
+            "phoneNo.": "9889012345",
+
+            "status": "failed",
+
+            "product": "coffee",
+
+            "supplier": "starbucks",
+
+            "quantity": 300,
+
+            "price": 150,
+
+            "deliveryDate": "2025-02-08T00:00:00",
+
+            "consignee": "Elena Neves",
+
+            "destination": "Jaipur",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721045",
+
+            "shipperName": "Elena Neves",
+
+            "phoneNo.": "9890123456",
+
+            "status": "completed",
+
+            "product": "tea",
+
+            "supplier": "lipton",
+
+            "quantity": 400,
+
+            "price": 200,
+
+            "deliveryDate": "2025-02-09T00:00:00",
+
+            "consignee": "Jakob Toretto",
+
+            "destination": "Lucknow",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721046",
+
+            "shipperName": "Jakob Toretto",
+
+            "phoneNo.": "9901234567",
+
+            "status": "in-transit",
+
+            "product": "sugar",
+
+            "supplier": "domino",
+
+            "quantity": 500,
+
+            "price": 250,
+
+            "deliveryDate": "2025-03-10T00:00:00",
+
+            "consignee": "Cipher",
+
+            "destination": "Kanpur",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721047",
+
+            "shipperName": "Cipher",
+
+            "phoneNo.": "9912345678",
+
+            "status": "pending",
+
+            "product": "salt",
+
+            "supplier": "morton",
+
+            "quantity": 600,
+
+            "price": 300,
+
+            "deliveryDate": "2025-03-11T00:00:00",
+
+            "consignee": "Mr. Nobody",
+
+            "destination": "Nagpur",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721048",
+
+            "shipperName": "Mr. Nobody",
+
+            "phoneNo.": "9923456789",
+
+            "status": "closed",
+
+            "product": "pepper",
+
+            "supplier": "mccormick",
+
+            "quantity": 700,
+
+            "price": 350,
+
+            "deliveryDate": "2025-02-12T00:00:00",
+
+            "consignee": "Deckard Shaw",
+
+            "destination": "Indore",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721049",
+
+            "shipperName": "Deckard Shaw",
+
+            "phoneNo.": "9934567890",
+
+            "status": "failed",
+
+            "product": "rice",
+
+            "supplier": "uncle ben's",
+
+            "quantity": 800,
+
+            "price": 400,
+
+            "deliveryDate": "2025-02-13T00:00:00",
+
+            "consignee": "Magdalene Shaw",
+
+            "destination": "Thane",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721050",
+
+            "shipperName": "Magdalene Shaw",
+
+            "phoneNo.": "9945678901",
+
+            "status": "completed",
+
+            "product": "pasta",
+
+            "supplier": "barilla",
+
+            "quantity": 900,
+
+            "price": 450,
+
+            "deliveryDate": "2025-03-01T00:00:00",
+
+            "consignee": "Hattie Shaw",
+
+            "destination": "Bhopal",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721051",
+
+            "shipperName": "Hattie Shaw",
+
+            "phoneNo.": "9956789012",
+
+            "status": "in-transit",
+
+            "product": "flour",
+
+            "supplier": "gold medal",
+
+            "quantity": 1000,
+
+            "price": 500,
+
+            "deliveryDate": "2025-03-15T00:00:00",
+
+            "consignee": "Riley Hicks",
+
+            "destination": "Visakhapatnam",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721052",
+
+            "shipperName": "Riley Hicks",
+
+            "phoneNo.": "9967890123",
+
+            "status": "pending",
+
+            "product": "oats",
+
+            "supplier": "quaker",
+
+            "quantity": 1100,
+
+            "price": 550,
+
+            "deliveryDate": "2025-03-16T00:00:00",
+
+            "consignee": "Samantha Hobbs",
+
+            "destination": "Patna",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721053",
+
+            "shipperName": "Samantha Hobbs",
+
+            "phoneNo.": "9978901234",
+
+            "status": "closed",
+
+            "product": "honey",
+
+            "supplier": "nature's nectar",
+
+            "quantity": 1200,
+
+            "price": 600,
+
+            "deliveryDate": "2025-02-17T00:00:00",
+
+            "consignee": "Tego Leo",
+
+            "destination": "Vadodara",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721054",
+
+            "shipperName": "Tego Leo",
+
+            "phoneNo.": "9989012345",
+
+            "status": "failed",
+
+            "product": "jam",
+
+            "supplier": "smucker's",
+
+            "quantity": 1300,
+
+            "price": 650,
+
+            "deliveryDate": "2025-03-18T00:00:00",
+
+            "consignee": "Roman Pearce",
+
+            "destination": "Ghaziabad",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721055",
+
+            "shipperName": "Roman Pearce",
+
+            "phoneNo.": "9990123456",
+
+            "status": "completed",
+
+            "product": "peanut butter",
+
+            "supplier": "jif",
+
+            "quantity": 1400,
+
+            "price": 700,
+
+            "deliveryDate": "2025-02-19T00:00:00",
+
+            "consignee": "Dominic Toretto",
+
+            "destination": "Ludhiana",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721056",
+
+            "shipperName": "Dominic Toretto",
+
+            "phoneNo.": "9894989490",
+
+            "status": "in-transit",
+
+            "product": "cornflakes",
+
+            "supplier": "kellogs",
+
+            "quantity": 250,
+
+            "price": 184,
+
+            "deliveryDate": "2025-03-20T00:00:00",
+
+            "consignee": "Brian O'Conner",
+
+            "destination": "Agra",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721057",
+
+            "shipperName": "Dominic",
+
+            "phoneNo.": "9800123456",
+
+            "status": "pending",
+
+            "product": "cornflakes",
+
+            "supplier": "kellogs",
+
+            "quantity": 250,
+
+            "price": 295,
+
+            "deliveryDate": "2025-03-21T00:00:00",
+
+            "consignee": "Brian Copper",
+
+            "destination": "Nashik",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721058",
+
+            "shipperName": "Letty Ortiz",
+
+            "phoneNo.": "9812345678",
+
+            "status": "closed",
+
+            "product": "milk",
+
+            "supplier": "dairyland",
+
+            "quantity": 300,
+
+            "price": 150,
+
+            "deliveryDate": "2025-02-22T00:00:00",
+
+            "consignee": "Mia Toretto",
+
+            "destination": "Faridabad",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721059",
+
+            "shipperName": "Brian O'Conner",
+
+            "phoneNo.": "9823456789",
+
+            "status": "failed",
+
+            "product": "bread",
+
+            "supplier": "wonder",
+
+            "quantity": 200,
+
+            "price": 100,
+
+            "deliveryDate": "2025-02-23T00:00:00",
+
+            "consignee": "Roman Pearce",
+
+            "destination": "Meerut",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721060",
+
+            "shipperName": "Mia Toretto",
+
+            "phoneNo.": "9834567890",
+
+            "status": "completed",
+
+            "product": "eggs",
+
+            "supplier": "farm fresh",
+
+            "quantity": 150,
+
+            "price": 75,
+
+            "deliveryDate": "2025-02-24T00:00:00",
+
+            "consignee": "Tej Parker",
+
+            "destination": "Rajkot",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721061",
+
+            "shipperName": "Tej Parker",
+
+            "phoneNo.": "9845678901",
+
+            "status": "in-transit",
+
+            "product": "butter",
+
+            "supplier": "amul",
+
+            "quantity": 100,
+
+            "price": 50,
+
+            "deliveryDate": "2025-03-06T00:00:00",
+
+            "consignee": "Han Lue",
+
+            "destination": "Varanasi",
+
+            "connection": "Online",
+
+            "task": "Vendors & Contracts"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721062",
+
+            "shipperName": "Han Lue",
+
+            "phoneNo.": "9856789012",
+
+            "status": "pending",
+
+            "product": "cheese",
+
+            "supplier": "kraft",
+
+            "quantity": 120,
+
+            "price": 60,
+
+            "deliveryDate": "2025-03-26T00:00:00",
+
+            "consignee": "Gisele Yashar",
+
+            "destination": "Srinagar",
+
+            "connection": "Offline",
+
+            "task": "Advertising"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721063",
+
+            "shipperName": "Gisele Yashar",
+
+            "phoneNo.": "9867890123",
+
+            "status": "closed",
+
+            "product": "yogurt",
+
+            "supplier": "chobani",
+
+            "quantity": 180,
+
+            "price": 90,
+
+            "deliveryData": "2025-02-27T00:00:00",
+
+            "consignee": "Hobbs",
+
+            "destination": "Aurangabad",
+
+            "connection": "Online",
+
+            "task": "Cash Management"
+
+          },
+
+          {
+
+            "id": "LP-1234-628-721064",
+
+            "shipperName": "Hobbs",
+
+            "phoneNo.": "9878901234",
+
+            "status": "failed",
+
+            "product": "juice",
+
+            "supplier": "tropicana",
+
+            "quantity": 250,
+
+            "price": 125,
+
+            "deliveryDate": "2025-02-28T00:00:00",
+
+            "consignee": "Shaw",
+
+            "destination": "Dhanbad",
+
+            "connection": "Offline",
+
+            "task": "Financial Reporting"
+
+          }
+
+    ],
+
+    "shipmentsTracking": [
+
+        {
+
+            "lat": "",
+
+            "long": ""
+
+        },
+
+        {
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        },{
+
+            "lat": "",
+
+            "long": ""
+
+        }
+
+    ],
+
+    "suppliers": [
+
+        {
+
+            "id": "001",
+
+            "name": "John Smith"
+
+        },
+
+        {
+
+            "id": "002",
+
+            "name": "Jane Doe"
+
+        },
+
+        {
+
+            "id": "003",
+
+            "name": "Alice Johnson"
+
+        },
+
+        {
+
+            "id": "004",
+
+            "name": "Robert Brown"
+
+        },
+
+        {
+
+            "id": "005",
+
+            "name": "Emily Davis"
+
+        },
+
+        {
+
+            "id": "006",
+
+            "name": "Michael Wilson"
+
+        },
+
+        {
+
+            "id": "007",
+
+            "name": "Sarah Miller"
+
+        },
+
+        {
+
+            "id": "008",
+
+            "name": "David Anderson"
+
+        },
+
+        {
+
+            "id": "009",
+
+            "name": "Laura Thomas"
+
+        },
+
+        {
+
+            "id": "010",
+
+            "name": "James Jackson"
+
+        },
+
+        {
+
+            "id": "011",
+
+            "name": "Linda White"
+
+        },
+
+        {
+
+            "id": "012",
+
+            "name": "Christopher Harris"
+
+        },
+
+        {
+
+            "id": "013",
+
+            "name": "Karen Martin"
+
+        },
+
+        {
+
+            "id": "014",
+
+            "name": "Daniel Thompson"
+
+        },
+
+        {
+
+            "id": "015",
+
+            "name": "Nancy Garcia"
+
+        },
+
+        {
+
+            "id": "016",
+
+            "name": "Matthew Martinez"
+
+        },
+
+        {
+
+            "id": "017",
+
+            "name": "Betty Robinson"
+
+        },
+
+        {
+
+            "id": "018",
+
+            "name": "Joshua Clark"
+
+        },
+
+        {
+
+            "id": "019",
+
+            "name": "Jessica Rodriguez"
+
+        },
+
+        {
+
+            "id": "020",
+
+            "name": "Andrew Lewis"
+
+        }
+
+    ],
+
+    "assignees": [
+
+        {
+
+            "id": "021",
+
+            "name": "William King"
+
+        },
+
+        {
+
+            "id": "022",
+
+            "name": "Olivia Scott"
+
+        },
+
+        {
+
+            "id": "023",
+
+            "name": "Henry Adams"
+
+        },
+
+        {
+
+            "id": "024",
+
+            "name": "Sophia Baker"
+
+        },
+
+        {
+
+            "id": "025",
+
+            "name": "Liam Carter"
+
+        },
+
+        {
+
+            "id": "026",
+
+            "name": "Isabella Perez"
+
+        },
+
+        {
+
+            "id": "027",
+
+            "name": "Mason Turner"
+
+        },
+
+        {
+
+            "id": "028",
+
+            "name": "Mia Collins"
+
+        },
+
+        {
+
+            "id": "029",
+
+            "name": "Ethan Stewart"
+
+        },
+
+        {
+
+            "id": "030",
+
+            "name": "Ava Sanchez"
+
+        },
+
+        {
+
+            "id": "031",
+
+            "name": "Logan Morris"
+
+        },
+
+        {
+
+            "id": "032",
+
+            "name": "Charlotte Rogers"
+
+        },
+
+        {
+
+            "id": "033",
+
+            "name": "Lucas Reed"
+
+        },
+
+        {
+
+            "id": "034",
+
+            "name": "Amelia Cook"
+
+        },
+
+        {
+
+            "id": "035",
+
+            "name": "Alexander Morgan"
+
+        },
+
+        {
+
+            "id": "036",
+
+            "name": "Harper Bell"
+
+        },
+
+        {
+
+            "id": "037",
+
+            "name": "Benjamin Murphy"
+
+        },
+
+        {
+
+            "id": "038",
+
+            "name": "Evelyn Bailey"
+
+        },
+
+        {
+
+            "id": "039",
+
+            "name": "Elijah Rivera"
+
+        },
+
+        {
+
+            "id": "040",
+
+            "name": "Abigail Cooper"
+
+        }
+
+    ],
+
+    "productType": [
+
+      {
+
+        "id": "001",
+
+        "type": "Electronics"
+
+      },
+
+      {
+
+        "id": "002",
+
+        "type": "Furniture"
+
+      },
+
+      {
+
+        "id": "003",
+
+        "type": "Clothing"
+
+      },
+
+      {
+
+        "id": "004",
+
+        "type": "Books"
+
+      },
+
+      {
+
+        "id": "005",
+
+        "type": "Food & beverages"
+
+      }
+
+    ],
+
+    "blogs": [
+
+        {
+
+            "id": "001",
+
+            "title": "Title 1",
+
+            "image": "image 1",
+
+            "type": "Food",
+
+            "descriptiton": "descriptiton descriptiton descriptiton descriptiton descriptiton",
+
+            "publishedDate": "2025-02-27T00:00:00",
+
+            "blogInfo": {
+
+                "carouselImage": ["image1.jpeg", "image1.jpeg", "image1.jpeg"],
+
+                "postBy": "Firstname lastName",
+
+                "desc": ""
+
+            }
+
+        }
+
+    ],
+
+    "taskTypes": [
+
+        {
+
+            "id": "001",
+
+            "type": "Cash Management"
+
+        },
+
+        {
+
+            "id": "002",
+
+            "type": "Financial Reporting"
+
+        },
+
+        {
+
+            "id": "003",
+
+            "type": "Vendors & Contracts"
+
+        },
+
+        {
+
+            "id": "004",
+
+            "type": "Advertising"
+
+        }
+
+    ]
+
+}

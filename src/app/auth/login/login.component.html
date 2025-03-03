@@ -1,0 +1,46 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h1>GROCERY STORE <span class="highlight">MANAGEMENT SYSTEM</span></h1>
+      </mat-card-title>
+      <mat-card-subtitle>
+        Manage inventory, track orders, and oversee supplier relationships efficiently.
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Enter your username">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter your password">
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+        
+        <div *ngIf="loginError" class="error-message">
+          {{ loginError }}
+        </div>
+        
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading" class="full-width">
+          <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+          <span *ngIf="!isLoading">Sign In</span>
+        </button>
+        
+        <div class="register-link">
+          <span>Don't have an account?</span>
+          <a [routerLink]="['/register']">Register</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
