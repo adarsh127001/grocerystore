@@ -429,7 +429,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     }
     
     // X-axis positioning
-    const xPadding = 40; // Left padding for Y-axis
+    const xPadding = 40; 
     const chartContentWidth = this.chartWidth - xPadding - 20; // 20px right padding
     const barSpacing = chartContentWidth / (Math.max(this.chartData.length, 1));
     const barWidth = Math.min(barSpacing * 0.6, 40); // Limit bar width

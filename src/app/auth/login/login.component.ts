@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Test the HTTP call separately to check if it works
     this.http.get<{users: any[]}>('assets/users.json').subscribe({
       next: (data) => {
         console.log('Successfully loaded users.json:', data);
@@ -65,8 +64,6 @@ export class LoginComponent implements OnInit {
       const { username, password } = this.loginForm.value;
       
       console.log('Attempting login with:', { username, password });
-
-      // Hardcoded credential check as a fallback
       if (username === 'a' && password === 'a') {
         console.log('Hardcoded login successful');
         
@@ -79,7 +76,6 @@ export class LoginComponent implements OnInit {
         return;
       }
       
-      // Check localStorage for registered users first
       if (this.isBrowser) {
         const storedUsersStr = localStorage.getItem('registeredUsers');
         if (storedUsersStr) {
@@ -102,7 +98,6 @@ export class LoginComponent implements OnInit {
         }
       }
       
-      // If not found in localStorage, check users.json file
       this.http.get<{users: {username: string, password: string}[]}>('assets/data/users.json').subscribe({
         next: (data) => {
           console.log('Login response data:', data);

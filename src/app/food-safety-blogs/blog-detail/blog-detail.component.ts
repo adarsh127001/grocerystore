@@ -109,7 +109,6 @@ export class BlogDetailComponent implements OnInit {
               desc: "Well-trained employees are the first line of defense in food safety. This blog outlines essential training topics for grocery store staff, from basic hygiene practices to advanced food safety protocols, with practical tips for implementing effective training programs."
             }
           }
-      // ... other blog entries
     ];
     
     this.blog = mockBlogs.find(blog => blog.id === id) || null;
@@ -134,7 +133,6 @@ export class BlogDetailComponent implements OnInit {
     }
   }
   
-  // Helper methods to safely access nested properties
   getAuthor(): string {
     return this.blog?.blogInfo?.postBy || 'Unknown Author';
   }

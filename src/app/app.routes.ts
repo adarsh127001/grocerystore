@@ -8,7 +8,8 @@ export const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent) },
   { path: 'food-safety-blogs', loadComponent: () => import('./food-safety-blogs/food-safety-blogs.component').then(c => c.FoodSafetyBlogsComponent) },
   { path: 'food-safety-blogs/:id', loadComponent: () => import('./food-safety-blogs/blog-detail/blog-detail.component').then(c => c.BlogDetailComponent) },
-  { path: 'shipments', redirectTo: '/shipment-tracking', pathMatch: 'full' },
+  { path: 'shipment-tracking', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'shipments', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'tasks', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'blogs', redirectTo: '/food-safety-blogs', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' }
