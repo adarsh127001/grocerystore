@@ -1,0 +1,48 @@
+<div class="blog-detail-container">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading blog details...</p>
+  </div>
+
+  <div *ngIf="!isLoading && error" class="error-container">
+    <mat-icon>error_outline</mat-icon>
+    <h2>Blog Not Found</h2>
+    <p>The blog post you're looking for doesn't exist or has been removed.</p>
+    <button mat-raised-button color="primary" routerLink="/food-safety-blogs">Back to Blogs</button>
+  </div>
+
+  <div *ngIf="!isLoading && !error && blog" class="blog-content">
+    <div class="blog-header">
+      <a routerLink="/food-safety-blogs" class="back-link">
+        <mat-icon>arrow_back</mat-icon> Back to Blogs
+      </a>
+      <h1>{{blog.title}}</h1>
+      <div class="blog-meta">
+        <span class="blog-date">{{formatDate(blog.publishedDate)}}</span>
+        <span class="blog-author" *ngIf="blog.blogInfo?.postBy">By {{blog.blogInfo.postBy}}</span>
+        <span class="blog-type" *ngIf="blog.type">{{blog.type}}</span>
+      </div>
+    </div>
+
+    <div class="blog-image-main" *ngIf="blog.image">
+      <img [src]="'assets/images/' + blog.image" alt="Blog main image" onerror="this.src='assets/images/default-blog.jpg'">
+    </div>
+
+    <div class="blog-body">
+      <p class="blog-description">{{blog.descriptiton}}</p>
+      
+      <div class="blog-full-content" *ngIf="blog.blogInfo?.desc">
+        <p>{{blog.blogInfo.desc}}</p>
+      </div>
+
+      <div class="blog-carousel" *ngIf="blog.blogInfo?.carouselImage && blog.blogInfo.carouselImage.length > 0">
+        <h3>Gallery</h3>
+        <div class="carousel-images">
+          <div class="carousel-image" *ngFor="let image of blog.blogInfo.carouselImage">
+            <img [src]="'assets/images/' + image" alt="Blog carousel image" onerror="this.src='assets/images/default-blog.jpg'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,23 @@
+.chart-container {
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.tasks-list {
+  margin-top: 15px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-item span {
+  min-width: 100px;
+}
+
+.task-item mat-progress-bar {
+  flex: 1;
+  margin: 0 10px;
+}

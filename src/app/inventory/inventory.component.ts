@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { SidenavComponent } from '../shared/components/sidenav/sidenav.component';
+import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { ChartComponent } from '../shared/components/chart/chart.component';
 import { StockOverviewComponent } from './stock-overview/stock-overview.component';
@@ -26,7 +26,7 @@ interface SummaryData {
     MatTabsModule,
     MatIconModule,
     MatButtonToggleModule,
-    SidenavComponent,
+    SidebarComponent,
     HeaderComponent,
     ChartComponent,
     StockOverviewComponent,

@@ -1,0 +1,25 @@
+<div class="blog-preview-container">
+    <div class="header">
+      <h2>Food Safety Blogs</h2>
+      <a routerLink="/food-safety-blogs" class="view-all">View All</a>
+    </div>
+  
+    <div class="blog-cards" *ngIf="!isLoading; else loadingTemplate">
+      <div class="blog-card" *ngFor="let blog of blogs">
+        <div class="blog-image">
+          <img [src]="'assets/images/' + blog.image" alt="Blog image" onerror="this.src='assets/images/default-blog.jpg'">
+        </div>
+        <div class="blog-content">
+          <div class="blog-date">{{formatDate(blog.publishedDate)}}</div>
+          <h3 class="blog-title">{{blog.title}}</h3>
+          <p class="blog-description">{{blog.descriptiton | slice:0:80}}{{blog.descriptiton.length > 80 ? '...' : ''}}</p>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #loadingTemplate>
+      <div class="loading-placeholder">
+        <p>Loading blog posts...</p>
+      </div>
+    </ng-template>
+  </div>

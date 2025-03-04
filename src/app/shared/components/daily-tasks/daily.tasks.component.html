@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Daily Tasks</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="chart-container">
+      <canvas id="tasksChart"></canvas>
+    </div>
+    <div class="tasks-list" *ngIf="tasks.length">
+      <div *ngFor="let task of tasks" class="task-item">
+        <span>{{task.name}}</span>
+        <mat-progress-bar [value]="task.progress" [color]="task.progress > 75 ? 'primary' : 'accent'"></mat-progress-bar>
+        <span>{{task.progress}}%</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

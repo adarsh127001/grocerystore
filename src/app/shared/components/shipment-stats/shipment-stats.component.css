@@ -1,0 +1,81 @@
+.chart-container {
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.filters-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.shipments-summary {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.summary-item {
+  text-align: center;
+  flex: 1;
+}
+
+.summary-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.summary-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 500;
+  color: #1a4ca1;
+}
+
+.divider {
+  margin: 20px 0;
+}
+
+.recent-shipments h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.shipment-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.shipment-item {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.shipment-date {
+  width: 100px;
+  font-weight: 500;
+}
+
+.shipment-details {
+  flex: 1;
+}
+
+.shipment-count {
+  margin-bottom: 5px;
+}
+
+.shipment-status {
+  font-size: 12px;
+  text-align: right;
+  color: #666;
+  margin-top: 5px;
+}
+
+mat-progress-bar {
+  margin: 5px 0;
+}

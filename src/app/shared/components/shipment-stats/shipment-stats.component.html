@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Shipment Statistics</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="chart-container">
+      <canvas id="shipmentsChart"></canvas>
+    </div>
+    
+    <div class="filters-section" *ngIf="shipments.length">
+      <mat-form-field appearance="outline">
+        <mat-label>Date Range</mat-label>
+        <mat-select [(value)]="selectedDateRange" (selectionChange)="onDateRangeChange()">
+          <mat-option value="week">Last Week</mat-option>
+          <mat-option value="month">Last Month</mat-option>
+          <mat-option value="quarter">Last Quarter</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="shipments-summary" *ngIf="shipments.length">
+      <div class="summary-item">
+        <span class="summary-label">Total Shipments</span>
+        <span class="summary-value">{{totalShipments}}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Average Per Day</span>
+        <span class="summary-value">{{averagePerDay}}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">On-Time Delivery</span>
+        <span class="summary-value">{{onTimePercentage}}%</span>
+      </div>
+    </div>
+    
+    <mat-divider class="divider"></mat-divider>
+    
+    <div class="recent-shipments" *ngIf="shipments.length">
+      <h3>Recent Shipments</h3>
+      <div class="shipment-list">
+        <div class="shipment-item" *ngFor="let shipment of recentShipments">
+          <div class="shipment-date">{{shipment.date}}</div>
+          <div class="shipment-details">
+            <div class="shipment-count">{{shipment.count}} shipments</div>
+            <mat-progress-bar 
+              [value]="shipment.onTimePercentage" 
+              [color]="shipment.onTimePercentage > 90 ? 'primary' : 'accent'">
+            </mat-progress-bar>
+            <div class="shipment-status">{{shipment.onTimePercentage}}% on time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -12,8 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { InventoryService, InventoryItem } from '../../services/inventory.service';
-import { SidenavComponent } from '../../shared/components/sidenav/sidenav.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { SidebarComponent } from "../../shared/components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-inventory-edit',
@@ -31,9 +31,9 @@ import { HeaderComponent } from '../../shared/components/header/header.component
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    SidenavComponent,
-    HeaderComponent
-  ],
+    HeaderComponent,
+    SidebarComponent
+],
   templateUrl: './inventory-edit.component.html',
   styleUrl: './inventory-edit.component.css'
 })
