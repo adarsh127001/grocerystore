@@ -8,29 +8,41 @@
 
       <mat-nav-list class="nav-list">
         <a mat-list-item routerLink="/dashboard" class="nav-list-item active">
-          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <mat-icon matListItemIcon>grid_view</mat-icon>
           <span matListItemTitle>Dashboard</span>
         </a>
-        <a mat-list-item routerLink="/inventory" class="nav-list-item">
-          <mat-icon matListItemIcon>inventory_2</mat-icon>
-          <span matListItemTitle>Inventory</span>
+        <a mat-list-item routerLink="/stocks" class="nav-list-item">
+          <mat-icon matListItemIcon>trending_up</mat-icon>
+          <span matListItemTitle>Stocks Management</span>
         </a>
-        <a mat-list-item routerLink="/shipments" class="nav-list-item">
-          <mat-icon matListItemIcon>local_shipping</mat-icon>
+        <a mat-list-item routerLink="/shipment-tracking" class="nav-list-item">
+          <mat-icon matListItemIcon>sync</mat-icon>
           <span matListItemTitle>Shipment Tracking</span>
         </a>
-        <a mat-list-item routerLink="/tasks" class="nav-list-item">
-          <mat-icon matListItemIcon>task_alt</mat-icon>
-          <span matListItemTitle>Tasks</span>
+        <a mat-list-item routerLink="/reports-analytics" class="nav-list-item">
+          <mat-icon matListItemIcon>description</mat-icon>
+          <span matListItemTitle>Reports & Analytics</span>
         </a>
-        <a mat-list-item routerLink="/blogs" class="nav-list-item">
+        <a mat-list-item routerLink="/customer-management" class="nav-list-item">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Customer Management</span>
+        </a>
+        <a mat-list-item routerLink="/food-safety-blogs" class="nav-list-item">
           <mat-icon matListItemIcon>article</mat-icon>
           <span matListItemTitle>Food Safety Blogs</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item (click)="logout()" class="nav-list-item">
-          <mat-icon matListItemIcon>logout</mat-icon>
-          <span matListItemTitle>Logout</span>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>settings</mat-icon>
+          <span matListItemTitle>Settings</span>
+        </a>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>account_circle</mat-icon>
+          <span matListItemTitle>My Account</span>
+        </a>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>help</mat-icon>
+          <span matListItemTitle>Help & Support</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>
@@ -69,6 +81,10 @@
             [selectedRange]="selectedRange">
           </app-ssr-chart>
           
+          <!-- Add the Food Safety Blog Preview component here -->
+          <div class="blog-preview-section">
+            <app-food-safety-blog-preview></app-food-safety-blog-preview>
+          </div>
         </div>
       </div>
     </mat-sidenav-content>
