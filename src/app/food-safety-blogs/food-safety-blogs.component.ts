@@ -26,6 +26,7 @@ interface Blog {
   selector: 'app-food-safety-blogs',
   standalone: true,
   imports: [
+    MatIconModule,
     CommonModule, 
     MatCardModule, 
     MatButtonModule, 

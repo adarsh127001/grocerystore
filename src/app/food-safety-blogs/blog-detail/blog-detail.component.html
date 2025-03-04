@@ -1,50 +1,46 @@
-<div class="container">
-  <div *ngIf="!isLoading; else loadingTemplate">
+<div class="blog-detail-container">
+    <div class="back-navigation">
+      <a routerLink="/food-safety-blogs" class="back-link">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back to Blogs</span>
+      </a>
+      <a routerLink="/dashboard" class="back-link dashboard-link">
+        <mat-icon>dashboard</mat-icon>
+        <span>Back to Dashboard</span>
+      </a>
+    </div>
+  
     <div *ngIf="blog; else notFound">
-      <div class="back-button">
-        <a routerLink="/food-safety-blogs" mat-button>
-          <mat-icon>arrow_back</mat-icon> Back to Blogs
-        </a>
+      <h1 class="blog-title">{{blog.title}}</h1>
+      
+      <div class="blog-meta">
+        <span class="blog-date">{{formatDate(blog.publishedDate)}}</span>
+        <span *ngIf="blog.blogInfo?.postBy" class="blog-author">By {{getAuthor()}}</span>
+        <span *ngIf="blog.type" class="blog-category">{{blog.type}}</span>
       </div>
       
-      <mat-card class="blog-detail-card">
-        <img mat-card-image [src]="blog.image" [alt]="blog.title" class="blog-header-image">
-        
-        <mat-card-content>
-          <h1 class="blog-title">{{ blog.title }}</h1>
-          <p class="blog-meta">
-            <span class="blog-date">{{ formatDate(blog.publishedDate) }}</span>
-            <span *ngIf="blog.blogInfo?.postBy" class="blog-author">by {{ blog.blogInfo?.postBy }}</span>
-          </p>
-          <div class="blog-content">
-            <p>{{ blog.descriptiton }}</p>
-            <div *ngIf="blog.blogInfo?.desc" class="blog-full-content">
-              <p>{{ blog.blogInfo?.desc }}</p>
-            </div>
-            <div *ngIf="blog.blogInfo?.carouselImage?.length" class="blog-carousel">
-              <h3>Gallery</h3>
-              <div class="carousel-images">
-                <img *ngFor="let img of blog.blogInfo?.carouselImage" [src]="img" alt="Blog image" class="carousel-image">
-              </div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <div class="blog-image-container">
+        <img [src]="blog.image" [alt]="blog.title" class="blog-main-image">
+      </div>
+      
+      <div class="blog-content">
+        <p>{{getDescription()}}</p>
+      </div>
+      
+      <!-- Additional carousel images if available -->
+      <div *ngIf="hasCarouselImages()" class="blog-carousel">
+        <h2>Gallery</h2>
+        <div class="carousel-images">
+          <img *ngFor="let img of getCarouselImages()" [src]="img" alt="Blog image" class="carousel-image">
+        </div>
+      </div>
     </div>
     
     <ng-template #notFound>
       <div class="not-found">
         <h2>Blog Not Found</h2>
-        <p>The blog post you're looking for doesn't exist or has been removed.</p>
-        <a routerLink="/food-safety-blogs" mat-raised-button color="primary">Back to Blogs</a>
+        <p>The blog you're looking for doesn't exist or has been removed.</p>
+        <a routerLink="/food-safety-blogs" mat-raised-button color="primary">Return to Blogs</a>
       </div>
     </ng-template>
   </div>
-  
-  <ng-template #loadingTemplate>
-    <div class="loading-container">
-      <mat-spinner diameter="50"></mat-spinner>
-      <p>Loading blog...</p>
-    </div>
-  </ng-template>
-</div>

@@ -97,3 +97,40 @@
     margin-top: 20px;
     color: #666;
   }
+  /* Add these styles to your existing CSS */
+
+.back-navigation {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .back-link:hover {
+    color: #1565c0;
+    text-decoration: underline;
+  }
+  
+  .back-link mat-icon {
+    margin-right: 8px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+  }
+  
+  .dashboard-link {
+    color: #4caf50;
+  }
+  
+  .dashboard-link:hover {
+    color: #388e3c;
+  }

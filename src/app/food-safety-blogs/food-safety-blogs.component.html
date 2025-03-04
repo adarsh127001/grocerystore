@@ -1,7 +1,15 @@
 <div class="container" [ngClass]="{'preview-mode': previewMode}">
-    <!-- Only show title and filter in full mode -->
+    <!-- Only show title, back button, and filter in full mode -->
     <ng-container *ngIf="!previewMode">
-      <h1 class="page-title">Food Safety Blogs</h1>
+      <div class="page-header">
+        <div class="back-navigation">
+          <a routerLink="/dashboard" class="back-link">
+            <mat-icon>arrow_back</mat-icon>
+            <span>Back to Dashboard</span>
+          </a>
+        </div>
+        <h1 class="page-title">Food Safety Blogs</h1>
+      </div>
       
       <div class="year-filter">
         <mat-chip-listbox aria-label="Year selection">

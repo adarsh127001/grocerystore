@@ -186,3 +186,43 @@
     text-align: right;
     margin-top: 8px;
   }
+  /* Add these styles to your existing CSS */
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .back-navigation {
+    margin-bottom: 10px;
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .back-link:hover {
+    color: #1565c0;
+    text-decoration: underline;
+  }
+  
+  .back-link mat-icon {
+    margin-right: 8px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+  }
+  
+  /* Make sure the page title is properly styled */
+  .page-title {
+    font-size: 28px;
+    margin: 0 0 20px 0;
+    color: #333;
+  }
