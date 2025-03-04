@@ -1,286 +1,59 @@
+/* Main container styles */
 .dashboard-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .dashboard-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  .toolbar-spacer {
-    flex: 1 1 auto;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-    margin-right: 16px;
-  }
-  
-  .user-info span {
-    margin-right: 8px;
-  }
-  
-  .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-  }
-  
-  .dashboard-title {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .date-display {
-    color: #666;
-    font-size: 14px;
-  }
-  
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  
-  .stat-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 16px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-  
-  .stat-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  
-  .stat-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #666;
-    margin: 0;
-  }
-  
-  .stat-value {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
-  }
-  
-  .stat-icon {
-    background-color: rgba(25, 118, 210, 0.1);
-    color: #1976d2;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .stat-trend {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .trend-up {
-    color: #4caf50;
-  }
-  
-  .trend-down {
-    color: #f44336;
-  }
-  
-  .dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-  
-  .dashboard-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    overflow: hidden;
-  }
-  
-  .card-content {
-    padding: 16px;
-  }
-  
-  .card-actions {
-    padding: 8px 16px;
-    display: flex;
-    justify-content: flex-end;
-    border-top: 1px solid #eee;
-  }
-  
-  .mat-mini-fab {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .stats-row {
-      grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-    }
-    
-    .dashboard-cards {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  /* Side navigation styles */
-  .sidenav-container {
-    height: 100%;
-    display: flex;
-  }
-  
-  .sidenav {
-    width: 250px;
-    background-color: #fff;
-    border-right: 1px solid #eee;
-  }
-  
-  .sidenav-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .nav-list {
-    padding-top: 16px;
-  }
-  
-  .nav-list-item {
-    margin-bottom: 4px;
-  }
-  
-  .nav-list-item.active {
-    background-color: rgba(25, 118, 210, 0.1);
-    color: #1976d2;
-  }
-  
-  .nav-list-item.active .mat-icon {
-    color: #1976d2;
-  }
-  
-  .menu-header {
-    padding: 16px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .app-logo {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1976d2;
-    margin-bottom: 8px;
-  }
-  
-  .version-info {
-    font-size: 12px;
-    color: #999;
-  }
-  /* Add these styles from the sidebar component */
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.logo-img {
-  width: 40px;
-  height: 40px;
-  color: #1a4ca1;
-}
-
-.sidebar-title {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #333;
-}
-
-mat-nav-list {
-  padding-top: 0;
-}
-
-mat-nav-list a.mat-list-item {
-  height: 48px;
-  margin: 2px 8px;
-  border-radius: 4px;
-}
-
-.menu-icon {
-  color: #1a4ca1;
-  margin-right: 12px;
-}
-
-mat-nav-list a.mat-list-item span {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-mat-nav-list a.mat-list-item.active-link {
-  background-color: #1a4ca1;
-}
-
-mat-nav-list a.mat-list-item.active-link .menu-icon,
-mat-nav-list a.mat-list-item.active-link span {
-  color: white;
-}
-
-mat-nav-list a.mat-list-item:hover:not(.active-link) {
-  background-color: rgba(26, 76, 161, 0.1);
-}
-
-/* Existing dashboard styles */
-.dashboard-container {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .sidenav-container {
   flex: 1;
+  height: 100%;
 }
 
 .sidenav {
   width: 250px;
-  background-color: white;
 }
 
+.sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Menu header styles */
+.menu-header {
+  padding: 16px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.app-logo {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.version-info {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Navigation list styles */
+.nav-list {
+  padding-top: 8px;
+}
+
+.nav-list-item {
+  margin: 4px 8px;
+  border-radius: 4px;
+}
+
+.nav-list-item.active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Toolbar styles */
 .toolbar-spacer {
   flex: 1 1 auto;
 }
@@ -291,15 +64,23 @@ mat-nav-list a.mat-list-item:hover:not(.active-link) {
   gap: 8px;
 }
 
+/* Dashboard content styles */
 .dashboard-content {
   padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .dashboard-title {
@@ -309,60 +90,47 @@ mat-nav-list a.mat-list-item:hover:not(.active-link) {
 }
 
 .date-display {
-  color: #5f6368;
-  font-size: 14px;
+  color: #666;
 }
 
-/* Blog preview section styling */
-.blog-preview-section {
-  margin-top: 24px;
-  max-width: 100%;
-}
-
-/* Make sure the dashboard layout has appropriate grid or flex structure */
-.main-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-@media (min-width: 992px) {
-  .main-content {
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  
-  .dashboard-header {
-    grid-column: 1 / -1;
-  }
-}
+/* Dashboard grid layout */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
+/* Dashboard item styles */
 .dashboard-item {
-  height: 400px; 
+  height: 400px;
+}
+
+.dashboard-item mat-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-item mat-card-content {
+  flex: 1;
   overflow: hidden;
-}
-/* Add these styles to your existing dashboard CSS */
-.blog-preview-section {
-  margin-top: 20px;
+  padding: 0 16px 16px 16px;
 }
 
-.blog-preview-section mat-card {
-  padding: 16px;
+/* Placeholder content */
+.placeholder-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  color: #666;
 }
 
-.blog-preview-section mat-card-header {
-  margin-bottom: 16px;
-}
-
-.blog-preview-section mat-card-content {
-  padding: 0;
-}
-
-.toolbar-spacer {
-  flex: 1 1 auto;
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }

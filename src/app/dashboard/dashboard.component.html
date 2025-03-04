@@ -75,22 +75,62 @@
             <div class="date-display">{{ today | date:'EEEE, MMMM d, y' }}</div>
           </div>
 
-          <app-ssr-chart 
-            [title]="'Orders Analysis'" 
-            [data]="orderAnalysisData" 
-            [selectedRange]="selectedRange">
-          </app-ssr-chart>
-          
-          <!-- Replace the blog preview component with the main component in preview mode -->
-          <div class="blog-preview-section">
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>Food Safety Blogs</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <app-food-safety-blogs [previewMode]="true" [limit]="2"></app-food-safety-blogs>
-              </mat-card-content>
-            </mat-card>
+          <div class="dashboard-grid">
+            <!-- Orders Analysis Chart -->
+            <div class="dashboard-item">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Orders Analysis</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <app-ssr-chart 
+                    [title]="''" 
+                    [data]="orderAnalysisData" 
+                    [selectedRange]="selectedRange">
+                  </app-ssr-chart>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+            <!-- Food Safety Blogs -->
+            <div class="dashboard-item">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Food Safety Blogs</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <app-food-safety-blogs [previewMode]="true" [limit]="2"></app-food-safety-blogs>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+            <!-- Placeholder for third box -->
+            <div class="dashboard-item">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Inventory Status</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="placeholder-content">
+                    <p>Inventory status information will be displayed here.</p>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+            <!-- Placeholder for fourth box -->
+            <div class="dashboard-item">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Recent Activities</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="placeholder-content">
+                    <p>Recent activities will be displayed here.</p>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
           </div>
         </div>
       </div>

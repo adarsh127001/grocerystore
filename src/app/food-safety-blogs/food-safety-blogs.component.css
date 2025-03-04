@@ -126,3 +126,63 @@
     text-align: right;
     margin-top: 10px;
   }
+  /* ... existing styles ... */
+
+/* Preview mode specific styles */
+.container.preview-mode {
+    padding: 0;
+    max-width: none;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .preview-mode .blog-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .preview-mode .blog-card {
+    margin-bottom: 0;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preview-mode .blog-image {
+    height: 120px;
+    object-fit: cover;
+  }
+  
+  .preview-mode .blog-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .preview-mode .blog-date {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .preview-mode .blog-excerpt {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    max-height: 3em;
+  }
+  
+  .preview-mode .view-all-link {
+    text-align: right;
+    margin-top: 8px;
+  }
