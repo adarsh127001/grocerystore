@@ -13,11 +13,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
-// Import the main blog component instead of the preview component
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
-// Import the DailyTasksComponent
 import { DailyTasksComponent } from '../shared/components/daily-tasks/daily.tasks.component';
-// Import the ShipmentStatisticsComponent
 import { ShipmentStatisticsComponent } from '../shared/components/shipment-statistics/shipment-statistics.component';
 
 @Component({
@@ -36,9 +33,9 @@ import { ShipmentStatisticsComponent } from '../shared/components/shipment-stati
     MatDividerModule,
     MatTooltipModule,
     SsrChartComponent,
-    FoodSafetyBlogsComponent, // Use the main component instead
-    DailyTasksComponent, // Add the DailyTasksComponent to imports
-    ShipmentStatisticsComponent // Add the ShipmentStatisticsComponent to imports
+    FoodSafetyBlogsComponent,
+    DailyTasksComponent,
+    ShipmentStatisticsComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -83,7 +80,6 @@ export class DashboardComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error loading order analysis data:', err);
         this.orderAnalysisData = this.dataService.getMockOrdersData().stockInventoryAnalysisChartData;
       }
     });
@@ -92,8 +88,7 @@ export class DashboardComponent implements OnInit {
   openTaskAssignmentDialog() {
     this.dialogService.openTaskAssignmentDialog().subscribe(result => {
       if (result) {
-        console.log('Task assigned:', result);
-        // Here you would typically save the task to your backend
+        // Handle task assignment
       }
     });
   }
@@ -101,8 +96,7 @@ export class DashboardComponent implements OnInit {
   openAddNewStockDialog() {
     this.dialogService.openAddNewStockDialog().subscribe(result => {
       if (result) {
-        console.log('New stock added:', result);
-        // Here you would typically save the stock to your backend
+        // Handle new stock
       }
     });
   }
