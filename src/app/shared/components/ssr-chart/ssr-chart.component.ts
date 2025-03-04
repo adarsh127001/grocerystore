@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnChanges, SimpleChanges, AfterViewInit, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -39,7 +39,7 @@ interface ChartData {
         </div>
       </mat-card-header>
       <mat-card-content>
-        <div class="chart-container">
+        <div class="chart-container" #chartContainer>
           <svg width="100%" height="300">
             <!-- Y-axis and grid lines -->
             <g class="y-axis">
@@ -114,7 +114,7 @@ interface ChartData {
             <g *ngFor="let item of processedData">
               <text 
                 [attr.x]="item.x" 
-                y="288" 
+                y="280" 
                 text-anchor="middle" 
                 font-size="10" 
                 fill="#666">
@@ -168,6 +168,7 @@ interface ChartData {
       background-color: #fafafa;
       border: 1px solid #eee;
       border-radius: 4px;
+      overflow: hidden;
     }
     
     ::ng-deep .mat-mdc-form-field-subscript-wrapper {
@@ -175,7 +176,7 @@ interface ChartData {
     }
   `]
 })
-export class SsrChartComponent implements OnChanges {
+export class SsrChartComponent implements OnChanges, AfterViewInit {
   @Input() title: string = 'Orders Analysis';
   @Input() data: ChartData[] = [];
   @Input() selectedRange: 'weekly' | 'monthly' | 'yearly' = 'monthly';
@@ -183,13 +184,45 @@ export class SsrChartComponent implements OnChanges {
   processedData: any[] = [];
   barWidth: number = 16;
   yAxisTicks: { y: number; value: number }[] = [];
-  chartWidth: number = 800;
+  chartWidth: number = 600;
   chartHeight: number = 240; // Height of the chart area (300 - margins)
   chartTop: number = 30;    // Top margin
+  private isBrowser: boolean;
+  
+  constructor(
+    private elementRef: ElementRef,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+  
+  ngAfterViewInit() {
+    if (this.isBrowser) {
+      this.updateChartWidth();
+      window.addEventListener('resize', () => {
+        this.updateChartWidth();
+        this.processData();
+      });
+    }
+  }
+  
+  updateChartWidth() {
+    if (this.isBrowser) {
+      const containerWidth = this.elementRef.nativeElement.querySelector('.chart-container')?.clientWidth;
+      if (containerWidth) {
+        this.chartWidth = containerWidth;
+        this.processData();
+      }
+    }
+  }
   
   ngOnChanges(changes: SimpleChanges): void {
     if ((changes['data'] || changes['selectedRange']) && this.data) {
-      this.processData();
+      if (this.isBrowser) {
+        setTimeout(() => this.processData(), 0);
+      } else {
+        this.processData();
+      }
     }
   }
 
