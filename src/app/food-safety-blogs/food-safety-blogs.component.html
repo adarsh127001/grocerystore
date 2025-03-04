@@ -1,49 +1,44 @@
-<div class="blogs-container">
-    <div class="blogs-header">
-      <h1>All Blog Posts</h1>
+<div class="container">
+    <h1 class="page-title">Food Safety Blogs</h1>
+    
+    <div class="year-filter">
+      <mat-chip-listbox aria-label="Year selection">
+        <mat-chip-option *ngFor="let year of availableYears" 
+                        [selected]="year === selectedYear"
+                        (click)="filterBlogsByYear(year)">
+          {{ year }}
+        </mat-chip-option>
+      </mat-chip-listbox>
     </div>
-  
-    <div class="blogs-content">
-      <div class="blogs-grid">
-        <div *ngIf="isLoading" class="loading-container">
-          <mat-spinner diameter="40"></mat-spinner>
-          <p>Loading blogs...</p>
-        </div>
-  
-        <div *ngIf="!isLoading && filteredBlogs.length === 0" class="no-blogs">
-          <mat-icon>article</mat-icon>
-          <p>No blog posts available for {{selectedYear}}.</p>
-        </div>
-  
-        <div *ngIf="!isLoading && filteredBlogs.length > 0" class="blog-cards">
-          <div class="blog-card" *ngFor="let blog of filteredBlogs">
-            <div class="blog-image">
-              <img [src]="'assets/images/' + blog.image" alt="Blog image" onerror="this.src='assets/images/default-blog.jpg'">
-            </div>
-            <div class="blog-content">
-              <div class="blog-date">{{formatDate(blog.publishedDate)}}</div>
-              <h3 class="blog-title">{{blog.title}}</h3>
-              <p class="blog-description">{{blog.descriptiton}}</p>
-            </div>
-          </div>
+    
+    <div class="blogs-container" *ngIf="!isLoading; else loadingTemplate">
+      <div *ngIf="filteredBlogs.length > 0; else noBlogs">
+        <div class="blog-grid">
+          <mat-card *ngFor="let blog of filteredBlogs" class="blog-card">
+            <img mat-card-image [src]="blog.image" [alt]="blog.title" class="blog-image">
+            <mat-card-content>
+              <h2 class="blog-title">{{ blog.title }}</h2>
+              <p class="blog-date">{{ formatDate(blog.publishedDate) }}</p>
+              <p class="blog-excerpt">{{ blog.descriptiton }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <a [routerLink]="['/food-safety-blogs', blog.id]" mat-button color="primary">READ MORE</a>
+            </mat-card-actions>
+          </mat-card>
         </div>
       </div>
-  
-      <div class="blogs-sidebar">
-        <div class="sidebar-section">
-          <h2>Food Safety News Blogs</h2>
-          <div class="sidebar-divider"></div>
-          <h3>Featured Year</h3>
-          <div class="year-chips">
-            <div 
-              *ngFor="let year of availableYears" 
-              class="year-chip" 
-              [class.active]="selectedYear === year"
-              (click)="filterBlogsByYear(year)">
-              {{year}}
-            </div>
-          </div>
+      
+      <ng-template #noBlogs>
+        <div class="no-blogs">
+          <p>No blogs available for {{ selectedYear }}.</p>
         </div>
-      </div>
+      </ng-template>
     </div>
+    
+    <ng-template #loadingTemplate>
+      <div class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Loading blogs...</p>
+      </div>
+    </ng-template>
   </div>
