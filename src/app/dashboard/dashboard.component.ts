@@ -15,6 +15,7 @@ import { DataService } from '../services/data.service';
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
 import { DailyTasksComponent } from '../shared/components/daily-tasks/daily.tasks.component';
 import { ShipmentStatisticsComponent } from '../shared/components/shipment-statistics/shipment-statistics.component';
+import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,7 +35,8 @@ import { ShipmentStatisticsComponent } from '../shared/components/shipment-stati
     SsrChartComponent,
     FoodSafetyBlogsComponent,
     DailyTasksComponent,
-    ShipmentStatisticsComponent
+    ShipmentStatisticsComponent,
+    SidebarComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

@@ -76,17 +76,23 @@ export class FoodSafetyBlogsComponent implements OnInit {
   }
 
   loadBlogs(): void {
-    setTimeout(() => {
-      this.blogs = this.getMockBlogs();
-      
-      if (this.previewMode && this.limit) {
-        this.blogs = this.blogs.slice(0, this.limit);
+    this.http.get<Blog[]>('assets/data/blogs.json').subscribe({
+      next: (blogs) => {
+        this.blogs = blogs;
+        
+        if (this.previewMode && this.limit) {
+          this.blogs = this.blogs.slice(0, this.limit);
+        }
+        
+        this.extractAvailableYears();
+        this.filterBlogsByYear(this.selectedYear);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading blog data:', error);
+        this.isLoading = false;
       }
-      
-      this.extractAvailableYears();
-      this.filterBlogsByYear(this.selectedYear);
-      this.isLoading = false;
-    }, 1000);
+    });
   }
 
   extractAvailableYears(): void {
@@ -100,7 +106,6 @@ export class FoodSafetyBlogsComponent implements OnInit {
             yearsSet.add(year);
           }
         } catch (e) {
-          // Skip invalid dates
         }
       }
     });
@@ -142,58 +147,5 @@ export class FoodSafetyBlogsComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  getMockBlogs(): Blog[] {
-    return [
-      {
-        id: "1",
-        title: "Food Grocery Logistics – Frequency of Shoppers",
-        image: "assets/images/blog/food-safety-1.jpg",
-        type: "Safety",
-        descriptiton: "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
-        publishedDate: "2023-12-24",
-        blogInfo: {
-          postBy: "John Smith",
-          desc: "Food safety is paramount in grocery store operations. This blog explores the essential practices that stores must implement to protect customers and comply with health regulations. From proper temperature control to handling procedures, we cover it all."
-        }
-      },
-      {
-        id: "2",
-        title: "Different Types of Consumer Goods in the US",
-        image: "assets/images/blog/food-expiration.jpg",
-        type: "Education",
-        descriptiton: "An overview of the main categories of consumer goods in the US: durable, non-durable and services. Understanding these categories helps retailers better serve their customers.",
-        publishedDate: "2023-02-21",
-        blogInfo: {
-          postBy: "Sarah Johnson",
-          desc: "Food expiration dates can be confusing for both consumers and retailers. This guide explains the differences between various date labels and provides best practices for inventory management to reduce waste while maintaining safety standards."
-        }
-      },
-      {
-        id: "3",
-        title: "Inventory Turnover Ratios",
-        image: "assets/images/blog/cross-contamination.jpg",
-        type: "Safety",
-        descriptiton: "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
-        publishedDate: "2023-01-04",
-        blogInfo: {
-          postBy: "Michael Chen",
-          desc: "Cross-contamination is a serious risk in grocery stores that can lead to foodborne illness. This blog discusses effective strategies for preventing cross-contamination, including proper storage practices, handling procedures, and staff training recommendations."
-        }
-      },
-      {
-        id: "4",
-        title: "Grocery Ecommerce Platforms",
-        image: "assets/images/blog/haccp.jpg",
-        type: "Compliance",
-        descriptiton: "Warehouse management is usually clubbed together with logistics, but it is broad enough to be considered a separate category. Learn about the latest platforms.",
-        publishedDate: "2022-09-12",
-        blogInfo: {
-          postBy: "Lisa Rodriguez",
-          desc: "HACCP is a systematic preventive approach to food safety. This comprehensive guide walks through the process of implementing HACCP in retail food operations, helping stores identify, evaluate, and control food safety hazards throughout their operations."
-        }
-      }
-    ];
   }
 }
