@@ -55,12 +55,7 @@
         <span>Dashboard</span>
         <span class="toolbar-spacer"></span>
         <div class="quick-actions">
-          <button mat-icon-button matTooltip="Assign New Task" (click)="openTaskAssignmentDialog()">
-            <mat-icon>assignment</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Add New Stock" (click)="openAddNewStockDialog()">
-            <mat-icon>add_shopping_cart</mat-icon>
-          </button>
+          <!-- Dialog buttons removed as part of cleanup -->
         </div>
         <div class="user-info">
           <span>Welcome, {{currentUser}}</span>
@@ -105,6 +100,8 @@
               <mat-card>
                 <mat-card-header>
                   <mat-card-title>Food Safety Blogs</mat-card-title>
+                  <span class="spacer"></span>
+                  <a routerLink="/food-safety-blogs" mat-button color="primary">View All</a>
                 </mat-card-header>
                 <mat-card-content>
                   <app-food-safety-blogs [previewMode]="true" [limit]="2"></app-food-safety-blogs>

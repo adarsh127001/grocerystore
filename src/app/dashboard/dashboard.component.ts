@@ -12,7 +12,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
-import { DialogService } from '../services/dialog.service';
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
 import { DailyTasksComponent } from '../shared/components/daily-tasks/daily.tasks.component';
 import { ShipmentStatisticsComponent } from '../shared/components/shipment-statistics/shipment-statistics.component';
@@ -51,7 +50,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService,
-    private dialogService: DialogService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -81,22 +79,6 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         this.orderAnalysisData = this.dataService.getMockOrdersData().stockInventoryAnalysisChartData;
-      }
-    });
-  }
-  
-  openTaskAssignmentDialog() {
-    this.dialogService.openTaskAssignmentDialog().subscribe(result => {
-      if (result) {
-        // Handle task assignment
-      }
-    });
-  }
-  
-  openAddNewStockDialog() {
-    this.dialogService.openAddNewStockDialog().subscribe(result => {
-      if (result) {
-        // Handle new stock
       }
     });
   }
