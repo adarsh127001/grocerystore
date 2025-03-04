@@ -68,6 +68,15 @@ src/app/core/services/auth.service.ts
 src/app/dashboard/dashboard.component.css
 src/app/dashboard/dashboard.component.html
 src/app/dashboard/dashboard.component.ts
+src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.css
+src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.html
+src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.ts
+src/app/food-safety-blogs/blog-detail/blog-detail.component.css
+src/app/food-safety-blogs/blog-detail/blog-detail.component.html
+src/app/food-safety-blogs/blog-detail/blog-detail.component.ts
+src/app/food-safety-blogs/food-safety-blogs.component.css
+src/app/food-safety-blogs/food-safety-blogs.component.html
+src/app/food-safety-blogs/food-safety-blogs.component.ts
 src/app/home/home.component.ts
 src/app/inventory/high-demand-orders/high-demand-orders.component.css
 src/app/inventory/high-demand-orders/high-demand-orders.component.html
@@ -83,22 +92,20 @@ src/app/inventory/inventory.routes.ts
 src/app/inventory/stock-overview/stock-overview.component.css
 src/app/inventory/stock-overview/stock-overview.component.html
 src/app/inventory/stock-overview/stock-overview.component.ts
+src/app/services/blog.service.ts
 src/app/services/data.service.ts
 src/app/services/inventory.service.ts
 src/app/shared/components/chart/chart.component.ts
 src/app/shared/components/daily-tasks/daily.tasks.component.css
 src/app/shared/components/daily-tasks/daily.tasks.component.html
 src/app/shared/components/daily-tasks/daily.tasks.component.ts
-src/app/shared/components/food-blogs/food-blogs.component.css
-src/app/shared/components/food-blogs/food-blogs.component.html
-src/app/shared/components/food-blogs/food-blogs.component.ts
 src/app/shared/components/header/header.component.ts
 src/app/shared/components/shipment-stats/shipment-stats.component.css
 src/app/shared/components/shipment-stats/shipment-stats.component.html
 src/app/shared/components/shipment-stats/shipment-stats.component.ts
 src/app/shared/components/sidebar/sidebar.component.css
 src/app/shared/components/sidebar/sidebar.component.html
-src/app/shared/components/sidebar/sidenav.component.ts
+src/app/shared/components/sidebar/sidebar.component.ts
 src/app/shared/components/ssr-chart/ssr-chart.component.ts
 src/assets/data/db.json
 src/assets/data/users.json
@@ -1305,11 +1312,12 @@ export const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent) },
   
   // Main navigation items
-  { path: 'stocks', loadComponent: () => import('./inventory/stocks/stocks.component').then(c => c.StocksComponent) },
-  { path: 'shipment-tracking', loadComponent: () => import('./shipment-tracking/shipment-tracking.component').then(c => c.ShipmentTrackingComponent) },
-  { path: 'reports-analytics', loadComponent: () => import('./reports-analytics/reports-analytics.component').then(c => c.ReportsAnalyticsComponent) },
-  { path: 'customer-management', loadComponent: () => import('./customer-management/customer-management.component').then(c => c.CustomerManagementComponent) },
+  // { path: 'stocks', loadComponent: () => import('./inventory/stocks/stocks.component').then(c => c.StocksComponent) },
+  // { path: 'shipment-tracking', loadComponent: () => import('./shipment-tracking/shipment-tracking.component').then(c => c.ShipmentTrackingComponent) },
+  // { path: 'reports-analytics', loadComponent: () => import('./reports-analytics/reports-analytics.component').then(c => c.ReportsAnalyticsComponent) },
+  // { path: 'customer-management', loadComponent: () => import('./customer-management/customer-management.component').then(c => c.CustomerManagementComponent) },
   { path: 'food-safety-blogs', loadComponent: () => import('./food-safety-blogs/food-safety-blogs.component').then(c => c.FoodSafetyBlogsComponent) },
+  { path: 'food-safety-blogs/:id', loadComponent: () => import('./food-safety-blogs/blog-detail/blog-detail.component').then(c => c.BlogDetailComponent) },
   
   // Legacy routes - keep for backward compatibility
   { path: 'inventory', children: INVENTORY_ROUTES },
@@ -2173,6 +2181,132 @@ File: src/app/dashboard/dashboard.component.css
     font-size: 12px;
     color: #999;
   }
+  /* Add these styles from the sidebar component */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  color: #1a4ca1;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #333;
+}
+
+mat-nav-list {
+  padding-top: 0;
+}
+
+mat-nav-list a.mat-list-item {
+  height: 48px;
+  margin: 2px 8px;
+  border-radius: 4px;
+}
+
+.menu-icon {
+  color: #1a4ca1;
+  margin-right: 12px;
+}
+
+mat-nav-list a.mat-list-item span {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+mat-nav-list a.mat-list-item.active-link {
+  background-color: #1a4ca1;
+}
+
+mat-nav-list a.mat-list-item.active-link .menu-icon,
+mat-nav-list a.mat-list-item.active-link span {
+  color: white;
+}
+
+mat-nav-list a.mat-list-item:hover:not(.active-link) {
+  background-color: rgba(26, 76, 161, 0.1);
+}
+
+/* Existing dashboard styles */
+.dashboard-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-container {
+  flex: 1;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: white;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-content {
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.date-display {
+  color: #5f6368;
+  font-size: 14px;
+}
+
+/* Blog preview section styling */
+.blog-preview-section {
+  margin-top: 24px;
+  max-width: 100%;
+}
+
+/* Make sure the dashboard layout has appropriate grid or flex structure */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 992px) {
+  .main-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .dashboard-header {
+    grid-column: 1 / -1;
+  }
+}
 
 ================
 File: src/app/dashboard/dashboard.component.html
@@ -2187,29 +2321,41 @@ File: src/app/dashboard/dashboard.component.html
 
       <mat-nav-list class="nav-list">
         <a mat-list-item routerLink="/dashboard" class="nav-list-item active">
-          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <mat-icon matListItemIcon>grid_view</mat-icon>
           <span matListItemTitle>Dashboard</span>
         </a>
-        <a mat-list-item routerLink="/inventory" class="nav-list-item">
-          <mat-icon matListItemIcon>inventory_2</mat-icon>
-          <span matListItemTitle>Inventory</span>
+        <a mat-list-item routerLink="/stocks" class="nav-list-item">
+          <mat-icon matListItemIcon>trending_up</mat-icon>
+          <span matListItemTitle>Stocks Management</span>
         </a>
-        <a mat-list-item routerLink="/shipments" class="nav-list-item">
-          <mat-icon matListItemIcon>local_shipping</mat-icon>
+        <a mat-list-item routerLink="/shipment-tracking" class="nav-list-item">
+          <mat-icon matListItemIcon>sync</mat-icon>
           <span matListItemTitle>Shipment Tracking</span>
         </a>
-        <a mat-list-item routerLink="/tasks" class="nav-list-item">
-          <mat-icon matListItemIcon>task_alt</mat-icon>
-          <span matListItemTitle>Tasks</span>
+        <a mat-list-item routerLink="/reports-analytics" class="nav-list-item">
+          <mat-icon matListItemIcon>description</mat-icon>
+          <span matListItemTitle>Reports & Analytics</span>
         </a>
-        <a mat-list-item routerLink="/blogs" class="nav-list-item">
+        <a mat-list-item routerLink="/customer-management" class="nav-list-item">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Customer Management</span>
+        </a>
+        <a mat-list-item routerLink="/food-safety-blogs" class="nav-list-item">
           <mat-icon matListItemIcon>article</mat-icon>
           <span matListItemTitle>Food Safety Blogs</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item (click)="logout()" class="nav-list-item">
-          <mat-icon matListItemIcon>logout</mat-icon>
-          <span matListItemTitle>Logout</span>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>settings</mat-icon>
+          <span matListItemTitle>Settings</span>
+        </a>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>account_circle</mat-icon>
+          <span matListItemTitle>My Account</span>
+        </a>
+        <a mat-list-item class="nav-list-item">
+          <mat-icon matListItemIcon>help</mat-icon>
+          <span matListItemTitle>Help & Support</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>
@@ -2248,6 +2394,10 @@ File: src/app/dashboard/dashboard.component.html
             [selectedRange]="selectedRange">
           </app-ssr-chart>
           
+          <!-- Add the Food Safety Blog Preview component here -->
+          <div class="blog-preview-section">
+            <app-food-safety-blog-preview></app-food-safety-blog-preview>
+          </div>
         </div>
       </div>
     </mat-sidenav-content>
@@ -2270,6 +2420,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
+import { FoodSafetyBlogPreviewComponent } from './food-safety-blog-preview/food-safety-blog-preview.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -2285,7 +2436,8 @@ import { DataService } from '../services/data.service';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    SsrChartComponent
+    SsrChartComponent,
+    FoodSafetyBlogPreviewComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -2342,6 +2494,687 @@ export class DashboardComponent implements OnInit {
     }
     
     this.router.navigate(['/login']);
+  }
+}
+
+================
+File: src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.css
+================
+.blog-preview-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.view-all {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.blog-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blog-card {
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.blog-image {
+  width: 100px;
+  height: 70px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-content {
+  flex: 1;
+}
+
+.blog-date {
+  font-size: 12px;
+  color: #5f6368;
+  margin-bottom: 4px;
+}
+
+.blog-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+}
+
+.blog-description {
+  margin: 0;
+  font-size: 12px;
+  color: #5f6368;
+  line-height: 1.4;
+}
+
+.loading-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  color: #5f6368;
+}
+
+================
+File: src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.html
+================
+<div class="blog-preview-container">
+    <div class="header">
+      <h2>Food Safety Blogs</h2>
+      <a routerLink="/food-safety-blogs" class="view-all">View All</a>
+    </div>
+  
+    <div class="blog-cards" *ngIf="!isLoading; else loadingTemplate">
+      <div class="blog-card" *ngFor="let blog of blogs">
+        <div class="blog-image">
+          <img [src]="'assets/images/' + blog.image" alt="Blog image" onerror="this.src='assets/images/default-blog.jpg'">
+        </div>
+        <div class="blog-content">
+          <div class="blog-date">{{formatDate(blog.publishedDate)}}</div>
+          <h3 class="blog-title">{{blog.title}}</h3>
+          <p class="blog-description">{{blog.descriptiton | slice:0:80}}{{blog.descriptiton.length > 80 ? '...' : ''}}</p>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #loadingTemplate>
+      <div class="loading-placeholder">
+        <p>Loading blog posts...</p>
+      </div>
+    </ng-template>
+  </div>
+
+================
+File: src/app/dashboard/food-safety-blog-preview/food-safety-blog-preview.component.ts
+================
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-food-safety-blog-preview',
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule],
+  templateUrl: './food-safety-blog-preview.component.html',
+  styleUrls: ['./food-safety-blog-preview.component.css']
+})
+export class FoodSafetyBlogPreviewComponent implements OnInit {
+  blogs: any[] = [];
+  isLoading = true;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.getBlogs().subscribe({
+      next: (data) => {
+        // Get the two most recent blogs for preview
+        this.blogs = data.slice(0, 2);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching blog data:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  getBlogs(): Observable<any[]> {
+    return this.http.get<any>('assets/data/db.json').pipe(
+      map(data => {
+        const blogs = data.blogs || [];
+        
+        // Add mock data if the blogs array is empty or has only one entry
+        if (blogs.length === 0 || blogs.length === 1) {
+          blogs.push(
+            {
+              id: "002",
+              title: "FDA reviews popular Ice-cream brand",
+              image: "ice-cream.jpg",
+              type: "Food Safety",
+              descriptiton: "Known for its rich flavors and high-quality ingredients, Häagen-Dazs has passed FDA inspection with flying colors.",
+              publishedDate: "2023-11-24T00:00:00",
+              blogInfo: {
+                carouselImage: ["ice-cream1.jpg", "ice-cream2.jpg", "ice-cream3.jpg"],
+                postBy: "Sarah Johnson",
+                desc: "The FDA has completed its annual review of popular ice cream brands, with Häagen-Dazs receiving top marks for quality and safety standards."
+              }
+            },
+            {
+              id: "003",
+              title: "Cost-effective Buyings",
+              image: "grocery-store.jpg",
+              type: "Shopping Tips",
+              descriptiton: "Brand loyalty significantly benefits retailers by boosting sales. Not only do existing customers spend more, but they also refer new customers.",
+              publishedDate: "2024-09-05T00:00:00",
+              blogInfo: {
+                carouselImage: ["grocery1.jpg", "grocery2.jpg", "grocery3.jpg"],
+                postBy: "Michael Chen",
+                desc: "In today's competitive retail environment, building brand loyalty is more important than ever."
+              }
+            }
+          );
+        }
+        
+        return blogs;
+      }),
+      catchError(error => {
+        console.error('Error loading blog data', error);
+        return of([]);
+      })
+    );
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+}
+
+================
+File: src/app/food-safety-blogs/blog-detail/blog-detail.component.css
+================
+.blog-detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #5f6368;
+}
+
+.error-container mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 16px;
+  color: #d93025;
+}
+
+.error-container h2 {
+  margin-bottom: 8px;
+  color: #202124;
+}
+
+.error-container p {
+  margin-bottom: 24px;
+  color: #5f6368;
+}
+
+.blog-header {
+  margin-bottom: 24px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: #1a73e8;
+  text-decoration: none;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.back-link mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  margin-right: 4px;
+}
+
+.blog-header h1 {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #202124;
+  line-height: 1.2;
+}
+
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: #5f6368;
+}
+
+.blog-image-main {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image-main img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.blog-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #202124;
+}
+
+.blog-description {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.blog-full-content {
+  margin-bottom: 32px;
+}
+
+.blog-carousel {
+  margin-top: 32px;
+}
+
+.blog-carousel h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #202124;
+}
+
+.carousel-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.carousel-image {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .blog-header h1 {
+    font-size: 24px;
+  }
+  
+  .blog-description {
+    font-size: 16px;
+  }
+}
+
+================
+File: src/app/food-safety-blogs/blog-detail/blog-detail.component.html
+================
+<div class="blog-detail-container">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading blog details...</p>
+  </div>
+
+  <div *ngIf="!isLoading && error" class="error-container">
+    <mat-icon>error_outline</mat-icon>
+    <h2>Blog Not Found</h2>
+    <p>The blog post you're looking for doesn't exist or has been removed.</p>
+    <button mat-raised-button color="primary" routerLink="/food-safety-blogs">Back to Blogs</button>
+  </div>
+
+  <div *ngIf="!isLoading && !error && blog" class="blog-content">
+    <div class="blog-header">
+      <a routerLink="/food-safety-blogs" class="back-link">
+        <mat-icon>arrow_back</mat-icon> Back to Blogs
+      </a>
+      <h1>{{blog.title}}</h1>
+      <div class="blog-meta">
+        <span class="blog-date">{{formatDate(blog.publishedDate)}}</span>
+        <span class="blog-author" *ngIf="blog.blogInfo?.postBy">By {{blog.blogInfo.postBy}}</span>
+        <span class="blog-type" *ngIf="blog.type">{{blog.type}}</span>
+      </div>
+    </div>
+
+    <div class="blog-image-main" *ngIf="blog.image">
+      <img [src]="'assets/images/' + blog.image" alt="Blog main image" onerror="this.src='assets/images/default-blog.jpg'">
+    </div>
+
+    <div class="blog-body">
+      <p class="blog-description">{{blog.descriptiton}}</p>
+      
+      <div class="blog-full-content" *ngIf="blog.blogInfo?.desc">
+        <p>{{blog.blogInfo.desc}}</p>
+      </div>
+
+      <div class="blog-carousel" *ngIf="blog.blogInfo?.carouselImage && blog.blogInfo.carouselImage.length > 0">
+        <h3>Gallery</h3>
+        <div class="carousel-images">
+          <div class="carousel-image" *ngFor="let image of blog.blogInfo.carouselImage">
+            <img [src]="'assets/images/' + image" alt="Blog carousel image" onerror="this.src='assets/images/default-blog.jpg'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+================
+File: src/app/food-safety-blogs/blog-detail/blog-detail.component.ts
+================
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BlogService } from '../../services/blog.service';
+
+@Component({
+  selector: 'app-blog-detail',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule
+  ],
+  templateUrl: './blog-detail.component.html',
+  styleUrls: ['./blog-detail.component.css']
+})
+export class BlogDetailComponent implements OnInit {
+  blog: any = null;
+  isLoading = true;
+  error = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private blogService: BlogService
+  ) {}
+
+  ngOnInit(): void {
+    const blogId = this.route.snapshot.paramMap.get('id');
+    if (blogId) {
+      this.blogService.getBlogById(blogId).subscribe({
+        next: (blog) => {
+          this.blog = blog;
+          this.isLoading = false;
+          if (!blog) {
+            this.error = true;
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching blog details:', error);
+          this.isLoading = false;
+          this.error = true;
+        }
+      });
+    } else {
+      this.isLoading = false;
+      this.error = true;
+    }
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      day: '2-digit', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+  }
+}
+
+================
+File: src/app/food-safety-blogs/food-safety-blogs.component.css
+================
+.blogs-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blogs-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.blogs-header h1 {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #202124;
+}
+
+.blogs-header p {
+  font-size: 16px;
+  color: #5f6368;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #5f6368;
+}
+
+.no-blogs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #5f6368;
+}
+
+.no-blogs mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 16px;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+  height: 180px;
+  overflow: hidden;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+mat-card-content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+.blog-date {
+  font-size: 12px;
+  color: #5f6368;
+  margin-bottom: 8px;
+}
+
+mat-card-title {
+  font-size: 18px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.blog-description {
+  font-size: 14px;
+  color: #5f6368;
+  line-height: 1.5;
+}
+
+mat-card-actions {
+  padding: 8px 16px 16px;
+}
+
+================
+File: src/app/food-safety-blogs/food-safety-blogs.component.html
+================
+<div class="blogs-container">
+  <div class="blogs-header">
+    <h1>Food Safety Blogs</h1>
+    <p>Stay updated with the latest food safety news, regulations, and best practices</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading blogs...</p>
+  </div>
+
+  <div *ngIf="!isLoading && blogs.length === 0" class="no-blogs">
+    <mat-icon>article</mat-icon>
+    <p>No blog posts available at the moment.</p>
+  </div>
+
+  <div *ngIf="!isLoading && blogs.length > 0" class="blogs-grid">
+    <mat-card class="blog-card" *ngFor="let blog of blogs">
+      <div class="blog-image">
+        <img [src]="'assets/images/' + blog.image" alt="Blog image" onerror="this.src='assets/images/default-blog.jpg'">
+      </div>
+      <mat-card-content>
+        <div class="blog-date">{{formatDate(blog.publishedDate)}}</div>
+        <mat-card-title>{{blog.title}}</mat-card-title>
+        <p class="blog-description">{{blog.descriptiton}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" [routerLink]="['/food-safety-blogs', blog.id]">READ MORE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+================
+File: src/app/food-safety-blogs/food-safety-blogs.component.ts
+================
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterModule } from '@angular/router';
+import { BlogService } from '../services/blog.service';
+
+@Component({
+  selector: 'app-food-safety-blogs',
+  standalone: true,
+  imports: [
+    CommonModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    MatProgressSpinnerModule,
+    RouterModule
+  ],
+  templateUrl: './food-safety-blogs.component.html',
+  styleUrls: ['./food-safety-blogs.component.css']
+})
+export class FoodSafetyBlogsComponent implements OnInit {
+  blogs: any[] = [];
+  isLoading = true;
+
+  constructor(private blogService: BlogService) {}
+
+  ngOnInit(): void {
+    this.blogService.getBlogs().subscribe({
+      next: (data) => {
+        this.blogs = data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching blog data:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric' 
+    });
   }
 }
 
@@ -2873,7 +3706,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { InventoryService, InventoryItem } from '../../services/inventory.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { SidebarComponent } from "../../shared/components/sidebar/sidenav.component";
+import { SidebarComponent } from "../../shared/components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-inventory-edit',
@@ -3268,7 +4101,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { SidenavComponent } from '../shared/components/sidebar/sidenav.component';
+import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { ChartComponent } from '../shared/components/chart/chart.component';
 import { StockOverviewComponent } from './stock-overview/stock-overview.component';
@@ -3289,7 +4122,7 @@ interface SummaryData {
     MatTabsModule,
     MatIconModule,
     MatButtonToggleModule,
-    SidenavComponent,
+    SidebarComponent,
     HeaderComponent,
     ChartComponent,
     StockOverviewComponent,
@@ -3746,6 +4579,99 @@ export class StockOverviewComponent implements OnChanges {
       default:
         return '';
     }
+  }
+}
+
+================
+File: src/app/services/blog.service.ts
+================
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+@Injectable({
+  providedIn: 'root'
+})
+export class BlogService {
+  private blogsUrl = 'assets/data/db.json';
+  private blogsCache = new BehaviorSubject<any[]>([]);
+  private isLoading = false;
+
+  constructor(private http: HttpClient) {}
+
+  getBlogs(): Observable<any[]> {
+    // Return cached data if available
+    if (this.blogsCache.value.length > 0) {
+      return of(this.blogsCache.value);
+    }
+
+    // Prevent multiple simultaneous requests
+    if (this.isLoading) {
+      return this.blogsCache.asObservable();
+    }
+
+    this.isLoading = true;
+
+    // Fetch data from JSON file
+    return this.http.get<any>(this.blogsUrl).pipe(
+      tap(data => {
+        console.log('Blog data loaded successfully');
+        // Extract blogs array from the response
+        const blogs = data.blogs || [];
+        
+        // Add some mock data if the blogs array is empty
+        if (blogs.length === 0 || blogs.length === 1) {
+          blogs.push(
+            {
+              id: "002",
+              title: "FDA reviews popular Ice-cream brand",
+              image: "ice-cream.jpg",
+              type: "Food Safety",
+              descriptiton: "Known for its rich flavors and high-quality ingredients, Häagen-Dazs has passed FDA inspection with flying colors.",
+              publishedDate: "2023-11-24T00:00:00",
+              blogInfo: {
+                carouselImage: ["ice-cream1.jpg", "ice-cream2.jpg", "ice-cream3.jpg"],
+                postBy: "Sarah Johnson",
+                desc: "The FDA has completed its annual review of popular ice cream brands, with Häagen-Dazs receiving top marks for quality and safety standards. The inspection, which took place over three months, evaluated everything from ingredient sourcing to manufacturing processes."
+              }
+            },
+            {
+              id: "003",
+              title: "Cost-effective Buyings",
+              image: "grocery-store.jpg",
+              type: "Shopping Tips",
+              descriptiton: "Brand loyalty significantly benefits retailers by boosting sales. Not only do existing customers spend more, but they also refer new customers.",
+              publishedDate: "2024-09-05T00:00:00",
+              blogInfo: {
+                carouselImage: ["grocery1.jpg", "grocery2.jpg", "grocery3.jpg"],
+                postBy: "Michael Chen",
+                desc: "In today's competitive retail environment, building brand loyalty is more important than ever. Studies show that loyal customers spend 67% more than new ones, and are 50% more likely to try new products from their preferred brands."
+              }
+            }
+          );
+        }
+        
+        this.blogsCache.next(blogs);
+        this.isLoading = false;
+      }),
+      catchError(error => {
+        console.error('Error loading blog data', error);
+        this.isLoading = false;
+        return of([]);
+      })
+    );
+  }
+
+  getBlogById(id: string): Observable<any> {
+    return this.getBlogs().pipe(
+      map(blogs => blogs.find(blog => blog.id === id)),
+      catchError(error => {
+        console.error(`Error fetching blog with id ${id}:`, error);
+        return of(null);
+      })
+    );
   }
 }
 
@@ -4266,190 +5192,6 @@ export class DailyTasksComponent implements OnInit {
 }
 
 ================
-File: src/app/shared/components/food-blogs/food-blogs.component.css
-================
-.blogs-card {
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  mat-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-  }
-  
-  .card-actions {
-    margin-left: auto;
-  }
-  
-  mat-card-content {
-    padding: 0 16px 16px;
-  }
-  
-  .blog-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .blog-item {
-    padding: 12px;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    transition: background-color 0.2s;
-  }
-  
-  .blog-item:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-  }
-  
-  .blog-title {
-    margin: 0 0 8px 0;
-    font-size: 16px;
-    font-weight: 500;
-    color: #1976d2;
-  }
-  
-  .blog-summary {
-    margin: 0 0 8px 0;
-    font-size: 14px;
-    color: #555;
-    line-height: 1.4;
-  }
-  
-  .blog-meta {
-    display: flex;
-    gap: 16px;
-    font-size: 12px;
-    color: #777;
-  }
-  
-  .blog-date, .blog-author {
-    display: flex;
-    align-items: center;
-  }
-  
-  .meta-icon {
-    font-size: 14px;
-    height: 14px;
-    width: 14px;
-    margin-right: 4px;
-  }
-
-================
-File: src/app/shared/components/food-blogs/food-blogs.component.html
-================
-<mat-card class="blogs-card">
-    <mat-card-header>
-      <mat-card-title>Food Safety Blogs</mat-card-title>
-      <div class="card-actions">
-        <button mat-button color="primary" routerLink="/blogs">View All</button>
-      </div>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <div class="blog-list">
-        <div *ngFor="let blog of blogs" class="blog-item">
-          <div class="blog-content">
-            <h3 class="blog-title">{{ blog.title }}</h3>
-            <p class="blog-summary">{{ blog.summary }}</p>
-            <div class="blog-meta">
-              <span class="blog-date">
-                <mat-icon class="meta-icon">calendar_today</mat-icon>
-                {{ blog.date | date:'mediumDate' }}
-              </span>
-              <span class="blog-author">
-                <mat-icon class="meta-icon">person</mat-icon>
-                {{ blog.author }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-================
-File: src/app/shared/components/food-blogs/food-blogs.component.ts
-================
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-
-interface Blog {
-  id: string;
-  title: string;
-  summary: string;
-  date: string;
-  author: string;
-  imageUrl?: string;
-}
-
-@Component({
-  selector: 'app-food-blogs',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    RouterModule
-  ],
-  templateUrl: './food-blogs.component.html',
-  styleUrls: ['./food-blogs.component.css']
-})
-export class FoodBlogsComponent implements OnInit {
-  blogs: Blog[] = [
-    {
-      id: '1',
-      title: 'Best Practices for Food Storage',
-      summary: 'Learn the optimal ways to store perishable goods to maximize shelf life.',
-      date: '2025-03-01',
-      author: 'John Smith'
-    },
-    {
-      id: '2',
-      title: 'Food Safety Compliance Updates 2025',
-      summary: 'New regulations that all grocery stores must follow this year.',
-      date: '2025-02-15',
-      author: 'Sarah Johnson'
-    },
-    {
-      id: '3',
-      title: 'Reduce Food Waste in Your Store',
-      summary: 'Practical tips to minimize waste and increase profits.',
-      date: '2025-02-10',
-      author: 'Michael Davis'
-    }
-  ];
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    // Load blogs from API
-    this.http.get('./assets/data/db.json').subscribe({
-      next: (data: any) => {
-        if (data.blogs && data.blogs.length > 0) {
-          console.log('Blog data loaded successfully');
-          // this.blogs = data.blogs;
-          // Using mock data for now
-        }
-      },
-      error: (err) => {
-        console.error('Error loading blog data:', err);
-      }
-    });
-  }
-}
-
-================
 File: src/app/shared/components/header/header.component.ts
 ================
 import { Component, Input } from '@angular/core';
@@ -4926,7 +5668,6 @@ File: src/app/shared/components/sidebar/sidebar.component.html
     
     <mat-divider></mat-divider>
     
-    <!-- These items don't need to be functional yet, just displayed -->
     <a mat-list-item>
       <mat-icon class="menu-icon">settings</mat-icon>
       <span>Settings</span>
@@ -4945,7 +5686,7 @@ File: src/app/shared/components/sidebar/sidebar.component.html
 </div>
 
 ================
-File: src/app/shared/components/sidebar/sidenav.component.ts
+File: src/app/shared/components/sidebar/sidebar.component.ts
 ================
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';

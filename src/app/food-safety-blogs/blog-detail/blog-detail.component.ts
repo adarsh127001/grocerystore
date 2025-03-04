@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BlogService } from '../../services/blog.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-blog-detail',
@@ -28,17 +28,25 @@ export class BlogDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private blogService: BlogService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     const blogId = this.route.snapshot.paramMap.get('id');
     if (blogId) {
-      this.blogService.getBlogById(blogId).subscribe({
-        next: (blog) => {
-          this.blog = blog;
+      this.http.get<any>('assets/data/db.json').subscribe({
+        next: (data) => {
+          const blogs = data.blogs || [];
+          this.blog = blogs.find((blog: any) => blog.id === blogId);
+          
+          if (!this.blog) {
+            // If blog not found in db.json, check mock data
+            const mockBlogs = this.getMockBlogs();
+            this.blog = mockBlogs.find(blog => blog.id === blogId);
+          }
+          
           this.isLoading = false;
-          if (!blog) {
+          if (!this.blog) {
             this.error = true;
           }
         },
@@ -63,4 +71,22 @@ export class BlogDetailComponent implements OnInit {
       year: 'numeric' 
     });
   }
-} 
+
+  private getMockBlogs(): any[] {
+    return [
+      {
+        id: "001",
+        title: "Food Grocery Logistics - Frequency of Shoppers",
+        image: "grocery-logistics.jpg",
+        type: "Logistics",
+        descriptiton: "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also order groceries online.",
+        publishedDate: "2023-12-04T00:00:00",
+        blogInfo: {
+          postBy: "Sarah Johnson",
+          desc: "Grocery shopping habits have evolved significantly over the past decade. While traditional in-store shopping remains popular, online grocery services have seen exponential growth, especially after the pandemic. This article explores the frequency patterns of modern grocery shoppers and how retailers are adapting to these changing behaviors."
+        }
+      },
+      // Add more mock blogs as needed
+    ];
+  }
+}
