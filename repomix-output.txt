@@ -91,6 +91,7 @@ src/app/shared/components/sidebar/sidebar.component.html
 src/app/shared/components/sidebar/sidebar.component.ts
 src/app/shared/components/ssr-chart/ssr-chart.component.ts
 src/assets/data/db.json
+src/assets/data/tasks.json
 src/assets/data/users.json
 src/index.html
 src/main.server.ts
@@ -4314,8 +4315,8 @@ export class SidebarComponent {
 ================
 File: src/app/shared/components/ssr-chart/ssr-chart.component.ts
 ================
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnChanges, SimpleChanges, AfterViewInit, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -4355,7 +4356,7 @@ interface ChartData {
         </div>
       </mat-card-header>
       <mat-card-content>
-        <div class="chart-container">
+        <div class="chart-container" #chartContainer>
           <svg width="100%" height="300">
             <!-- Y-axis and grid lines -->
             <g class="y-axis">
@@ -4430,7 +4431,7 @@ interface ChartData {
             <g *ngFor="let item of processedData">
               <text 
                 [attr.x]="item.x" 
-                y="288" 
+                y="280" 
                 text-anchor="middle" 
                 font-size="10" 
                 fill="#666">
@@ -4484,6 +4485,7 @@ interface ChartData {
       background-color: #fafafa;
       border: 1px solid #eee;
       border-radius: 4px;
+      overflow: hidden;
     }
     
     ::ng-deep .mat-mdc-form-field-subscript-wrapper {
@@ -4491,7 +4493,7 @@ interface ChartData {
     }
   `]
 })
-export class SsrChartComponent implements OnChanges {
+export class SsrChartComponent implements OnChanges, AfterViewInit {
   @Input() title: string = 'Orders Analysis';
   @Input() data: ChartData[] = [];
   @Input() selectedRange: 'weekly' | 'monthly' | 'yearly' = 'monthly';
@@ -4499,13 +4501,45 @@ export class SsrChartComponent implements OnChanges {
   processedData: any[] = [];
   barWidth: number = 16;
   yAxisTicks: { y: number; value: number }[] = [];
-  chartWidth: number = 800;
+  chartWidth: number = 600;
   chartHeight: number = 240; // Height of the chart area (300 - margins)
   chartTop: number = 30;    // Top margin
+  private isBrowser: boolean;
+  
+  constructor(
+    private elementRef: ElementRef,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+  
+  ngAfterViewInit() {
+    if (this.isBrowser) {
+      this.updateChartWidth();
+      window.addEventListener('resize', () => {
+        this.updateChartWidth();
+        this.processData();
+      });
+    }
+  }
+  
+  updateChartWidth() {
+    if (this.isBrowser) {
+      const containerWidth = this.elementRef.nativeElement.querySelector('.chart-container')?.clientWidth;
+      if (containerWidth) {
+        this.chartWidth = containerWidth;
+        this.processData();
+      }
+    }
+  }
   
   ngOnChanges(changes: SimpleChanges): void {
     if ((changes['data'] || changes['selectedRange']) && this.data) {
-      this.processData();
+      if (this.isBrowser) {
+        setTimeout(() => this.processData(), 0);
+      } else {
+        this.processData();
+      }
     }
   }
 
@@ -7155,6 +7189,84 @@ File: src/assets/data/db.json
 
     ]
 
+}
+
+================
+File: src/assets/data/tasks.json
+================
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Inventory check - Produce section",
+      "priority": "high",
+      "completed": false,
+      "dueDate": "2025-03-04"
+    },
+    {
+      "id": 2,
+      "title": "Restock dairy products",
+      "priority": "medium",
+      "completed": true,
+      "dueDate": "2025-03-04"
+    },
+    {
+      "id": 3,
+      "title": "Check expiration dates - Canned goods",
+      "priority": "high",
+      "completed": false,
+      "dueDate": "2025-03-04"
+    },
+    {
+      "id": 4,
+      "title": "Clean refrigerated displays",
+      "priority": "medium",
+      "completed": false,
+      "dueDate": "2025-03-05"
+    },
+    {
+      "id": 5,
+      "title": "Staff meeting - New promotions",
+      "priority": "medium",
+      "completed": false,
+      "dueDate": "2025-03-05"
+    },
+    {
+      "id": 6,
+      "title": "Update price labels",
+      "priority": "low",
+      "completed": true,
+      "dueDate": "2025-03-04"
+    },
+    {
+      "id": 7,
+      "title": "Quality check - Fresh meat",
+      "priority": "high",
+      "completed": false,
+      "dueDate": "2025-03-04"
+    },
+    {
+      "id": 8,
+      "title": "Organize storage room",
+      "priority": "low",
+      "completed": false,
+      "dueDate": "2025-03-06"
+    },
+    {
+      "id": 9,
+      "title": "Process new deliveries",
+      "priority": "high",
+      "completed": false,
+      "dueDate": "2025-03-05"
+    },
+    {
+      "id": 10,
+      "title": "Customer satisfaction survey",
+      "priority": "medium",
+      "completed": true,
+      "dueDate": "2025-03-03"
+    }
+  ]
 }
 
 ================

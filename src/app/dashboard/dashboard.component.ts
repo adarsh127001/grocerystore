@@ -13,6 +13,10 @@ import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.comp
 import { DataService } from '../services/data.service';
 // Import the main blog component instead of the preview component
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
+// Import the DailyTasksComponent
+import { DailyTasksComponent } from '../shared/components/daily-tasks/daily.tasks.component';
+// Import the ShipmentStatisticsComponent
+import { ShipmentStatisticsComponent } from '../shared/components/shipment-statistics/shipment-statistics.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +33,9 @@ import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs
     MatListModule,
     MatDividerModule,
     SsrChartComponent,
-    FoodSafetyBlogsComponent // Use the main component instead
+    FoodSafetyBlogsComponent, // Use the main component instead
+    DailyTasksComponent, // Add the DailyTasksComponent to imports
+    ShipmentStatisticsComponent // Add the ShipmentStatisticsComponent to imports
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

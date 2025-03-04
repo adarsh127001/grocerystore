@@ -1,23 +1,58 @@
-.chart-container {
-  height: 250px;
-  margin-bottom: 20px;
+.tasks-container {
+  padding: 10px;
 }
 
 .tasks-list {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .task-item {
+  margin-bottom: 15px;
+}
+
+.task-info {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 
-.task-item span {
-  min-width: 100px;
+.task-name {
+  font-weight: 500;
+  color: #333;
 }
 
-.task-item mat-progress-bar {
-  flex: 1;
-  margin: 0 10px;
+.task-progress {
+  font-weight: 500;
+  color: #1976d2;
+}
+
+mat-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+}
+
+::ng-deep .mat-mdc-progress-bar {
+  border-radius: 4px;
+}
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__bar-inner {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Ensure the chart is properly displayed */
+::ng-deep .chart-container {
+  min-height: 350px;
+}
+
+::ng-deep .donut-chart {
+  margin-top: 20px;
+}
+
+::ng-deep .donut-wrapper {
+  height: 200px;
+}
+
+::ng-deep .chart-legend {
+  margin-top: 10px;
 }
