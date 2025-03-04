@@ -46,6 +46,7 @@ Additional Info:
 Directory Structure
 ================================================================
 .editorconfig
+repomix-output.txt
 .gitignore
 angular.json
 instructions.txt
