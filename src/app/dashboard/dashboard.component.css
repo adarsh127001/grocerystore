@@ -336,3 +336,13 @@ mat-nav-list a.mat-list-item:hover:not(.active-link) {
     grid-column: 1 / -1;
   }
 }
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-item {
+  height: 400px; 
+  overflow: hidden;
+}

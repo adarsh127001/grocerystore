@@ -26,7 +26,6 @@ interface SummaryData {
     MatTabsModule,
     MatIconModule,
     MatButtonToggleModule,
-    SidebarComponent,
     HeaderComponent,
     ChartComponent,
     StockOverviewComponent,
