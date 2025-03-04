@@ -41,8 +41,7 @@ export class DailyTasksComponent implements OnInit {
   chartData: ChartDataItem[] = [];
   selectedRange: 'weekly' | 'monthly' | 'yearly' = 'monthly';
   currentTab: 'online' | 'offline' = 'online';
-  
-  // Colors for the donut chart - using colors that match the image
+
   colors: string[] = ['#1a237e', '#283593', '#3949ab', '#9fa8da'];
 
   constructor(
@@ -60,27 +59,24 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Extract unique task types from shipmentsList
           const uniqueTasks = new Set<string>();
           data.shipmentsList.forEach((item: any) => {
             if (item.task) {
               uniqueTasks.add(item.task);
             }
           });
-          
-          // Convert to TaskCategory format
+
           this.taskCategories = Array.from(uniqueTasks).map((type, index) => ({
             id: `00${index + 1}`,
             type: type
           }));
           
           console.log('Task categories loaded successfully');
-          this.processChartData(); // Process data after categories are loaded
+          this.processChartData(); 
         }
       },
       error: (error) => {
         console.error('Error loading task categories:', error);
-        // Fallback data
         this.taskCategories = [
           { id: '001', type: 'Cash Management' },
           { id: '002', type: 'Financial Reporting' },
@@ -96,7 +92,6 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Extract task data from shipmentsList
           this.taskData = data.shipmentsList
             .filter((item: any) => item.connection && item.task)
             .map((item: any) => ({
@@ -110,7 +105,6 @@ export class DailyTasksComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading task data:', error);
-        // Fallback data
         this.taskData = [
           { connection: 'Online', task: 'Cash Management' },
           { connection: 'Online', task: 'Cash Management' },
@@ -134,20 +128,19 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Filter shipments based on current tab and transform to task format
           const filteredShipments = data.shipmentsList
             .filter((item: any) => 
               (this.currentTab === 'online' && item.connection === 'Online') || 
               (this.currentTab === 'offline' && item.connection === 'Offline')
             )
-            .slice(0, 5); // Take only first 5 for display
+            .slice(0, 5); 
           
-          // Transform to task format with random progress
+
           this.tasks = filteredShipments.map((item: any) => {
             return {
               id: item.id,
               name: item.task,
-              progress: Math.floor(Math.random() * 70) + 30 // Random progress between 30-100%
+              progress: Math.floor(Math.random() * 70) + 30
             };
           });
           
@@ -155,8 +148,7 @@ export class DailyTasksComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error loading progress tasks:', error);
-        // Fallback data in case of error
+        console.error('Error loading progress tasks:', error); 
         this.tasks = [
           { id: 1, name: 'Inventory check', progress: 85 },
           { id: 2, name: 'Restock dairy', progress: 100 },
@@ -173,7 +165,6 @@ export class DailyTasksComponent implements OnInit {
       return;
     }
 
-    // For the online tab, use fixed values to match the reference image
     if (this.currentTab === 'online') {
       this.chartData = [
         { label: 'Cash Management', value: 18, color: '#1a237e' },
@@ -184,16 +175,12 @@ export class DailyTasksComponent implements OnInit {
       return;
     }
 
-    // For offline tab, use dynamic data if available
-    // Create a map to count tasks by category
     const taskCounts: { [key: string]: number } = {};
     
-    // Initialize counts for all categories
     this.taskCategories.forEach(category => {
       taskCounts[category.type] = 0;
     });
     
-    // Count tasks by category and connection type
     this.taskData.forEach(task => {
       if (task.connection === 'Offline') {
         if (taskCounts[task.task] !== undefined) {
@@ -202,7 +189,6 @@ export class DailyTasksComponent implements OnInit {
       }
     });
     
-    // Convert to chart data format
     this.chartData = Object.keys(taskCounts).map((category, index) => {
       return {
         label: category,
@@ -211,7 +197,6 @@ export class DailyTasksComponent implements OnInit {
       };
     });
 
-    // Sort the data based on selected range
     if (this.selectedRange === 'weekly') {
       this.chartData.sort((a, b) => b.value - a.value); // Highest to lowest
     } else if (this.selectedRange === 'monthly') {

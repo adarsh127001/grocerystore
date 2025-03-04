@@ -1,0 +1,18 @@
+<div class="shipment-stats-container">
+  <div class="stats-header">
+    <h2 class="stats-title">Shipment Statistics</h2>
+    <button class="view-all-btn" (click)="viewAll()">View All</button>
+  </div>
+  
+  <!-- Donut Chart -->
+  <app-chart 
+    [chartData]="chartData" 
+    chartType="donut" 
+    [selectedRange]="selectedRange"
+    [showControls]="false"
+    [showSortBy]="false"
+    [showFilter]="false"
+    [showTabs]="false"
+    (rangeChange)="onRangeChange($event)">
+  </app-chart>
+</div>

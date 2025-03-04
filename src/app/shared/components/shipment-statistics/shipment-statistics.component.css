@@ -1,0 +1,61 @@
+.shipment-stats-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.stats-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.view-all-btn {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.view-all-btn:hover {
+  text-decoration: underline;
+}
+
+/* Override chart styles */
+::ng-deep .chart-container {
+  min-height: 300px;
+}
+
+::ng-deep .donut-chart {
+  margin-top: -20px;
+}
+
+::ng-deep .chart-legend {
+  margin-top: 0;
+}
+
+::ng-deep .legend-item {
+  margin-right: 15px;
+}
+
+::ng-deep .legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+::ng-deep .legend-label {
+  font-size: 12px;
+}

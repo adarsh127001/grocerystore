@@ -58,9 +58,11 @@ src/app/app.routes.server.ts
 src/app/app.routes.ts
 src/app/auth/login/login.component.css
 src/app/auth/login/login.component.html
+src/app/auth/login/login.component.spec.ts
 src/app/auth/login/login.component.ts
 src/app/auth/register/register.component.css
 src/app/auth/register/register.component.html
+src/app/auth/register/register.component.spec.ts
 src/app/auth/register/register.component.ts
 src/app/core/services/auth.service.ts
 src/app/dashboard/dashboard.component.css
@@ -76,14 +78,8 @@ src/app/home/home.component.ts
 src/app/models/shipment.model.ts
 src/app/services/blog.service.ts
 src/app/services/data.service.ts
-src/app/services/dialog.service.spec.ts
 src/app/services/dialog.service.ts
 src/app/services/inventory.service.ts
-src/app/services/shipment.service.ts
-src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.css
-src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.html
-src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.spec.ts
-src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.ts
 src/app/shared/components/chart/chart.component.ts
 src/app/shared/components/daily-tasks/daily.tasks.component.css
 src/app/shared/components/daily-tasks/daily.tasks.component.html
@@ -91,7 +87,6 @@ src/app/shared/components/daily-tasks/daily.tasks.component.ts
 src/app/shared/components/header/header.component.ts
 src/app/shared/components/shipment-statistics/shipment-statistics.component.css
 src/app/shared/components/shipment-statistics/shipment-statistics.component.html
-src/app/shared/components/shipment-statistics/shipment-statistics.component.spec.ts
 src/app/shared/components/shipment-statistics/shipment-statistics.component.ts
 src/app/shared/components/shipment-stats/shipment-stats.component.css
 src/app/shared/components/shipment-stats/shipment-stats.component.html
@@ -100,14 +95,7 @@ src/app/shared/components/sidebar/sidebar.component.css
 src/app/shared/components/sidebar/sidebar.component.html
 src/app/shared/components/sidebar/sidebar.component.ts
 src/app/shared/components/ssr-chart/ssr-chart.component.ts
-src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.css
-src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.html
-src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.spec.ts
-src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.ts
-src/app/shipment-tracking/shipment-tracking.component.css
-src/app/shipment-tracking/shipment-tracking.component.html
-src/app/shipment-tracking/shipment-tracking.component.spec.ts
-src/app/shipment-tracking/shipment-tracking.component.ts
+src/assets/data/blogs.json
 src/assets/data/db.json
 src/assets/data/stats.json
 src/assets/data/tasks.json
@@ -947,7 +935,8 @@ export const routes: Routes = [
   { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(c => c.DashboardComponent) },
   { path: 'food-safety-blogs', loadComponent: () => import('./food-safety-blogs/food-safety-blogs.component').then(c => c.FoodSafetyBlogsComponent) },
   { path: 'food-safety-blogs/:id', loadComponent: () => import('./food-safety-blogs/blog-detail/blog-detail.component').then(c => c.BlogDetailComponent) },
-  { path: 'shipments', redirectTo: '/shipment-tracking', pathMatch: 'full' },
+  { path: 'shipment-tracking', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'shipments', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'tasks', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'blogs', redirectTo: '/food-safety-blogs', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' }
@@ -1093,6 +1082,133 @@ File: src/app/auth/login/login.component.html
 </div>
 
 ================
+File: src/app/auth/login/login.component.spec.ts
+================
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PLATFORM_ID } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+
+import { LoginComponent } from './login.component';
+
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
+  let router: Router;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
+        LoginComponent
+      ],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        provideHttpClient()
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router);
+    
+    spyOn(sessionStorage, 'setItem');
+    spyOn(router, 'navigate');
+    
+    spyOn(httpClient, 'get').and.returnValue(of({ users: [] }));
+    
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with empty form', () => {
+    expect(component.loginForm.get('username')?.value).toBe('');
+    expect(component.loginForm.get('password')?.value).toBe('');
+  });
+
+  it('should mark form as invalid when empty', () => {
+    expect(component.loginForm.valid).toBeFalsy();
+  });
+
+  it('should mark form as valid when filled correctly', () => {
+    component.loginForm.patchValue({
+      username: 'testuser',
+      password: 'password123'
+    });
+    expect(component.loginForm.valid).toBeTruthy();
+  });
+
+  it('should handle hardcoded login', fakeAsync(() => {
+    component.loginForm.patchValue({
+      username: 'a',
+      password: 'a'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('isLoggedIn', 'true');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('currentUser', 'a');
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  }));
+
+  it('should handle login from localStorage', fakeAsync(() => {
+    const storedUsers = [{ username: 'localuser', password: 'localpass' }];
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(storedUsers));
+    
+    component.loginForm.patchValue({
+      username: 'localuser',
+      password: 'localpass'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('isLoggedIn', 'true');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('currentUser', 'localuser');
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  }));
+
+  it('should handle login from JSON file', fakeAsync(() => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    const httpGetSpy = httpClient.get as jasmine.Spy;
+    httpGetSpy.and.returnValue(of({ 
+      users: [{ username: 'jsonuser', password: 'jsonpass' }] 
+    }));
+    
+    component.loginForm.patchValue({
+      username: 'jsonuser',
+      password: 'jsonpass'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('isLoggedIn', 'true');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('currentUser', 'jsonuser');
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  }));
+});
+
+================
 File: src/app/auth/login/login.component.ts
 ================
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
@@ -1145,7 +1261,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Test the HTTP call separately to check if it works
     this.http.get<{users: any[]}>('assets/users.json').subscribe({
       next: (data) => {
         console.log('Successfully loaded users.json:', data);
@@ -1162,8 +1277,6 @@ export class LoginComponent implements OnInit {
       const { username, password } = this.loginForm.value;
       
       console.log('Attempting login with:', { username, password });
-
-      // Hardcoded credential check as a fallback
       if (username === 'a' && password === 'a') {
         console.log('Hardcoded login successful');
         
@@ -1176,7 +1289,6 @@ export class LoginComponent implements OnInit {
         return;
       }
       
-      // Check localStorage for registered users first
       if (this.isBrowser) {
         const storedUsersStr = localStorage.getItem('registeredUsers');
         if (storedUsersStr) {
@@ -1199,7 +1311,6 @@ export class LoginComponent implements OnInit {
         }
       }
       
-      // If not found in localStorage, check users.json file
       this.http.get<{users: {username: string, password: string}[]}>('assets/data/users.json').subscribe({
         next: (data) => {
           console.log('Login response data:', data);
@@ -1381,6 +1492,160 @@ File: src/app/auth/register/register.component.html
 </div>
 
 ================
+File: src/app/auth/register/register.component.spec.ts
+================
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PLATFORM_ID } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+
+import { RegisterComponent } from './register.component';
+
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
+  let router: Router;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        RouterTestingModule,
+        NoopAnimationsModule,
+        RegisterComponent
+      ],
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        provideHttpClient()
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RegisterComponent);
+    component = fixture.componentInstance;
+    httpClient = TestBed.inject(HttpClient);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router);
+    
+    spyOn(localStorage, 'setItem');
+    spyOn(router, 'navigate');
+    
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with empty form', () => {
+    expect(component.registerForm.get('username')?.value).toBe('');
+    expect(component.registerForm.get('password')?.value).toBe('');
+    expect(component.registerForm.get('confirmPassword')?.value).toBe('');
+  });
+
+  it('should mark form as invalid when empty', () => {
+    expect(component.registerForm.valid).toBeFalsy();
+  });
+
+  it('should mark form as valid when filled correctly', () => {
+    component.registerForm.patchValue({
+      username: 'testuser',
+      password: 'password123',
+      confirmPassword: 'password123'
+    });
+    expect(component.registerForm.valid).toBeTruthy();
+  });
+
+  it('should mark form as invalid when passwords do not match', () => {
+    component.registerForm.patchValue({
+      username: 'testuser',
+      password: 'password123',
+      confirmPassword: 'password456'
+    });
+    expect(component.registerForm.valid).toBeFalsy();
+  });
+
+  it('should handle successful registration with new user', fakeAsync(() => {
+    const mockUsers = { users: [] };
+    spyOn(httpClient, 'get').and.returnValue(of(mockUsers));
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    
+    component.registerForm.patchValue({
+      username: 'newuser',
+      password: 'password123',
+      confirmPassword: 'password123'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(localStorage.setItem).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+  }));
+
+  it('should handle registration when username already exists in JSON', fakeAsync(() => {
+    const mockUsers = { users: [{ username: 'existinguser', password: 'somepass' }] };
+    spyOn(httpClient, 'get').and.returnValue(of(mockUsers));
+    
+    component.registerForm.patchValue({
+      username: 'existinguser',
+      password: 'password123',
+      confirmPassword: 'password123'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
+  }));
+
+  it('should handle registration when username already exists in localStorage', fakeAsync(() => {
+    const storedUsers = [{ username: 'localuser', password: 'localpass' }];
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(storedUsers));
+    spyOn(httpClient, 'get').and.returnValue(of({ users: [] }));
+    
+    component.registerForm.patchValue({
+      username: 'localuser',
+      password: 'password123',
+      confirmPassword: 'password123'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(component.registerError).toBe(null);
+  }));
+
+  it('should handle fallback registration when HTTP request fails', fakeAsync(() => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
+    spyOn(httpClient, 'get').and.returnValue(throwError(() => new Error('HTTP error')));
+    
+    component.registerForm.patchValue({
+      username: 'newuser',
+      password: 'password123',
+      confirmPassword: 'password123'
+    });
+
+    component.onSubmit();
+    tick();
+
+    expect(localStorage.setItem).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+  }));
+});
+
+================
 File: src/app/auth/register/register.component.ts
 ================
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
@@ -1433,7 +1698,6 @@ export class RegisterComponent {
     }, { validator: this.checkPasswords });
   }
 
-  // Custom validator to check if password and confirmPassword match
   checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
@@ -1448,7 +1712,6 @@ export class RegisterComponent {
       const { username, password } = this.registerForm.value;
       
       if (!this.isBrowser) {
-        // In SSR, just show success message and redirect
         this.snackBar.open('Registration successful! Please login.', 'Close', {
           duration: 5000
         });
@@ -1456,12 +1719,10 @@ export class RegisterComponent {
         return;
       }
       
-      // First, load existing users
       this.http.get<{users: {username: string, password: string}[]}>('assets/data/users.json').subscribe({
         next: (data) => {
           let users = data.users || [];
           
-          // Check if username already exists
           if (users.some(u => u.username === username)) {
             this.isLoading = false;
             this.registerError = 'Username already exists';
@@ -1474,7 +1735,6 @@ export class RegisterComponent {
           // Add new user
           users.push({ username, password });
           
-          // Store in localStorage since we can't modify the file directly
           localStorage.setItem('registeredUsers', JSON.stringify(users));
           
           this.isLoading = false;
@@ -1486,7 +1746,6 @@ export class RegisterComponent {
         error: (error) => {
           console.error('Error loading users during registration:', error);
           
-          // Fallback: create new users array
           const users = [{ username, password }];
           localStorage.setItem('registeredUsers', JSON.stringify(users));
           
@@ -1583,7 +1842,6 @@ export class AuthService {
 ================
 File: src/app/dashboard/dashboard.component.css
 ================
-/* Main container styles */
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -1605,7 +1863,6 @@ File: src/app/dashboard/dashboard.component.css
   height: 100%;
 }
 
-/* Menu header styles */
 .menu-header {
   padding: 16px;
   text-align: center;
@@ -1623,7 +1880,6 @@ File: src/app/dashboard/dashboard.component.css
   color: #666;
 }
 
-/* Navigation list styles */
 .nav-list {
   padding-top: 8px;
 }
@@ -1638,8 +1894,11 @@ File: src/app/dashboard/dashboard.component.css
   color: #1976d2;
 }
 
-/* Toolbar styles */
 .toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.spacer {
   flex: 1 1 auto;
 }
 
@@ -1656,7 +1915,6 @@ File: src/app/dashboard/dashboard.component.css
   gap: 8px;
 }
 
-/* Dashboard content styles */
 .dashboard-content {
   padding: 20px;
   overflow-y: auto;
@@ -1685,14 +1943,12 @@ File: src/app/dashboard/dashboard.component.css
   color: #666;
 }
 
-/* Dashboard grid layout */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-/* Dashboard item styles */
 .dashboard-item {
   height: 400px;
 }
@@ -1719,7 +1975,6 @@ File: src/app/dashboard/dashboard.component.css
   padding: 0 16px 16px 16px;
 }
 
-/* Placeholder content */
 .placeholder-content {
   display: flex;
   justify-content: center;
@@ -1730,7 +1985,6 @@ File: src/app/dashboard/dashboard.component.css
   color: #666;
 }
 
-/* Responsive adjustments */
 @media (max-width: 960px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
@@ -1747,50 +2001,7 @@ File: src/app/dashboard/dashboard.component.html
 <div class="dashboard-container">
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" [mode]="'side'" [opened]="true">
-      <div class="menu-header">
-        <div class="app-logo">Grocery Store</div>
-        <div class="version-info">Management System v1.0</div>
-      </div>
-
-      <mat-nav-list class="nav-list">
-        <a mat-list-item routerLink="/dashboard" class="nav-list-item active">
-          <mat-icon matListItemIcon>grid_view</mat-icon>
-          <span matListItemTitle>Dashboard</span>
-        </a>
-        <a mat-list-item routerLink="/stocks" class="nav-list-item">
-          <mat-icon matListItemIcon>trending_up</mat-icon>
-          <span matListItemTitle>Stocks Management</span>
-        </a>
-        <a mat-list-item routerLink="/shipment-tracking" class="nav-list-item">
-          <mat-icon matListItemIcon>sync</mat-icon>
-          <span matListItemTitle>Shipment Tracking</span>
-        </a>
-        <a mat-list-item routerLink="/reports-analytics" class="nav-list-item">
-          <mat-icon matListItemIcon>description</mat-icon>
-          <span matListItemTitle>Reports & Analytics</span>
-        </a>
-        <a mat-list-item routerLink="/customer-management" class="nav-list-item">
-          <mat-icon matListItemIcon>people</mat-icon>
-          <span matListItemTitle>Customer Management</span>
-        </a>
-        <a mat-list-item routerLink="/food-safety-blogs" class="nav-list-item">
-          <mat-icon matListItemIcon>article</mat-icon>
-          <span matListItemTitle>Food Safety Blogs</span>
-        </a>
-        <mat-divider></mat-divider>
-        <a mat-list-item class="nav-list-item">
-          <mat-icon matListItemIcon>settings</mat-icon>
-          <span matListItemTitle>Settings</span>
-        </a>
-        <a mat-list-item class="nav-list-item">
-          <mat-icon matListItemIcon>account_circle</mat-icon>
-          <span matListItemTitle>My Account</span>
-        </a>
-        <a mat-list-item class="nav-list-item">
-          <mat-icon matListItemIcon>help</mat-icon>
-          <span matListItemTitle>Help & Support</span>
-        </a>
-      </mat-nav-list>
+      <app-sidebar></app-sidebar>
     </mat-sidenav>
 
     <mat-sidenav-content class="sidenav-content">
@@ -1801,12 +2012,6 @@ File: src/app/dashboard/dashboard.component.html
         <span>Dashboard</span>
         <span class="toolbar-spacer"></span>
         <div class="quick-actions">
-          <button mat-icon-button matTooltip="Assign New Task" (click)="openTaskAssignmentDialog()">
-            <mat-icon>assignment</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Add New Stock" (click)="openAddNewStockDialog()">
-            <mat-icon>add_shopping_cart</mat-icon>
-          </button>
         </div>
         <div class="user-info">
           <span>Welcome, {{currentUser}}</span>
@@ -1830,7 +2035,6 @@ File: src/app/dashboard/dashboard.component.html
           </div>
 
           <div class="dashboard-grid">
-            <!-- Orders Analysis Chart -->
             <div class="dashboard-item">
               <mat-card>
                 <mat-card-header>
@@ -1846,11 +2050,12 @@ File: src/app/dashboard/dashboard.component.html
               </mat-card>
             </div>
 
-            <!-- Food Safety Blogs -->
             <div class="dashboard-item">
               <mat-card>
                 <mat-card-header>
                   <mat-card-title>Food Safety Blogs</mat-card-title>
+                  <span class="spacer"></span>
+                  <a routerLink="/food-safety-blogs" mat-button color="primary">View All</a>
                 </mat-card-header>
                 <mat-card-content>
                   <app-food-safety-blogs [previewMode]="true" [limit]="2"></app-food-safety-blogs>
@@ -1858,7 +2063,6 @@ File: src/app/dashboard/dashboard.component.html
               </mat-card>
             </div>
 
-            <!-- Shipment Statistics (replacing Inventory Status) -->
             <div class="dashboard-item">
               <mat-card>
                 <mat-card-content>
@@ -1867,7 +2071,6 @@ File: src/app/dashboard/dashboard.component.html
               </mat-card>
             </div>
 
-            <!-- My Daily Tasks -->
             <div class="dashboard-item">
               <mat-card>
                 <mat-card-header>
@@ -1902,10 +2105,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
-import { DialogService } from '../services/dialog.service';
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
 import { DailyTasksComponent } from '../shared/components/daily-tasks/daily.tasks.component';
 import { ShipmentStatisticsComponent } from '../shared/components/shipment-statistics/shipment-statistics.component';
+import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -1925,7 +2128,8 @@ import { ShipmentStatisticsComponent } from '../shared/components/shipment-stati
     SsrChartComponent,
     FoodSafetyBlogsComponent,
     DailyTasksComponent,
-    ShipmentStatisticsComponent
+    ShipmentStatisticsComponent,
+    SidebarComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
@@ -1941,7 +2145,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService,
-    private dialogService: DialogService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -1971,22 +2174,6 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         this.orderAnalysisData = this.dataService.getMockOrdersData().stockInventoryAnalysisChartData;
-      }
-    });
-  }
-  
-  openTaskAssignmentDialog() {
-    this.dialogService.openTaskAssignmentDialog().subscribe(result => {
-      if (result) {
-        // Handle task assignment
-      }
-    });
-  }
-  
-  openAddNewStockDialog() {
-    this.dialogService.openAddNewStockDialog().subscribe(result => {
-      if (result) {
-        // Handle new stock
       }
     });
   }
@@ -2103,7 +2290,6 @@ File: src/app/food-safety-blogs/blog-detail/blog-detail.component.css
     margin-top: 20px;
     color: #666;
   }
-  /* Add these styles to your existing CSS */
 
 .back-navigation {
     display: flex;
@@ -2173,7 +2359,6 @@ File: src/app/food-safety-blogs/blog-detail/blog-detail.component.html
         <p>{{getDescription()}}</p>
       </div>
       
-      <!-- Additional carousel images if available -->
       <div *ngIf="hasCarouselImages()" class="blog-carousel">
         <h2>Gallery</h2>
         <div class="carousel-images">
@@ -2243,76 +2428,18 @@ export class BlogDetailComponent implements OnInit {
   }
   
   loadBlog(id: string): void {
-    // For now, use mock data
-    const mockBlogs: Blog[] = [
-        {
-            id: "1",
-            title: "Essential Food Safety Practices for Grocery Stores",
-            image: "assets/images/blog/food-safety-1.jpg",
-            type: "Safety",
-            descriptiton: "Learn about the critical food safety practices that every grocery store should implement to ensure customer safety and compliance with regulations.",
-            publishedDate: "2023-05-15",
-            blogInfo: {
-              postBy: "John Smith",
-              desc: "Food safety is paramount in grocery store operations. This blog explores the essential practices that stores must implement to protect customers and comply with health regulations. From proper temperature control to handling procedures, we cover it all."
-            }
-          },
-          {
-            id: "2",
-            title: "Understanding Food Expiration Dates",
-            image: "assets/images/blog/food-expiration.jpg",
-            type: "Education",
-            descriptiton: "A comprehensive guide to understanding food expiration dates, sell-by dates, and best-by dates to reduce waste and ensure food safety.",
-            publishedDate: "2023-07-22",
-            blogInfo: {
-              postBy: "Sarah Johnson",
-              desc: "Food expiration dates can be confusing for both consumers and retailers. This guide explains the differences between various date labels and provides best practices for inventory management to reduce waste while maintaining safety standards."
-            }
-          },
-          {
-            id: "3",
-            title: "Preventing Cross-Contamination in Grocery Stores",
-            image: "assets/images/blog/cross-contamination.jpg",
-            type: "Safety",
-            descriptiton: "Strategies and best practices to prevent cross-contamination between different food products in grocery store environments.",
-            publishedDate: "2023-09-10",
-            blogInfo: {
-              postBy: "Michael Chen",
-              desc: "Cross-contamination is a serious risk in grocery stores that can lead to foodborne illness. This blog discusses effective strategies for preventing cross-contamination, including proper storage practices, handling procedures, and staff training recommendations."
-            }
-          },
-          {
-            id: "4",
-            title: "Implementing HACCP in Retail Food Operations",
-            image: "assets/images/blog/haccp.jpg",
-            type: "Compliance",
-            descriptiton: "A step-by-step guide to implementing Hazard Analysis Critical Control Point (HACCP) systems in retail food operations.",
-            publishedDate: "2024-01-05",
-            blogInfo: {
-              postBy: "Lisa Rodriguez",
-              desc: "HACCP is a systematic preventive approach to food safety. This comprehensive guide walks through the process of implementing HACCP in retail food operations, helping stores identify, evaluate, and control food safety hazards throughout their operations."
-            }
-          },
-          {
-            id: "5",
-            title: "Food Safety Training for Grocery Store Employees",
-            image: "assets/images/blog/training.jpg",
-            type: "Training",
-            descriptiton: "Essential food safety training topics and approaches for grocery store employees at all levels.",
-            publishedDate: "2024-03-18",
-            blogInfo: {
-              postBy: "David Wilson",
-              desc: "Well-trained employees are the first line of defense in food safety. This blog outlines essential training topics for grocery store staff, from basic hygiene practices to advanced food safety protocols, with practical tips for implementing effective training programs."
-            }
-          }
-      // ... other blog entries
-    ];
-    
-    this.blog = mockBlogs.find(blog => blog.id === id) || null;
-    
-    if (!this.blog) {
-      console.error(`Blog with ID ${id} not found`);
-    }
+    this.http.get<Blog[]>('assets/data/blogs.json').subscribe({
+      next: (blogs) => {
+        this.blog = blogs.find(blog => blog.id === id) || null;
+        
+        if (!this.blog) {
+          console.error(`Blog with ID ${id} not found`);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading blog data:', error);
+      }
+    });
   }
   
   formatDate(dateString: string): string {
@@ -2330,7 +2457,6 @@ export class BlogDetailComponent implements OnInit {
     }
   }
   
-  // Helper methods to safely access nested properties
   getAuthor(): string {
     return this.blog?.blogInfo?.postBy || 'Unknown Author';
   }
@@ -2725,17 +2851,23 @@ export class FoodSafetyBlogsComponent implements OnInit {
   }
 
   loadBlogs(): void {
-    setTimeout(() => {
-      this.blogs = this.getMockBlogs();
-      
-      if (this.previewMode && this.limit) {
-        this.blogs = this.blogs.slice(0, this.limit);
+    this.http.get<Blog[]>('assets/data/blogs.json').subscribe({
+      next: (blogs) => {
+        this.blogs = blogs;
+        
+        if (this.previewMode && this.limit) {
+          this.blogs = this.blogs.slice(0, this.limit);
+        }
+        
+        this.extractAvailableYears();
+        this.filterBlogsByYear(this.selectedYear);
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading blog data:', error);
+        this.isLoading = false;
       }
-      
-      this.extractAvailableYears();
-      this.filterBlogsByYear(this.selectedYear);
-      this.isLoading = false;
-    }, 1000);
+    });
   }
 
   extractAvailableYears(): void {
@@ -2749,7 +2881,6 @@ export class FoodSafetyBlogsComponent implements OnInit {
             yearsSet.add(year);
           }
         } catch (e) {
-          // Skip invalid dates
         }
       }
     });
@@ -2791,59 +2922,6 @@ export class FoodSafetyBlogsComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
-  }
-
-  getMockBlogs(): Blog[] {
-    return [
-      {
-        id: "1",
-        title: "Food Grocery Logistics – Frequency of Shoppers",
-        image: "assets/images/blog/food-safety-1.jpg",
-        type: "Safety",
-        descriptiton: "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
-        publishedDate: "2023-12-24",
-        blogInfo: {
-          postBy: "John Smith",
-          desc: "Food safety is paramount in grocery store operations. This blog explores the essential practices that stores must implement to protect customers and comply with health regulations. From proper temperature control to handling procedures, we cover it all."
-        }
-      },
-      {
-        id: "2",
-        title: "Different Types of Consumer Goods in the US",
-        image: "assets/images/blog/food-expiration.jpg",
-        type: "Education",
-        descriptiton: "An overview of the main categories of consumer goods in the US: durable, non-durable and services. Understanding these categories helps retailers better serve their customers.",
-        publishedDate: "2023-02-21",
-        blogInfo: {
-          postBy: "Sarah Johnson",
-          desc: "Food expiration dates can be confusing for both consumers and retailers. This guide explains the differences between various date labels and provides best practices for inventory management to reduce waste while maintaining safety standards."
-        }
-      },
-      {
-        id: "3",
-        title: "Inventory Turnover Ratios",
-        image: "assets/images/blog/cross-contamination.jpg",
-        type: "Safety",
-        descriptiton: "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
-        publishedDate: "2023-01-04",
-        blogInfo: {
-          postBy: "Michael Chen",
-          desc: "Cross-contamination is a serious risk in grocery stores that can lead to foodborne illness. This blog discusses effective strategies for preventing cross-contamination, including proper storage practices, handling procedures, and staff training recommendations."
-        }
-      },
-      {
-        id: "4",
-        title: "Grocery Ecommerce Platforms",
-        image: "assets/images/blog/haccp.jpg",
-        type: "Compliance",
-        descriptiton: "Warehouse management is usually clubbed together with logistics, but it is broad enough to be considered a separate category. Learn about the latest platforms.",
-        publishedDate: "2022-09-12",
-        blogInfo: {
-          postBy: "Lisa Rodriguez",
-          desc: "HACCP is a systematic preventive approach to food safety. This comprehensive guide walks through the process of implementing HACCP in retail food operations, helping stores identify, evaluate, and control food safety hazards throughout their operations."
-        }
-      }
-    ];
   }
 }
 
@@ -3059,32 +3137,10 @@ export class DataService {
 }
 
 ================
-File: src/app/services/dialog.service.spec.ts
-================
-import { TestBed } from '@angular/core/testing';
-
-import { DialogService } from './dialog.service';
-
-describe('DialogService', () => {
-  let service: DialogService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DialogService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
-
-================
 File: src/app/services/dialog.service.ts
 ================
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskAssignmentDialogComponent } from '../shared/components/task-assignment-dialog/task-assignment-dialog.component';
-import { AddNewStockDialogComponent } from '../shared/components/add-new-stock-dialog/add-new-stock-dialog.component';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -3094,33 +3150,7 @@ export class DialogService {
 
   constructor(private dialog: MatDialog) { }
 
-  /**
-   * Opens the task assignment dialog
-   * @param data Optional data to pass to the dialog
-   * @returns An observable that emits the dialog result when closed
-   */
-  openTaskAssignmentDialog(data?: any): Observable<any> {
-    const dialogRef = this.dialog.open(TaskAssignmentDialogComponent, {
-      width: '500px',
-      data: data || {}
-    });
-
-    return dialogRef.afterClosed();
-  }
-
-  /**
-   * Opens the add new stock dialog
-   * @param data Optional data to pass to the dialog
-   * @returns An observable that emits the dialog result when closed
-   */
-  openAddNewStockDialog(data?: any): Observable<any> {
-    const dialogRef = this.dialog.open(AddNewStockDialogComponent, {
-      width: '500px',
-      data: data || {}
-    });
-
-    return dialogRef.afterClosed();
-  }
+  // Dialog methods have been removed as part of cleanup
 }
 
 ================
@@ -3236,380 +3266,6 @@ export class InventoryService {
     this.inventoryItems = this.inventoryItems.filter(item => item.id !== id);
     
     return of(initialLength > this.inventoryItems.length);
-  }
-}
-
-================
-File: src/app/services/shipment.service.ts
-================
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { Shipment, ShipmentStatus } from '../models/shipment.model';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class ShipmentService {
-  constructor(private http: HttpClient) {}
-
-  getShipments(): Observable<Shipment[]> {
-    return this.http.get<any>('assets/data/tasks.json').pipe(
-      map(data => {
-        if (data && data.shipmentsList) {
-          return data.shipmentsList;
-        }
-        return [];
-      }),
-      catchError(error => {
-        console.error('Error fetching shipments:', error);
-        return of(this.getMockShipments());
-      })
-    );
-  }
-
-  getFilteredShipments(status: ShipmentStatus): Observable<Shipment[]> {
-    return this.getShipments().pipe(
-      map(shipments => {
-        if (status === 'all') {
-          return shipments;
-        }
-        return shipments.filter(shipment => shipment.status === status);
-      })
-    );
-  }
-
-  // Mock data in case the API fails
-  private getMockShipments(): Shipment[] {
-    return [
-      {
-        id: 'LP-12345-628-780809',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'completed',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780810',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'completed',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780811',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'in-transit',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780812',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'in-transit',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780813',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'in-transit',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780814',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'pending',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780815',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'closed',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780816',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'failed',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      },
-      {
-        id: 'LP-12345-628-780817',
-        shipperName: 'Dominic Toretto',
-        phoneNo: '+91 5678 867209',
-        status: 'failed',
-        product: 'Cornflakes',
-        supplier: 'Kellogs',
-        quantity: 229,
-        price: 100
-      }
-    ];
-  }
-}
-
-================
-File: src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.css
-================
-.dialog-container {
-  padding: 0;
-  width: 500px;
-  max-width: 100%;
-}
-
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.dialog-header h2 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
-}
-
-mat-dialog-content {
-  padding: 24px;
-  max-height: 60vh;
-  overflow-y: auto;
-}
-
-.form-row {
-  margin-bottom: 16px;
-}
-
-.two-columns {
-  display: flex;
-  gap: 16px;
-}
-
-.two-columns > * {
-  flex: 1;
-}
-
-.full-width {
-  width: 100%;
-}
-
-mat-dialog-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 24px;
-  border-top: 1px solid #e0e0e0;
-  gap: 8px;
-}
-
-@media (max-width: 600px) {
-  .dialog-container {
-    width: 100%;
-  }
-  
-  .two-columns {
-    flex-direction: column;
-    gap: 16px;
-  }
-}
-
-================
-File: src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.html
-================
-<div class="dialog-container">
-  <div class="dialog-header">
-    <h2 mat-dialog-title>Add New Stock</h2>
-    <button mat-icon-button (click)="onCancel()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
-  <div mat-dialog-content>
-    <form #stockForm="ngForm">
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Product Name</mat-label>
-          <input matInput [(ngModel)]="stockItem.productName" name="productName" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Category</mat-label>
-          <mat-select [(ngModel)]="stockItem.category" name="category" required>
-            <mat-option *ngFor="let category of categories" [value]="category">
-              {{category}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row two-columns">
-        <mat-form-field appearance="outline">
-          <mat-label>Quantity</mat-label>
-          <input matInput type="number" [(ngModel)]="stockItem.quantity" name="quantity" min="1" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Unit Price ($)</mat-label>
-          <input matInput type="number" [(ngModel)]="stockItem.unitPrice" name="unitPrice" min="0.01" step="0.01" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Supplier</mat-label>
-          <mat-select [(ngModel)]="stockItem.supplier" name="supplier" required>
-            <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
-              {{supplier}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Expiry Date</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="stockItem.expiryDate" name="expiryDate" required>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </form>
-  </div>
-
-  <div mat-dialog-actions>
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!stockForm.valid">
-      Add Stock
-    </button>
-  </div>
-</div>
-
-================
-File: src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.spec.ts
-================
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AddNewStockDialogComponent } from './add-new-stock-dialog.component';
-
-describe('AddNewStockDialogComponent', () => {
-  let component: AddNewStockDialogComponent;
-  let fixture: ComponentFixture<AddNewStockDialogComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AddNewStockDialogComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(AddNewStockDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-
-================
-File: src/app/shared/components/add-new-stock-dialog/add-new-stock-dialog.component.ts
-================
-import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
-
-export interface StockItem {
-  productName: string;
-  category: string;
-  quantity: number;
-  unitPrice: number;
-  supplier: string;
-  expiryDate: Date;
-}
-
-@Component({
-  selector: 'app-add-new-stock-dialog',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule
-  ],
-  templateUrl: './add-new-stock-dialog.component.html',
-  styleUrl: './add-new-stock-dialog.component.css'
-})
-export class AddNewStockDialogComponent {
-  categories: string[] = ['Dairy', 'Produce', 'Meat', 'Bakery', 'Beverages', 'Frozen Foods', 'Canned Goods', 'Dry Goods'];
-  suppliers: string[] = ['Global Foods Inc.', 'Fresh Farms Supply', 'Quality Distributors', 'Organic Harvest Co.', 'Premium Goods Ltd.'];
-  
-  stockItem: StockItem = {
-    productName: '',
-    category: '',
-    quantity: 0,
-    unitPrice: 0,
-    supplier: '',
-    expiryDate: new Date(new Date().setMonth(new Date().getMonth() + 3)) // Default to 3 months from now
-  };
-
-  constructor(
-    public dialogRef: MatDialogRef<AddNewStockDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
-  onSubmit(): void {
-    this.dialogRef.close(this.stockItem);
   }
 }
 
@@ -4047,7 +3703,7 @@ export class ChartComponent implements OnChanges, AfterViewInit {
     }
     
     // X-axis positioning
-    const xPadding = 40; // Left padding for Y-axis
+    const xPadding = 40; 
     const chartContentWidth = this.chartWidth - xPadding - 20; // 20px right padding
     const barSpacing = chartContentWidth / (Math.max(this.chartData.length, 1));
     const barWidth = Math.min(barSpacing * 0.6, 40); // Limit bar width
@@ -4296,8 +3952,7 @@ export class DailyTasksComponent implements OnInit {
   chartData: ChartDataItem[] = [];
   selectedRange: 'weekly' | 'monthly' | 'yearly' = 'monthly';
   currentTab: 'online' | 'offline' = 'online';
-  
-  // Colors for the donut chart - using colors that match the image
+
   colors: string[] = ['#1a237e', '#283593', '#3949ab', '#9fa8da'];
 
   constructor(
@@ -4315,27 +3970,24 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Extract unique task types from shipmentsList
           const uniqueTasks = new Set<string>();
           data.shipmentsList.forEach((item: any) => {
             if (item.task) {
               uniqueTasks.add(item.task);
             }
           });
-          
-          // Convert to TaskCategory format
+
           this.taskCategories = Array.from(uniqueTasks).map((type, index) => ({
             id: `00${index + 1}`,
             type: type
           }));
           
           console.log('Task categories loaded successfully');
-          this.processChartData(); // Process data after categories are loaded
+          this.processChartData(); 
         }
       },
       error: (error) => {
         console.error('Error loading task categories:', error);
-        // Fallback data
         this.taskCategories = [
           { id: '001', type: 'Cash Management' },
           { id: '002', type: 'Financial Reporting' },
@@ -4351,7 +4003,6 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Extract task data from shipmentsList
           this.taskData = data.shipmentsList
             .filter((item: any) => item.connection && item.task)
             .map((item: any) => ({
@@ -4365,7 +4016,6 @@ export class DailyTasksComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading task data:', error);
-        // Fallback data
         this.taskData = [
           { connection: 'Online', task: 'Cash Management' },
           { connection: 'Online', task: 'Cash Management' },
@@ -4389,20 +4039,19 @@ export class DailyTasksComponent implements OnInit {
     this.http.get<any>('assets/data/tasks.json').subscribe({
       next: (data) => {
         if (data && data.shipmentsList) {
-          // Filter shipments based on current tab and transform to task format
           const filteredShipments = data.shipmentsList
             .filter((item: any) => 
               (this.currentTab === 'online' && item.connection === 'Online') || 
               (this.currentTab === 'offline' && item.connection === 'Offline')
             )
-            .slice(0, 5); // Take only first 5 for display
+            .slice(0, 5); 
           
-          // Transform to task format with random progress
+
           this.tasks = filteredShipments.map((item: any) => {
             return {
               id: item.id,
               name: item.task,
-              progress: Math.floor(Math.random() * 70) + 30 // Random progress between 30-100%
+              progress: Math.floor(Math.random() * 70) + 30
             };
           });
           
@@ -4410,8 +4059,7 @@ export class DailyTasksComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error loading progress tasks:', error);
-        // Fallback data in case of error
+        console.error('Error loading progress tasks:', error); 
         this.tasks = [
           { id: 1, name: 'Inventory check', progress: 85 },
           { id: 2, name: 'Restock dairy', progress: 100 },
@@ -4428,7 +4076,6 @@ export class DailyTasksComponent implements OnInit {
       return;
     }
 
-    // For the online tab, use fixed values to match the reference image
     if (this.currentTab === 'online') {
       this.chartData = [
         { label: 'Cash Management', value: 18, color: '#1a237e' },
@@ -4439,16 +4086,12 @@ export class DailyTasksComponent implements OnInit {
       return;
     }
 
-    // For offline tab, use dynamic data if available
-    // Create a map to count tasks by category
     const taskCounts: { [key: string]: number } = {};
     
-    // Initialize counts for all categories
     this.taskCategories.forEach(category => {
       taskCounts[category.type] = 0;
     });
     
-    // Count tasks by category and connection type
     this.taskData.forEach(task => {
       if (task.connection === 'Offline') {
         if (taskCounts[task.task] !== undefined) {
@@ -4457,7 +4100,6 @@ export class DailyTasksComponent implements OnInit {
       }
     });
     
-    // Convert to chart data format
     this.chartData = Object.keys(taskCounts).map((category, index) => {
       return {
         label: category,
@@ -4466,7 +4108,6 @@ export class DailyTasksComponent implements OnInit {
       };
     });
 
-    // Sort the data based on selected range
     if (this.selectedRange === 'weekly') {
       this.chartData.sort((a, b) => b.value - a.value); // Highest to lowest
     } else if (this.selectedRange === 'monthly') {
@@ -4624,33 +4265,6 @@ File: src/app/shared/components/shipment-statistics/shipment-statistics.componen
     (rangeChange)="onRangeChange($event)">
   </app-chart>
 </div>
-
-================
-File: src/app/shared/components/shipment-statistics/shipment-statistics.component.spec.ts
-================
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ShipmentStatisticsComponent } from './shipment-statistics.component';
-
-describe('ShipmentStatisticsComponent', () => {
-  let component: ShipmentStatisticsComponent;
-  let fixture: ComponentFixture<ShipmentStatisticsComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShipmentStatisticsComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ShipmentStatisticsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
 
 ================
 File: src/app/shared/components/shipment-statistics/shipment-statistics.component.ts
@@ -5608,759 +5222,118 @@ export class SsrChartComponent implements OnChanges, AfterViewInit {
 }
 
 ================
-File: src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.css
+File: src/assets/data/blogs.json
 ================
-.dialog-container {
-  padding: 0;
-  width: 500px;
-  max-width: 100%;
-}
-
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.dialog-header h2 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
-}
-
-mat-dialog-content {
-  padding: 24px;
-  max-height: 60vh;
-  overflow-y: auto;
-}
-
-.form-row {
-  margin-bottom: 16px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.priority-label {
-  display: block;
-  margin-bottom: 8px;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
-}
-
-.priority-group {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  margin-top: 8px;
-}
-
-mat-dialog-actions {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 24px;
-  border-top: 1px solid #e0e0e0;
-  gap: 8px;
-}
-
-@media (max-width: 600px) {
-  .dialog-container {
-    width: 100%;
-  }
-  
-  .priority-group {
-    flex-direction: column;
-    gap: 8px;
-  }
-}
-
-================
-File: src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.html
-================
-<div class="dialog-container">
-  <div class="dialog-header">
-    <h2 mat-dialog-title>Assign New Task</h2>
-    <button mat-icon-button (click)="onCancel()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
-  <div mat-dialog-content>
-    <form #taskForm="ngForm">
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Task Type</mat-label>
-          <mat-select [(ngModel)]="task.taskType" name="taskType" required>
-            <mat-option *ngFor="let type of taskTypes" [value]="type">
-              {{type}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Assignee</mat-label>
-          <mat-select [(ngModel)]="task.assignee" name="assignee" required>
-            <mat-option *ngFor="let person of assignees" [value]="person">
-              {{person}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Location</mat-label>
-          <input matInput [(ngModel)]="task.location" name="location" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Due Date</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="task.dueDate" name="dueDate" required>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <label class="priority-label">Priority Level</label>
-        <mat-radio-group [(ngModel)]="task.priorityLevel" name="priorityLevel" class="priority-group">
-          <mat-radio-button value="Critical" color="warn">Critical</mat-radio-button>
-          <mat-radio-button value="Severe" color="accent">Severe</mat-radio-button>
-          <mat-radio-button value="Normal" color="primary">Normal</mat-radio-button>
-        </mat-radio-group>
-      </div>
-    </form>
-  </div>
-
-  <div mat-dialog-actions>
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!taskForm.valid">
-      Assign Task
-    </button>
-  </div>
-</div>
-
-================
-File: src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.spec.ts
-================
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TaskAssignmentDialogComponent } from './task-assignment-dialog.component';
-
-describe('TaskAssignmentDialogComponent', () => {
-  let component: TaskAssignmentDialogComponent;
-  let fixture: ComponentFixture<TaskAssignmentDialogComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TaskAssignmentDialogComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(TaskAssignmentDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-
-================
-File: src/app/shared/components/task-assignment-dialog/task-assignment-dialog.component.ts
-================
-import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatIconModule } from '@angular/material/icon';
-
-export interface TaskAssignment {
-  taskType: string;
-  assignee: string;
-  priorityLevel: 'Critical' | 'Severe' | 'Normal';
-  dueDate: Date;
-  location: string;
-}
-
-@Component({
-  selector: 'app-task-assignment-dialog',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatIconModule
-  ],
-  templateUrl: './task-assignment-dialog.component.html',
-  styleUrl: './task-assignment-dialog.component.css'
-})
-export class TaskAssignmentDialogComponent {
-  taskTypes: string[] = ['Cash Management', 'Financial Reporting', 'Vendors & Contracts', 'Advertising'];
-  assignees: string[] = ['Dominic Toretto', 'Brian O\'Conner', 'Letty Ortiz', 'Roman Pearce', 'Tej Parker'];
-  
-  task: TaskAssignment = {
-    taskType: '',
-    assignee: '',
-    priorityLevel: 'Normal',
-    dueDate: new Date(),
-    location: ''
-  };
-
-  constructor(
-    public dialogRef: MatDialogRef<TaskAssignmentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
-  onSubmit(): void {
-    this.dialogRef.close(this.task);
-  }
-}
-
-================
-File: src/app/shipment-tracking/shipment-tracking.component.css
-================
-.shipment-tracking-container {
-  padding: 20px;
-  background-color: #f5f5f5;
-  min-height: calc(100vh - 64px);
-}
-
-.tracking-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.tracking-header h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.search-container {
-  flex: 1;
-  max-width: 400px;
-  margin: 0 20px;
-}
-
-.search-field {
-  width: 100%;
-}
-
-.create-task-btn {
-  height: 40px;
-}
-
-/* Status Tabs */
-.status-tabs {
-  display: flex;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 20px;
-}
-
-.tab {
-  padding: 12px 24px;
-  cursor: pointer;
-  position: relative;
-  color: #666;
-  font-weight: 500;
-}
-
-.tab.active {
-  color: #1976d2;
-}
-
-.tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #1976d2;
-}
-
-/* Table Styles */
-.table-container {
-  overflow-x: auto;
-  position: relative;
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.shipments-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-.shipments-table th,
-.shipments-table td {
-  padding: 12px 16px;
-  text-align: left;
-  white-space: nowrap;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.shipments-table th {
-  background-color: #f5f5f5;
-  font-weight: 500;
-  color: #333;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.fixed-column {
-  position: sticky;
-  background-color: white;
-  z-index: 2;
-}
-
-.fixed-column:first-child {
-  left: 0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.right-column {
-  right: 0;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-th.fixed-column {
-  background-color: #f5f5f5;
-  z-index: 3;
-}
-
-/* Status Badge Styles */
-.status-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.status-completed {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #a5d6a7;
-}
-
-.status-transit {
-  background-color: #fff8e1;
-  color: #f57f17;
-  border: 1px solid #ffe082;
-}
-
-.status-pending {
-  background-color: #e3f2fd;
-  color: #1565c0;
-  border: 1px solid #90caf9;
-}
-
-.status-failed {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef9a9a;
-}
-
-.status-closed {
-  background-color: #f5f5f5;
-  color: #616161;
-  border: 1px solid #e0e0e0;
-}
-
-/* View Map Link */
-.view-map-link {
-  color: #1976d2;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.view-map-link:hover {
-  text-decoration: underline;
-}
-
-/* Pagination */
-.pagination-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding: 0 16px;
-}
-
-.pagination-controls {
-  display: flex;
-  align-items: center;
-}
-
-.pagination-controls span {
-  margin-right: 8px;
-  color: #666;
-}
-
-.page-numbers {
-  display: flex;
-  align-items: center;
-}
-
-.page-number {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 4px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: #666;
-}
-
-.page-number.active {
-  background-color: #1976d2;
-  color: white;
-}
-
-.page-number:hover:not(.active) {
-  background-color: #f5f5f5;
-}
-
-.page-number.next {
-  background-color: #f5f5f5;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .tracking-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .search-container {
-    width: 100%;
-    max-width: none;
-    margin: 16px 0;
-  }
-  
-  .create-task-btn {
-    align-self: flex-end;
-  }
-  
-  .tab {
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-}
-
-================
-File: src/app/shipment-tracking/shipment-tracking.component.html
-================
-<div class="shipment-tracking-container">
-  <div class="tracking-header">
-    <h1>Shipment Tracking</h1>
-    <div class="search-container">
-      <mat-form-field appearance="outline" class="search-field">
-        <input matInput placeholder="Search..." [(ngModel)]="searchQuery" (keyup.enter)="searchShipments()">
-        <button mat-icon-button matSuffix (click)="searchShipments()">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
-    <button mat-raised-button color="primary" class="create-task-btn" (click)="openCreateTaskDialog()">
-      <mat-icon>add</mat-icon>
-      Create New Task
-    </button>
-  </div>
-
-  <!-- Status Tabs -->
-  <div class="status-tabs">
-    <div class="tab" [class.active]="currentStatus === 'all'" (click)="filterShipments('all')">All</div>
-    <div class="tab" [class.active]="currentStatus === 'in-transit'" (click)="filterShipments('in-transit')">In-Transit</div>
-    <div class="tab" [class.active]="currentStatus === 'completed'" (click)="filterShipments('completed')">Completed</div>
-    <div class="tab" [class.active]="currentStatus === 'pending'" (click)="filterShipments('pending')">Pending</div>
-    <div class="tab" [class.active]="currentStatus === 'failed'" (click)="filterShipments('failed')">Failed</div>
-  </div>
-
-  <!-- Shipments Table -->
-  <div class="table-container">
-    <table class="shipments-table">
-      <thead>
-        <tr>
-          <th class="fixed-column">Shipment ID</th>
-          <th>Shipper Name</th>
-          <th>Phone Number</th>
-          <th>Status</th>
-          <th>Product</th>
-          <th>Supplier</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th class="fixed-column right-column">Track</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let shipment of displayedShipments">
-          <td class="fixed-column">{{ shipment.id }}</td>
-          <td>{{ shipment.shipperName }}</td>
-          <td>{{ shipment.phoneNo }}</td>
-          <td>
-            <span class="status-badge" [ngClass]="getStatusClass(shipment.status)">
-              {{ shipment.status | titlecase }}
-            </span>
-          </td>
-          <td>{{ shipment.product }}</td>
-          <td>{{ shipment.supplier }}</td>
-          <td>{{ shipment.quantity }}</td>
-          <td>₹ {{ shipment.price }}</td>
-          <td class="fixed-column right-column">
-            <a class="view-map-link" (click)="viewMap(shipment.id)">View Map</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Pagination -->
-  <div class="pagination-container">
-    <div class="pagination-info">
-      {{ (currentPage * pageSize) + 1 }}-{{ Math.min((currentPage + 1) * pageSize, totalShipments) }} of {{ totalShipments }}
-    </div>
-    <div class="pagination-controls">
-      <span>Page:</span>
-      <div class="page-numbers">
-        <div class="page-number" [class.active]="currentPage === 0" (click)="currentPage = 0; updateDisplayedShipments()">1</div>
-        <div class="page-number" *ngIf="totalShipments > pageSize" [class.active]="currentPage === 1" (click)="currentPage = 1; updateDisplayedShipments()">2</div>
-        <div class="page-number" *ngIf="totalShipments > pageSize * 2" [class.active]="currentPage === 2" (click)="currentPage = 2; updateDisplayedShipments()">3</div>
-        <div class="page-number" *ngIf="totalShipments > pageSize * 3" [class.active]="currentPage === 3" (click)="currentPage = 3; updateDisplayedShipments()">4</div>
-        <div class="page-number" *ngIf="totalShipments > pageSize * 4" [class.active]="currentPage === 4" (click)="currentPage = 4; updateDisplayedShipments()">5</div>
-        <div class="page-number next" *ngIf="(currentPage + 1) * pageSize < totalShipments" (click)="currentPage = currentPage + 1; updateDisplayedShipments()">
-          <mat-icon>chevron_right</mat-icon>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Create Task Dialog Template -->
-<!-- This would be implemented as a separate component in a real application -->
-
-================
-File: src/app/shipment-tracking/shipment-tracking.component.spec.ts
-================
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ShipmentTrackingComponent } from './shipment-tracking.component';
-
-describe('ShipmentTrackingComponent', () => {
-  let component: ShipmentTrackingComponent;
-  let fixture: ComponentFixture<ShipmentTrackingComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShipmentTrackingComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ShipmentTrackingComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-
-================
-File: src/app/shipment-tracking/shipment-tracking.component.ts
-================
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSliderModule } from '@angular/material/slider';
-import { RouterModule } from '@angular/router';
-
-import { ShipmentService } from '../services/shipment.service';
-import { Shipment, ShipmentStatus } from '../models/shipment.model';
-
-@Component({
-  selector: 'app-shipment-tracking',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatTabsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatSliderModule,
-    RouterModule
-  ],
-  templateUrl: './shipment-tracking.component.html',
-  styleUrl: './shipment-tracking.component.css'
-})
-export class ShipmentTrackingComponent implements OnInit {
-  shipments: Shipment[] = [];
-  filteredShipments: Shipment[] = [];
-  displayedShipments: Shipment[] = [];
-  
-  currentStatus: ShipmentStatus = 'all';
-  searchQuery: string = '';
-  
-  // Pagination
-  pageSize = 10;
-  pageSizeOptions = [5, 10, 25, 50];
-  currentPage = 0;
-  totalShipments = 0;
-  
-  // For template use
-  Math = Math;
-  
-  // Task creation
-  taskTypes: string[] = ['Cash Management', 'Financial Reporting', 'Vendors & Contracts', 'Advertising'];
-  assignees: string[] = ['Dominic Toretto', 'Brian O\'Conner', 'Letty Ortiz', 'Roman Pearce', 'Tej Parker'];
-  productTypes: string[] = ['Cornflakes', 'Milk', 'Bread', 'Eggs', 'Butter', 'Cheese'];
-  suppliers: string[] = ['Kellogs', 'Farm Fresh', 'Wonder', 'Amul', 'Kraft'];
-  
-  constructor(
-    private shipmentService: ShipmentService,
-    private dialog: MatDialog
-  ) {}
-
-  ngOnInit(): void {
-    this.loadShipments();
-  }
-
-  loadShipments(): void {
-    this.shipmentService.getShipments().subscribe(shipments => {
-      this.shipments = shipments;
-      this.filterShipments(this.currentStatus);
-    });
-  }
-
-  filterShipments(status: ShipmentStatus): void {
-    this.currentStatus = status;
-    
-    if (status === 'all') {
-      this.filteredShipments = [...this.shipments];
-    } else {
-      this.filteredShipments = this.shipments.filter(shipment => 
-        shipment.status.toLowerCase() === status.toLowerCase()
-      );
+[
+  {
+    "id": "1",
+    "title": "Essential Food Safety Practices for Grocery Stores",
+    "image": "assets/images/blog/food-safety-1.jpg",
+    "type": "Safety",
+    "descriptiton": "Learn about the critical food safety practices that every grocery store should implement to ensure customer safety and compliance with regulations.",
+    "publishedDate": "2023-05-15",
+    "blogInfo": {
+      "postBy": "John Smith",
+      "desc": "Food safety is paramount in grocery store operations. This blog explores the essential practices that stores must implement to protect customers and comply with health regulations. From proper temperature control to handling procedures, we cover it all."
     }
-    
-    this.totalShipments = this.filteredShipments.length;
-    this.updateDisplayedShipments();
-  }
-
-  searchShipments(): void {
-    if (!this.searchQuery.trim()) {
-      this.filterShipments(this.currentStatus);
-      return;
+  },
+  {
+    "id": "2",
+    "title": "Understanding Food Expiration Dates",
+    "image": "assets/images/blog/food-expiration.jpg",
+    "type": "Education",
+    "descriptiton": "A comprehensive guide to understanding food expiration dates, sell-by dates, and best-by dates to reduce waste and ensure food safety.",
+    "publishedDate": "2023-07-22",
+    "blogInfo": {
+      "postBy": "Sarah Johnson",
+      "desc": "Food expiration dates can be confusing for both consumers and retailers. This guide explains the differences between various date labels and provides best practices for inventory management to reduce waste while maintaining safety standards."
     }
-    
-    const query = this.searchQuery.toLowerCase();
-    this.filteredShipments = this.shipments.filter(shipment => {
-      return (
-        (this.currentStatus === 'all' || shipment.status.toLowerCase() === this.currentStatus.toLowerCase()) &&
-        (
-          shipment.id.toLowerCase().includes(query) ||
-          shipment.shipperName.toLowerCase().includes(query) ||
-          shipment.product.toLowerCase().includes(query) ||
-          shipment.supplier.toLowerCase().includes(query)
-        )
-      );
-    });
-    
-    this.totalShipments = this.filteredShipments.length;
-    this.currentPage = 0;
-    this.updateDisplayedShipments();
-  }
-
-  updateDisplayedShipments(): void {
-    const startIndex = this.currentPage * this.pageSize;
-    this.displayedShipments = this.filteredShipments.slice(startIndex, startIndex + this.pageSize);
-  }
-
-  onPageChange(event: PageEvent): void {
-    this.currentPage = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.updateDisplayedShipments();
-  }
-
-  getStatusClass(status: string): string {
-    switch (status.toLowerCase()) {
-      case 'completed': return 'status-completed';
-      case 'in-transit': return 'status-transit';
-      case 'pending': return 'status-pending';
-      case 'failed': return 'status-failed';
-      case 'closed': return 'status-closed';
-      default: return '';
+  },
+  {
+    "id": "3",
+    "title": "Preventing Cross-Contamination in Grocery Stores",
+    "image": "assets/images/blog/cross-contamination.jpg",
+    "type": "Safety",
+    "descriptiton": "Strategies and best practices to prevent cross-contamination between different food products in grocery store environments.",
+    "publishedDate": "2023-09-10",
+    "blogInfo": {
+      "postBy": "Michael Chen",
+      "desc": "Cross-contamination is a serious risk in grocery stores that can lead to foodborne illness. This blog discusses effective strategies for preventing cross-contamination, including proper storage practices, handling procedures, and staff training recommendations."
+    }
+  },
+  {
+    "id": "4",
+    "title": "Implementing HACCP in Retail Food Operations",
+    "image": "assets/images/blog/haccp.jpg",
+    "type": "Compliance",
+    "descriptiton": "A step-by-step guide to implementing Hazard Analysis Critical Control Point (HACCP) systems in retail food operations.",
+    "publishedDate": "2024-01-05",
+    "blogInfo": {
+      "postBy": "Lisa Rodriguez",
+      "desc": "HACCP is a systematic preventive approach to food safety. This comprehensive guide walks through the process of implementing HACCP in retail food operations, helping stores identify, evaluate, and control food safety hazards throughout their operations."
+    }
+  },
+  {
+    "id": "5",
+    "title": "Food Safety Training for Grocery Store Employees",
+    "image": "assets/images/blog/training.jpg",
+    "type": "Training",
+    "descriptiton": "Essential food safety training topics and approaches for grocery store employees at all levels.",
+    "publishedDate": "2024-03-18",
+    "blogInfo": {
+      "postBy": "David Wilson",
+      "desc": "Well-trained employees are the first line of defense in food safety. This blog outlines essential training topics for grocery store staff, from basic hygiene practices to advanced food safety protocols, with practical tips for implementing effective training programs."
+    }
+  },
+  {
+    "id": "6",
+    "title": "Food Grocery Logistics – Frequency of Shoppers",
+    "image": "assets/images/blog/food-safety-1.jpg",
+    "type": "Safety",
+    "descriptiton": "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
+    "publishedDate": "2023-12-24",
+    "blogInfo": {
+      "postBy": "John Smith",
+      "desc": "Food safety is paramount in grocery store operations. This blog explores the essential practices that stores must implement to protect customers and comply with health regulations. From proper temperature control to handling procedures, we cover it all."
+    }
+  },
+  {
+    "id": "7",
+    "title": "Different Types of Consumer Goods in the US",
+    "image": "assets/images/blog/food-expiration.jpg",
+    "type": "Education",
+    "descriptiton": "An overview of the main categories of consumer goods in the US: durable, non-durable and services. Understanding these categories helps retailers better serve their customers.",
+    "publishedDate": "2023-02-21",
+    "blogInfo": {
+      "postBy": "Sarah Johnson",
+      "desc": "Food expiration dates can be confusing for both consumers and retailers. This guide explains the differences between various date labels and provides best practices for inventory management to reduce waste while maintaining safety standards."
+    }
+  },
+  {
+    "id": "8",
+    "title": "Inventory Turnover Ratios",
+    "image": "assets/images/blog/cross-contamination.jpg",
+    "type": "Safety",
+    "descriptiton": "Most Americans go grocery shopping at least once or twice a week. In addition to visiting a grocery store, many consumers also shop at specialty food stores.",
+    "publishedDate": "2023-01-04",
+    "blogInfo": {
+      "postBy": "Michael Chen",
+      "desc": "Cross-contamination is a serious risk in grocery stores that can lead to foodborne illness. This blog discusses effective strategies for preventing cross-contamination, including proper storage practices, handling procedures, and staff training recommendations."
+    }
+  },
+  {
+    "id": "9",
+    "title": "Grocery Ecommerce Platforms",
+    "image": "assets/images/blog/haccp.jpg",
+    "type": "Compliance",
+    "descriptiton": "Warehouse management is usually clubbed together with logistics, but it is broad enough to be considered a separate category. Learn about the latest platforms.",
+    "publishedDate": "2022-09-12",
+    "blogInfo": {
+      "postBy": "Lisa Rodriguez",
+      "desc": "HACCP is a systematic preventive approach to food safety. This comprehensive guide walks through the process of implementing HACCP in retail food operations, helping stores identify, evaluate, and control food safety hazards throughout their operations."
     }
   }
-
-  openCreateTaskDialog(): void {
-    // This would normally open a dialog, but for now we'll just log
-    console.log('Create New Task clicked');
-  }
-  
-  viewMap(shipmentId: string): void {
-    console.log(`View map for shipment ${shipmentId}`);
-    // This would normally navigate to a map view
-  }
-}
+]
 
 ================
 File: src/assets/data/db.json
