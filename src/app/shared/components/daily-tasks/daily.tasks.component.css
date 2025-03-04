@@ -55,4 +55,25 @@ mat-progress-bar {
 
 ::ng-deep .chart-legend {
   margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+::ng-deep .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+::ng-deep .legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+::ng-deep .legend-label {
+  font-size: 12px;
+  color: #333;
 }

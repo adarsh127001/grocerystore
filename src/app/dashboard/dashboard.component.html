@@ -54,6 +54,14 @@
         </button>
         <span>Dashboard</span>
         <span class="toolbar-spacer"></span>
+        <div class="quick-actions">
+          <button mat-icon-button matTooltip="Assign New Task" (click)="openTaskAssignmentDialog()">
+            <mat-icon>assignment</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Add New Stock" (click)="openAddNewStockDialog()">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </div>
         <div class="user-info">
           <span>Welcome, {{currentUser}}</span>
           <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">

@@ -9,8 +9,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
+import { DialogService } from '../services/dialog.service';
 // Import the main blog component instead of the preview component
 import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
 // Import the DailyTasksComponent
@@ -32,6 +34,7 @@ import { ShipmentStatisticsComponent } from '../shared/components/shipment-stati
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
+    MatTooltipModule,
     SsrChartComponent,
     FoodSafetyBlogsComponent, // Use the main component instead
     DailyTasksComponent, // Add the DailyTasksComponent to imports
@@ -51,6 +54,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService,
+    private dialogService: DialogService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -81,6 +85,24 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         console.error('Error loading order analysis data:', err);
         this.orderAnalysisData = this.dataService.getMockOrdersData().stockInventoryAnalysisChartData;
+      }
+    });
+  }
+  
+  openTaskAssignmentDialog() {
+    this.dialogService.openTaskAssignmentDialog().subscribe(result => {
+      if (result) {
+        console.log('Task assigned:', result);
+        // Here you would typically save the task to your backend
+      }
+    });
+  }
+  
+  openAddNewStockDialog() {
+    this.dialogService.openAddNewStockDialog().subscribe(result => {
+      if (result) {
+        console.log('New stock added:', result);
+        // Here you would typically save the stock to your backend
       }
     });
   }
