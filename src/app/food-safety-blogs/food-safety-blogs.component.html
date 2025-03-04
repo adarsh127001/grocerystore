@@ -1,20 +1,23 @@
-<div class="container">
-    <h1 class="page-title">Food Safety Blogs</h1>
-    
-    <div class="year-filter">
-      <mat-chip-listbox aria-label="Year selection">
-        <mat-chip-option *ngFor="let year of availableYears" 
-                        [selected]="year === selectedYear"
-                        (click)="filterBlogsByYear(year)">
-          {{ year }}
-        </mat-chip-option>
-      </mat-chip-listbox>
-    </div>
+<div class="container" [ngClass]="{'preview-mode': previewMode}">
+    <!-- Only show title and filter in full mode -->
+    <ng-container *ngIf="!previewMode">
+      <h1 class="page-title">Food Safety Blogs</h1>
+      
+      <div class="year-filter">
+        <mat-chip-listbox aria-label="Year selection">
+          <mat-chip-option *ngFor="let year of availableYears" 
+                          [selected]="year === selectedYear"
+                          (click)="filterBlogsByYear(year)">
+            {{ year }}
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+    </ng-container>
     
     <div class="blogs-container" *ngIf="!isLoading; else loadingTemplate">
-      <div *ngIf="filteredBlogs.length > 0; else noBlogs">
+      <div *ngIf="(previewMode ? blogs : filteredBlogs).length > 0; else noBlogs">
         <div class="blog-grid">
-          <mat-card *ngFor="let blog of filteredBlogs" class="blog-card">
+          <mat-card *ngFor="let blog of (previewMode ? blogs : filteredBlogs)" class="blog-card">
             <img mat-card-image [src]="blog.image" [alt]="blog.title" class="blog-image">
             <mat-card-content>
               <h2 class="blog-title">{{ blog.title }}</h2>
@@ -30,7 +33,7 @@
       
       <ng-template #noBlogs>
         <div class="no-blogs">
-          <p>No blogs available for {{ selectedYear }}.</p>
+          <p>No blogs available{{ !previewMode ? ' for ' + selectedYear : '' }}.</p>
         </div>
       </ng-template>
     </div>
@@ -41,4 +44,9 @@
         <p>Loading blogs...</p>
       </div>
     </ng-template>
+    
+    <!-- Only show in preview mode -->
+    <div *ngIf="previewMode" class="view-all-link">
+      <a routerLink="/food-safety-blogs" mat-button color="primary">View All Blogs</a>
+    </div>
   </div>

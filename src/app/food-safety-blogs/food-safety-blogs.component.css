@@ -4,6 +4,11 @@
     padding: 20px;
   }
   
+  .container.preview-mode {
+    padding: 0;
+    max-width: none;
+  }
+  
   .page-title {
     font-size: 28px;
     margin-bottom: 20px;
@@ -20,6 +25,11 @@
     gap: 20px;
   }
   
+  .preview-mode .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
   .blog-card {
     height: 100%;
     display: flex;
@@ -32,15 +42,31 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   }
   
+  .preview-mode .blog-card {
+    margin-bottom: 0;
+  }
+  
   .blog-image {
     height: 200px;
     object-fit: cover;
+  }
+  
+  .preview-mode .blog-image {
+    height: 120px;
   }
   
   .blog-title {
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 8px;
+    /* Add ellipsis for title overflow */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .preview-mode .blog-title {
+    font-size: 16px;
   }
   
   .blog-date {
@@ -49,13 +75,29 @@
     margin-bottom: 10px;
   }
   
+  .preview-mode .blog-date {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
   .blog-excerpt {
     flex-grow: 1;
+    /* Multi-line ellipsis */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    line-clamp: 3; /* Standard property for compatibility */
     -webkit-box-orient: vertical;
+    line-height: 1.5;
+    max-height: 4.5em; /* Fallback for browsers that don't support line-clamp */
+  }
+  
+  .preview-mode .blog-excerpt {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    max-height: 3em;
+    font-size: 14px;
   }
   
   mat-card-actions {
@@ -70,29 +112,17 @@
     padding: 50px 0;
   }
   
+  .preview-mode .loading-container, 
+  .preview-mode .no-blogs {
+    padding: 20px 0;
+  }
+  
   .loading-container p, .no-blogs p {
     margin-top: 20px;
     color: #666;
   }
-  .blog-title {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 8px;
-    /* Add ellipsis for title overflow */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   
-  .blog-excerpt {
-    flex-grow: 1;
-    /* Multi-line ellipsis */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines to show */
-    line-clamp: 3; /* Standard property for compatibility */
-    -webkit-box-orient: vertical;
-    line-height: 1.5;
-    max-height: 4.5em; /* Fallback for browsers that don't support line-clamp */
+  .view-all-link {
+    text-align: right;
+    margin-top: 10px;
   }

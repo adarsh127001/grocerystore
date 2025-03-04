@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { INVENTORY_ROUTES } from './inventory/inventory.routes';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -17,7 +16,7 @@ export const routes: Routes = [
   { path: 'food-safety-blogs/:id', loadComponent: () => import('./food-safety-blogs/blog-detail/blog-detail.component').then(c => c.BlogDetailComponent) },
   
   // Legacy routes - keep for backward compatibility
-  { path: 'inventory', children: INVENTORY_ROUTES },
+
   { path: 'shipments', redirectTo: '/shipment-tracking', pathMatch: 'full' },
   { path: 'tasks', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'blogs', redirectTo: '/food-safety-blogs', pathMatch: 'full' },

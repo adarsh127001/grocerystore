@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +38,9 @@ interface Blog {
   styleUrls: ['./food-safety-blogs.component.css']
 })
 export class FoodSafetyBlogsComponent implements OnInit {
+  @Input() previewMode: boolean = false;
+  @Input() limit: number = 0; // 0 means no limit
+  
   blogs: Blog[] = [];
   filteredBlogs: Blog[] = [];
   isLoading = true;
@@ -113,6 +116,15 @@ export class FoodSafetyBlogsComponent implements OnInit {
   ngOnInit(): void {
     // Use hardcoded data instead of HTTP request for now
     this.blogs = this.mockBlogs;
+    
+    // If in preview mode, limit the number of blogs
+    if (this.previewMode && this.limit > 0) {
+      this.blogs = this.blogs.slice(0, this.limit);
+      this.filteredBlogs = this.blogs;
+      this.isLoading = false;
+      return;
+    }
+    
     this.extractAvailableYears();
     
     if (this.availableYears.length > 0) {

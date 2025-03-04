@@ -81,9 +81,16 @@
             [selectedRange]="selectedRange">
           </app-ssr-chart>
           
-          <!-- Add the Food Safety Blog Preview component here -->
+          <!-- Replace the blog preview component with the main component in preview mode -->
           <div class="blog-preview-section">
-            <app-food-safety-blog-preview></app-food-safety-blog-preview>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Food Safety Blogs</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-food-safety-blogs [previewMode]="true" [limit]="2"></app-food-safety-blogs>
+              </mat-card-content>
+            </mat-card>
           </div>
         </div>
       </div>

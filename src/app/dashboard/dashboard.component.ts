@@ -11,7 +11,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { SsrChartComponent } from '../shared/components/ssr-chart/ssr-chart.component';
 import { DataService } from '../services/data.service';
-import { FoodSafetyBlogPreviewComponent } from './food-safety-blog-preview/food-safety-blog-preview.component';
+// Import the main blog component instead of the preview component
+import { FoodSafetyBlogsComponent } from '../food-safety-blogs/food-safety-blogs.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,7 +29,7 @@ import { FoodSafetyBlogPreviewComponent } from './food-safety-blog-preview/food-
     MatListModule,
     MatDividerModule,
     SsrChartComponent,
-    FoodSafetyBlogPreviewComponent
+    FoodSafetyBlogsComponent // Use the main component instead
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

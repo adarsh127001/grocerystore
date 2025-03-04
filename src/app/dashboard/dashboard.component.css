@@ -346,3 +346,23 @@ mat-nav-list a.mat-list-item:hover:not(.active-link) {
   height: 400px; 
   overflow: hidden;
 }
+/* Add these styles to your existing dashboard CSS */
+.blog-preview-section {
+  margin-top: 20px;
+}
+
+.blog-preview-section mat-card {
+  padding: 16px;
+}
+
+.blog-preview-section mat-card-header {
+  margin-bottom: 16px;
+}
+
+.blog-preview-section mat-card-content {
+  padding: 0;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
