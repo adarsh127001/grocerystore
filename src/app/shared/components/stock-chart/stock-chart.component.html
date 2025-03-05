@@ -1,0 +1,109 @@
+<div class="chart-header">
+  <h3 class="chart-title">{{title}}</h3>
+  <div class="chart-actions">
+    <div class="sort-by-container">
+      <span class="sort-label">Sort By</span>
+      <div class="sort-select-wrapper">
+        <div class="sort-value" (click)="toggleSortDropdown()">
+          {{selectedRange | titlecase}}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+        <div class="sort-dropdown" *ngIf="showSortDropdown">
+          <div class="sort-option" (click)="selectRange('weekly')">Weekly</div>
+          <div class="sort-option" (click)="selectRange('monthly')">Monthly</div>
+          <div class="sort-option" (click)="selectRange('yearly')">Yearly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chart-legend">
+  <div class="legend-item">
+    <span class="legend-color available"></span>
+    <span class="legend-label">{{legendLabels[0]}}</span>
+  </div>
+  <div class="legend-item">
+    <span class="legend-color out-of-stock"></span>
+    <span class="legend-label">{{legendLabels[1]}}</span>
+  </div>
+</div>
+
+<div class="chart-container" #chartContainer>
+  <svg width="100%" height="300">
+    <g class="y-axis">
+      <line x1="40" y1="30" x2="40" y2="270" stroke="#ccc" stroke-width="1" />
+      
+      <ng-container *ngFor="let tick of yAxisTicks">
+        <line 
+          [attr.x1]="38" 
+          [attr.y1]="tick.y" 
+          [attr.x2]="chartWidth - 20" 
+          [attr.y2]="tick.y" 
+          stroke="#eee" 
+          stroke-width="1" 
+          stroke-dasharray="3,3" />
+        <text 
+          x="35" 
+          [attr.y]="tick.y + 4" 
+          text-anchor="end" 
+          font-size="10" 
+          fill="#666">
+          {{tick.value}}
+        </text>
+      </ng-container>
+    </g>
+    
+    <line [attr.x1]="40" y1="270" [attr.x2]="chartWidth - 20" y2="270" stroke="#ccc" stroke-width="1" />
+    
+    <g *ngFor="let item of processedData; let i = index">
+      <circle 
+        [attr.cx]="item.x" 
+        [attr.cy]="item.unavailableY" 
+        r="4" 
+        fill="#9c27b0">
+      </circle>
+      
+      <line 
+        *ngIf="i < processedData.length - 1"
+        [attr.x1]="item.x" 
+        [attr.y1]="item.unavailableY" 
+        [attr.x2]="processedData[i+1].x" 
+        [attr.y2]="processedData[i+1].unavailableY" 
+        stroke="#9c27b0" 
+        stroke-width="2">
+      </line>
+    </g>
+
+    <g *ngFor="let item of processedData; let i = index">
+      <line 
+        [attr.x1]="item.x" 
+        [attr.y1]="item.highY" 
+        [attr.x2]="item.x" 
+        [attr.y2]="item.lowY" 
+        stroke="#1976d2" 
+        stroke-width="2">
+      </line>
+      
+      <rect 
+        [attr.x]="item.x - barWidth/2" 
+        [attr.y]="item.availableY" 
+        [attr.width]="barWidth" 
+        [attr.height]="item.barHeight" 
+        fill="#1976d2"
+        fill-opacity="0.7">
+      </rect>
+    </g>
+    
+    <g *ngFor="let item of processedData">
+      <text 
+        [attr.x]="item.x" 
+        y="280" 
+        text-anchor="middle" 
+        font-size="10" 
+        fill="#666">
+        {{item.label}}
+      </text>
+    </g>
+  </svg>
+</div>

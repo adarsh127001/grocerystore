@@ -1,0 +1,123 @@
+.high-demand-orders-container {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+  margin-bottom: 16px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell, td.mat-cell {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+th.mat-header-cell {
+  font-weight: 500;
+  color: #333;
+  background-color: #e9ecef;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.mat-column-consumer {
+  position: sticky;
+  left: 0;
+  background-color: #fff;
+  z-index: 5;
+  min-width: 150px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-header-cell.mat-column-consumer {
+  background-color: #e9ecef;
+  z-index: 11;
+}
+
+.mat-column-status {
+  position: sticky;
+  right: 0;
+  background-color: #fff;
+  z-index: 5;
+  min-width: 120px;
+  border-left: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.mat-header-cell.mat-column-status {
+  background-color: #e9ecef;
+  z-index: 11;
+  text-align: center;
+}
+
+.status-cell {
+  padding: 8px 16px !important;
+}
+
+.status-badge-container {
+  display: flex;
+  justify-content: center;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  width: 80px;
+  text-align: center;
+}
+
+.status-completed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.status-pending {
+  background-color: #fff8e1;
+  color: #f57c00;
+  border: 1px solid #ffe0b2;
+}
+
+.status-failed {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.status-closed {
+  background-color: #e0e0e0;
+  color: #616161;
+  border: 1px solid #bdbdbd;
+}
+
+tr.mat-row:hover {
+  background-color: #f5f5f5;
+}
+
+tr.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+tr.mat-row:nth-child(even) .mat-column-consumer,
+tr.mat-row:nth-child(even) .mat-column-status {
+  background-color: #fafafa;
+}
+
+mat-paginator {
+  background-color: transparent;
+}

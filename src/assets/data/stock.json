@@ -1,0 +1,350 @@
+{
+
+    "stockInventorySummary": [
+
+        {
+
+            "title": "Orders",
+
+            "units": 7256,
+
+            "status": 10.32
+
+        },
+
+        {
+
+            "title": "Profit/Loss",
+
+            "units": 95,
+
+            "status": -0.32
+
+        },
+
+        {
+
+            "title": "Sales",
+
+            "units": 347,
+
+            "status": 12.32
+
+        },
+
+        {
+
+            "title": "Customenrs",
+
+            "units": 1278,
+
+            "status": 2.45
+
+        }
+
+    ],
+
+"stockInventoryOrdersChartData": [
+
+        {
+
+            "date": "2025-02-24T09:15:00Z",
+
+            "numOfAvailableStock": 1,
+
+            "numOfUnvailableStock": 35
+
+        },
+
+        {
+
+            "date": "2025-02-25T09:15:00Z",
+
+            "numOfAvailableStock": 57,
+
+            "numOfUnvailableStock": 199
+
+        },
+
+        {
+
+            "date": "2025-02-26T09:15:00Z",
+
+            "numOfAvailableStock": 110,
+
+            "numOfUnvailableStock": 197
+
+        },
+
+        {
+
+            "date": "2025-02-27T09:15:00Z",
+
+            "numOfAvailableStock": 12,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2025-02-28T09:15:00Z",
+
+            "numOfAvailableStock": 177,
+
+            "numOfUnvailableStock": 66
+
+        },
+
+        {
+
+            "date": "2025-03-01T09:15:00Z",
+
+            "numOfAvailableStock": 89,
+
+            "numOfUnvailableStock": 12
+
+        },
+
+        {
+
+            "date": "2025-03-02T09:15:00Z",
+
+            "numOfAvailableStock": 99,
+
+            "numOfUnvailableStock": 158
+
+        },
+
+        {
+
+            "date": "2025-02-01T09:15:00Z",
+
+            "numOfAvailableStock": 12,
+
+            "numOfUnvailableStock": 122
+
+        },
+
+        {
+
+            "date": "2025-02-05T09:15:00Z",
+
+            "numOfAvailableStock": 19,
+
+            "numOfUnvailableStock": 66
+
+        },
+
+        {
+
+            "date": "2025-02-08T09:15:00Z",
+
+            "numOfAvailableStock": 120,
+
+            "numOfUnvailableStock": 4
+
+        },
+
+        {
+
+            "date": "2025-02-12T09:15:00Z",
+
+            "numOfAvailableStock": 170,
+
+            "numOfUnvailableStock": 20
+
+        },
+
+        {
+
+            "date": "2025-02-16T09:15:00Z",
+
+            "numOfAvailableStock": 98,
+
+            "numOfUnvailableStock": 186
+
+        },
+
+        {
+
+            "date": "2025-02-19T09:15:00Z",
+
+            "numOfAvailableStock": 77,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2025-02-23T09:15:00Z",
+
+            "numOfAvailableStock": 44,
+
+            "numOfUnvailableStock": 101
+
+        },
+
+        {
+
+            "date": "2024-11-01T09:15:00Z",
+
+            "numOfAvailableStock": 101,
+
+            "numOfUnvailableStock": 18
+
+        },
+
+        {
+
+            "date": "2024-11-10T09:15:00Z",
+
+            "numOfAvailableStock": 180,
+
+            "numOfUnvailableStock": 200
+
+        },
+
+        {
+
+            "date": "2024-11-20T09:15:00Z",
+
+            "numOfAvailableStock": 72,
+
+            "numOfUnvailableStock": 15
+
+        },
+
+        {
+
+            "date": "2024-11-30T09:15:00Z",
+
+            "numOfAvailableStock": 108,
+
+            "numOfUnvailableStock": 99
+
+        },
+
+        {
+
+            "date": "2024-12-10T09:15:00Z",
+
+            "numOfAvailableStock": 199,
+
+            "numOfUnvailableStock": 42
+
+        },
+
+        {
+
+            "date": "2024-12-20T09:15:00Z",
+
+            "numOfAvailableStock": 66,
+
+            "numOfUnvailableStock": 55
+
+        },
+
+        {
+
+            "date": "2024-12-30T09:15:00Z",
+
+            "numOfAvailableStock": 144,
+
+            "numOfUnvailableStock": 87
+
+        },
+
+        {
+
+            "date": "2025-01-15T09:15:00Z",
+
+            "numOfAvailableStock": 20,
+
+            "numOfUnvailableStock": 145
+
+        },
+
+        {
+
+            "date": "2024-05-01T09:15:00Z",
+
+            "numOfAvailableStock": 88,
+
+            "numOfUnvailableStock": 0
+
+        },
+
+        {
+
+            "date": "2024-05-15T09:15:00Z",
+
+            "numOfAvailableStock": 123,
+
+            "numOfUnvailableStock": 19
+
+        },
+
+        {
+
+            "date": "2024-06-01T09:15:00Z",
+
+            "numOfAvailableStock": 199,
+
+            "numOfUnvailableStock": 10
+
+        },
+
+        {
+
+            "date": "2024-06-15T09:15:00Z",
+
+            "numOfAvailableStock": 77,
+
+            "numOfUnvailableStock": 45
+
+        },
+
+        {
+
+            "date": "2024-07-01T09:15:00Z",
+
+            "numOfAvailableStock": 6,
+
+            "numOfUnvailableStock": 180
+
+        },
+
+        {
+
+            "date": "2024-08-01T09:15:00Z",
+
+            "numOfAvailableStock": 101,
+
+            "numOfUnvailableStock": 99
+
+        },
+
+        {
+
+            "date": "2024-09-01T09:15:00Z",
+
+            "numOfAvailableStock": 165,
+
+            "numOfUnvailableStock": 53
+
+        },
+
+        {
+
+            "date": "2024-10-01T09:15:00Z",
+
+            "numOfAvailableStock": 0,
+
+            "numOfUnvailableStock": 200
+
+        }
+
+    ]
+}

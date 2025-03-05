@@ -1,0 +1,443 @@
+{"stockInventoryList": [
+
+    {
+
+        "customentName": "Roman Pearce",
+
+        "product": "cornflakes",
+
+        "supplier": "kellogs",
+
+        "dateOfEntry": "2025-02-27T00:00:00",
+
+        "quantity": 634,
+
+        "price": 100,
+
+        "sellingPrice": 123,
+
+        "cashier": "Brain o'Conner",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Dominic Toretto",
+
+        "product": "milk",
+
+        "supplier": "dairyland",
+
+        "dateOfEntry": "2025-02-28T00:00:00",
+
+        "quantity": 200,
+
+        "price": 50,
+
+        "sellingPrice": 60,
+
+        "cashier": "Letty Ortiz",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Brian O'Conner",
+
+        "product": "bread",
+
+        "supplier": "wonder",
+
+        "dateOfEntry": "2025-03-01T00:00:00",
+
+        "quantity": 150,
+
+        "price": 20,
+
+        "sellingPrice": 25,
+
+        "cashier": "Mia Toretto",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Letty Ortiz",
+
+        "product": "eggs",
+
+        "supplier": "farm fresh",
+
+        "dateOfEntry": "2025-02-27T00:00:00",
+
+        "quantity": 300,
+
+        "price": 10,
+
+        "sellingPrice": 12,
+
+        "cashier": "Dominic Toretto",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Mia Toretto",
+
+        "product": "butter",
+
+        "supplier": "amul",
+
+        "dateOfEntry": "2025-02-24T00:00:00",
+
+        "quantity": 100,
+
+        "price": 40,
+
+        "sellingPrice": 45,
+
+        "cashier": "Roman Pearce",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Tej Parker",
+
+        "product": "cheese",
+
+        "supplier": "kraft",
+
+        "dateOfEntry": "2025-02-25T00:00:00",
+
+        "quantity": 120,
+
+        "price": 60,
+
+        "sellingPrice": 70,
+
+        "cashier": "Brian O'Conner",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Han Lue",
+
+        "product": "yogurt",
+
+        "supplier": "chobani",
+
+        "dateOfEntry": "2025-02-20T00:00:00",
+
+        "quantity": 180,
+
+        "price": 30,
+
+        "sellingPrice": 35,
+
+        "cashier": "Tej Parker",
+
+        "status": "failed"
+
+    },
+
+    {
+
+        "customentName": "Gisele Yashar",
+
+        "product": "juice",
+
+        "supplier": "tropicana",
+
+        "dateOfEntry": "2025-02-19T00:00:00",
+
+        "quantity": 250,
+
+        "price": 80,
+
+        "sellingPrice": 90,
+
+        "cashier": "Han Lue",
+
+        "status": "closed"
+
+    },
+
+    {
+
+        "customentName": "Hobbs",
+
+        "product": "coffee",
+
+        "supplier": "starbucks",
+
+        "dateOfEntry": "2025-03-03T00:00:00",
+
+        "quantity": 300,
+
+        "price": 100,
+
+        "sellingPrice": 110,
+
+        "cashier": "Gisele Yashar",
+
+        "status": "pending"
+
+    },
+
+    {
+
+        "customentName": "Shaw",
+
+        "product": "tea",
+
+        "supplier": "lipton",
+
+        "dateOfEntry": "",
+
+        "quantity": 400,
+
+        "price": 50,
+
+        "sellingPrice": 55,
+
+        "cashier": "Hobbs",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Elena Neves",
+
+        "product": "sugar",
+
+        "supplier": "domino",
+
+        "dateOfEntry": "",
+
+        "quantity": 500,
+
+        "price": 20,
+
+        "sellingPrice": 25,
+
+        "cashier": "Shaw",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Jakob Toretto",
+
+        "product": "salt",
+
+        "supplier": "morton",
+
+        "dateOfEntry": "",
+
+        "quantity": 600,
+
+        "price": 10,
+
+        "sellingPrice": 12,
+
+        "cashier": "Elena Neves",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Cipher",
+
+        "product": "pepper",
+
+        "supplier": "mccormick",
+
+        "dateOfEntry": "",
+
+        "quantity": 700,
+
+        "price": 15,
+
+        "sellingPrice": 18,
+
+        "cashier": "Jakob Toretto",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Mr. Nobody",
+
+        "product": "rice",
+
+        "supplier": "uncle ben's",
+
+        "dateOfEntry": "",
+
+        "quantity": 800,
+
+        "price": 30,
+
+        "sellingPrice": 35,
+
+        "cashier": "Cipher",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Deckard Shaw",
+
+        "product": "pasta",
+
+        "supplier": "barilla",
+
+        "dateOfEntry": "",
+
+        "quantity": 900,
+
+        "price": 40,
+
+        "sellingPrice": 45,
+
+        "cashier": "Mr. Nobody",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Magdalene Shaw",
+
+        "product": "flour",
+
+        "supplier": "gold medal",
+
+        "dateOfEntry": "",
+
+        "quantity": 1000,
+
+        "price": 25,
+
+        "sellingPrice": 30,
+
+        "cashier": "Deckard Shaw",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Hattie Shaw",
+
+        "product": "oats",
+
+        "supplier": "quaker",
+
+        "dateOfEntry": "",
+
+        "quantity": 1100,
+
+        "price": 35,
+
+        "sellingPrice": 40,
+
+        "cashier": "Magdalene Shaw",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Riley Hicks",
+
+        "product": "honey",
+
+        "supplier": "nature's nectar",
+
+        "dateOfEntry": "",
+
+        "quantity": 1200,
+
+        "price": 50,
+
+        "sellingPrice": 55,
+
+        "cashier": "Hattie Shaw",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Samantha Hobbs",
+
+        "product": "jam",
+
+        "supplier": "smucker's",
+
+        "dateOfEntry": "",
+
+        "quantity": 1300,
+
+        "price": 60,
+
+        "sellingPrice": 65,
+
+        "cashier": "Riley Hicks",
+
+        "status": "completed"
+
+    },
+
+    {
+
+        "customentName": "Tego Leo",
+
+        "product": "peanut butter",
+
+        "supplier": "jif",
+
+        "dateOfEntry": "",
+
+        "quantity": 1400,
+
+        "price": 70,
+
+        "sellingPrice": 75,
+
+        "cashier": "Samantha Hobbs",
+
+        "status": "completed"
+
+    }
+
+]}

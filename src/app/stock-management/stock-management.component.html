@@ -1,0 +1,55 @@
+<div class="stock-management">
+  <div class="tabs-container">
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+      <mat-tab label="Stocks Overview"></mat-tab>
+      <mat-tab label="High-Demand Orders"></mat-tab>
+      <mat-tab label="Returns & Defects"></mat-tab>
+      <mat-tab label="Out of Stock Alerts"></mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <ng-container *ngIf="activeTabIndex === 0">
+    <h2 class="section-title">Overview Analysis</h2>
+
+    <div class="summary-section">
+      <h3 class="summary-heading">Summary</h3>
+      <div class="summary-cards">
+        <div class="summary-card" *ngFor="let item of summaryItems">
+          <div class="card-icon {{item.title.toLowerCase().replace('/', '-')}}">
+            <mat-icon>{{item.icon}}</mat-icon>
+          </div>
+          <div class="card-content">
+            <div class="card-title">{{item.title}}</div>
+            <div class="card-stats">{{item.units | number}}</div>
+            <div class="card-status" [style.color]="item.statusColor">
+              {{item.status}}% {{item.statusText}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-stock-chart 
+      [title]="chartTitle" 
+      [data]="chartData" 
+      [selectedRange]="selectedRange"
+      [legendLabels]="['Available', 'Out Of Stock']"
+      (rangeChange)="onRangeChange($event)">
+    </app-stock-chart>
+  </ng-container>
+
+  <ng-container *ngIf="activeTabIndex === 1">
+    <h2 class="section-title">High-Demand Orders</h2>
+    <app-high-demand-orders></app-high-demand-orders>
+  </ng-container>
+
+  <ng-container *ngIf="activeTabIndex === 2">
+    <h2 class="section-title">Returns & Defects</h2>
+    <!-- Returns & Defects content will go here -->
+  </ng-container>
+
+  <ng-container *ngIf="activeTabIndex === 3">
+    <h2 class="section-title">Out of Stock Alerts</h2>
+    <!-- Out of Stock Alerts content will go here -->
+  </ng-container>
+</div>

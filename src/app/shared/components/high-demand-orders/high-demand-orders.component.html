@@ -1,0 +1,77 @@
+<div class="high-demand-orders-container">
+  <div class="table-container">
+    <table mat-table [dataSource]="getCurrentPageData()" class="orders-table">
+      <!-- Consumer Column (Sticky) -->
+      <ng-container matColumnDef="consumer" sticky>
+        <th mat-header-cell *matHeaderCellDef>Consumer</th>
+        <td mat-cell *matCellDef="let order">{{order.consumer}}</td>
+      </ng-container>
+
+      <!-- Product Column -->
+      <ng-container matColumnDef="product">
+        <th mat-header-cell *matHeaderCellDef>Product</th>
+        <td mat-cell *matCellDef="let order">{{order.product}}</td>
+      </ng-container>
+
+      <!-- Supplier Column -->
+      <ng-container matColumnDef="supplier">
+        <th mat-header-cell *matHeaderCellDef>Supplier</th>
+        <td mat-cell *matCellDef="let order">{{order.supplier}}</td>
+      </ng-container>
+
+      <!-- Date of Entry Column -->
+      <ng-container matColumnDef="dateOfEntry">
+        <th mat-header-cell *matHeaderCellDef>Date of Entry</th>
+        <td mat-cell *matCellDef="let order">{{order.dateOfEntry | date:'dd MMM yyyy'}}</td>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let order">{{order.quantity}}</td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let order">₹{{order.price}}</td>
+      </ng-container>
+
+      <!-- Selling Price Column -->
+      <ng-container matColumnDef="sellingPrice">
+        <th mat-header-cell *matHeaderCellDef>Selling Price</th>
+        <td mat-cell *matCellDef="let order">₹{{order.sellingPrice}}</td>
+      </ng-container>
+
+      <!-- Cashier Column -->
+      <ng-container matColumnDef="cashier">
+        <th mat-header-cell *matHeaderCellDef>Cashier</th>
+        <td mat-cell *matCellDef="let order">{{order.cashier}}</td>
+      </ng-container>
+
+      <!-- Status Column (Sticky End) -->
+      <ng-container matColumnDef="status" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let order" class="status-cell">
+          <div class="status-badge-container">
+            <div [ngClass]="'status-badge status-' + order.status.toLowerCase()">
+              {{order.status}}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator 
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    (page)="onPageChange($event)"
+    aria-label="Select page">
+  </mat-paginator>
+</div>
