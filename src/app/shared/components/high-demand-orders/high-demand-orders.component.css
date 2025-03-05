@@ -5,6 +5,30 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.create-task-btn {
+  background-color: #4051b5;
+  color: white;
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.create-task-btn mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
 .table-container {
   overflow-x: auto;
   max-width: 100%;
@@ -47,7 +71,7 @@ th.mat-header-cell {
 
 .mat-column-status {
   position: sticky;
-  right: 0;
+  right: 40px; /* Adjusted to make room for action column */
   background-color: #fff;
   z-index: 5;
   min-width: 120px;
@@ -58,6 +82,27 @@ th.mat-header-cell {
 .mat-header-cell.mat-column-status {
   background-color: #e9ecef;
   z-index: 11;
+  text-align: center;
+}
+
+.mat-column-action {
+  position: sticky;
+  right: 0;
+  background-color: #fff;
+  z-index: 5;
+  width: 40px;
+  border-left: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.mat-header-cell.mat-column-action {
+  background-color: #e9ecef;
+  z-index: 11;
+  text-align: center;
+}
+
+.action-cell {
+  padding: 0 !important;
   text-align: center;
 }
 
@@ -114,7 +159,8 @@ tr.mat-row:nth-child(even) {
 }
 
 tr.mat-row:nth-child(even) .mat-column-consumer,
-tr.mat-row:nth-child(even) .mat-column-status {
+tr.mat-row:nth-child(even) .mat-column-status,
+tr.mat-row:nth-child(even) .mat-column-action {
   background-color: #fafafa;
 }
 

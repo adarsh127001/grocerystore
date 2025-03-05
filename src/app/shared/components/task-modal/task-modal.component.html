@@ -1,0 +1,142 @@
+<div class="task-modal">
+  <div class="modal-header">
+    <h2 class="modal-title">{{data.isEdit ? 'Edit Task' : 'Create New Task'}}</h2>
+    <button mat-icon-button (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="Task Assignments">
+      <div class="tab-content">
+        <form [formGroup]="taskForm">
+          <div class="form-field">
+            <label>Task Type</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="taskType" placeholder="Select" required>
+                <mat-option *ngFor="let type of taskTypes" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="taskForm.get('taskType')?.hasError('required')">
+                Task type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label>Assignee</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="assignee" placeholder="Select" required>
+                <mat-option *ngFor="let person of assignees" [value]="person">
+                  {{person}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="taskForm.get('assignee')?.hasError('required')">
+                Assignee is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label>Priority Level</label>
+            <div class="radio-group">
+              <mat-radio-group formControlName="priorityLevel">
+                <mat-radio-button value="Critical">Critical</mat-radio-button>
+                <mat-radio-button value="Severe">Severe</mat-radio-button>
+                <mat-radio-button value="Normal">Normal</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>Date & Time</label>
+            <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="picker" formControlName="dueDate" placeholder="mm/dd/yyyy" required>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="taskForm.get('dueDate')?.hasError('required')">
+                Date is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label>Location</label>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="location" placeholder="Type Location">
+              <mat-icon matSuffix>location_on</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Add New Stock">
+      <div class="tab-content">
+        <form [formGroup]="stockForm">
+          <div class="form-field">
+            <label>Product Type</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="productType" placeholder="Select" required>
+                <mat-option *ngFor="let type of productTypes" [value]="type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="stockForm.get('productType')?.hasError('required')">
+                Product type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label>Supplier</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="supplier" placeholder="Select" required>
+                <mat-option *ngFor="let supplier of suppliers" [value]="supplier">
+                  {{supplier}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="stockForm.get('supplier')?.hasError('required')">
+                Supplier is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label>Total Quantity</label>
+            <mat-slider min="0" max="1000" step="10" discrete [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="quantity">
+            </mat-slider>
+          </div>
+
+          <div class="form-field">
+            <label>Price</label>
+            <mat-slider min="0" max="1000" step="10" discrete [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="price">
+            </mat-slider>
+          </div>
+
+          <div class="form-field">
+            <label>Selling Price</label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="sellingPrice" placeholder="Select" required>
+                <mat-option value="Standard">Standard</mat-option>
+                <mat-option value="Premium">Premium</mat-option>
+                <mat-option value="Discount">Discount</mat-option>
+              </mat-select>
+              <mat-error *ngIf="stockForm.get('sellingPrice')?.hasError('required')">
+                Selling price type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="modal-footer">
+    <button mat-button class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" class="create-btn" (click)="onSubmit()">{{data.isEdit ? 'Update' : 'Create'}}</button>
+  </div>
+</div>
